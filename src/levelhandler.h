@@ -23,6 +23,7 @@ p - point
 u - box + point
 */
 #include <QApplication>
+#include "bintoint.h"
 #include <string>
 #include <stdio.h>
 #include <conio.h>
@@ -34,8 +35,8 @@ u - box + point
 class LevelHandler{
 private:
     char** Field;
-    int SizeX, SizeY;
-    int PosX, PosY;
+    unsigned int SizeX, SizeY;
+    unsigned int PosX, PosY;
     bool success = false;
 public:
     LevelHandler();

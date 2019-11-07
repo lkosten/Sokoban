@@ -29,55 +29,65 @@ LevelHandler::LevelHandler(const QString& file_name){
 }
 
 void LevelHandler::read(const  QString& file_name){
-    QFile file(":/levels/testlevel.bin");
+    QFile file(":/levels/" + file_name);
     file.open(QIODevice::ReadOnly);
-    QDataStream in(&file);
     if (file.size() == 0){
         success = false;
         return;
     }
     QByteArray blob = file.readAll();
-    int i =0;
-    in >> SizeX;
-    in >> SizeY;
+    unsigned int counter = 0;
+    unsigned int i =0;
+    SizeX = BinToInt(blob,counter);
+    counter+=4;
+    SizeY= BinToInt(blob,counter);
+    counter+=4;
     Field = new char*[SizeX];
     for (;i<SizeX;i++){
         Field[i] = new char[SizeY];
-        for (int j =0;j<SizeY;j++){
+        for (unsigned int j =0;j<SizeY;j++){
             Field[i][j] = 'o';
         }
     }
 
-    in >> i;
-    i*=2;
-    for(;i>=0;i--){
-        int tx,ty;
-        in >> tx;
-        in >> ty;
+    i = BinToInt(blob,counter);
+    counter+=4;
+    for(;i>0;i-=2){
+        unsigned int tx,ty;
+        tx= BinToInt(blob,counter);
+        counter+=4;
+        ty= BinToInt(blob,counter);
+        counter+=4;
         Field[tx][ty]= 'w';
     }
 
-    in >> i;
-    i*=2;
-    for(;i>=0;i--){
-        int tx,ty;
-        in >> tx;
-        in >> ty;
+    i = BinToInt(blob,counter);
+    counter+=4;
+    for(;i>0;i-=2){
+        unsigned int tx,ty;
+        tx = BinToInt(blob,counter);
+        counter+=4;
+        ty = BinToInt(blob,counter);
+        counter+=4;
         Field[tx][ty]= 'b';
     }
 
-    in >> i;
-    i*=2;
-    for(;i>=0;i--){
-        int tx,ty;
-        in >> tx;
-        in >> ty;
+    i = BinToInt(blob,counter);
+    counter+=4;
+    for(;i>0;i-=2){
+        unsigned int tx,ty;
+        tx = BinToInt(blob,counter);
+        counter+=4;
+        ty = BinToInt(blob,counter);
+        counter+=4;
         if(Field[tx][ty] != 'b') Field[tx][ty]= 'p';
         else Field[tx][ty]= 'u';
     }
 
-    in >> PosX;
-    in >> PosY;
+    PosX = BinToInt(blob,counter);
+    counter+=4;
+    PosY = BinToInt(blob,counter);
+    counter+=4;
 
     success = true;
 }
