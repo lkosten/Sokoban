@@ -3,6 +3,7 @@
 #pragma once
 /*
 structure of binary:
+
 size of map : int X,int Y
 number of walls : int n
 coords of walls : {x1,y1,x2,y2,...,xn,yn}
@@ -10,26 +11,39 @@ number of boxes : int n
 coords of boxes : {x1,y1,x2,y2,...,xn,yn}
 number of points : int N
 coords of points : {x1,y1,x2,y2,...,xn,yn}
+spawnpoint : int x, int y
+
+flags:
+
+e - empty
+o - outside
+w - wall
+b - box
+p - point
+u - box + point
 */
 #include <string>
 #include <stdio.h>
 #include <conio.h>
 #include <fstream>
+#include <stdlib.h>
 
 class LevelHandler{
 private:
     char** Field;
     int SizeX, SizeY;
     int PosX, PosY;
+    bool success = false;
 public:
     LevelHandler();
     LevelHandler(const char* file_name);
-    bool read(const char* file_name);
-    bool write(const char* file_name);
+    void read(const char* file_name);
+    void write(const char* file_name);
     bool step_left();
     bool step_right();
     bool step_up();
     bool step_down();
+    bool isSuccess();
 };
 
 #endif // LEVELHANDLER_H
