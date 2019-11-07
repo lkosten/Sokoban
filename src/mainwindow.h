@@ -4,10 +4,9 @@
 #include <QGLWidget>
 #include <QtOpenGL>
 #include <QTimer>
-
-QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
-QT_END_NAMESPACE
+#include <vector>
+#include <string>
+#include "statusEnums.h"
 
 class MainWindow : public QGLWidget
 {
@@ -16,11 +15,20 @@ class MainWindow : public QGLWidget
 protected:
     const int windowHeidht = 600, windowWidth = 800;
     const int windowPosX = 200, windowPosY = 200;
-    GameStatus
+    GameStatus gameStatus;
+    MainMenuStatus menuStatus;
+    QFont font;
+    QFont fontSelected;
+    std::vector<std::pair<MainMenuStatus, std::string>> mainMenuItems;
+
     void initializeGL() override;
     void resizeGL(int w, int h) override;
     void paintGL() override;
 
+    void initMainMenuVector();
+    void initFont();
+
+    void drawMainMenu();
 
 public:
     MainWindow(QWidget *parent = nullptr);
