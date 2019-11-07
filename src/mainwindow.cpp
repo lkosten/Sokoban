@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 void MainWindow::initializeGL()
 {
-    qglClearColor(Qt::darkRed);
+    qglClearColor(Qt::lightGray);
     setWindowTitle("Sokoban");
     setGeometry(100, 100, 0, 0);
     setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));

@@ -16,7 +16,7 @@ class MainWindow : public QGLWidget
 protected:
     const int windowHeidht = 600, windowWidth = 800;
     const int windowPosX = 200, windowPosY = 200;
-
+    GameStatus
     void initializeGL() override;
     void resizeGL(int w, int h) override;
     void paintGL() override;
