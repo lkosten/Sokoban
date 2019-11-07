@@ -38,7 +38,9 @@ void LevelHandler::read(const char* file_name){
     int i =0;
     fread(&SizeX, sizeof(int), 1, input);
     fread(&SizeY, sizeof(int), 1, input);
+    Field = new char*[SizeX];
     for (;i<SizeX;i++){
+        Field[i] = new char[SizeY];
         for (int j =0;j<SizeY;j++){
             Field[i][j] = 'o';
         }
