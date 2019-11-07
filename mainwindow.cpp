@@ -2,14 +2,24 @@
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+    : QGLWidget(parent)
 {
-    ui->setupUi(this);
+    show();
 }
 
-MainWindow::~MainWindow()
+void MainWindow::initializeGL()
 {
-    delete ui;
+    qglClearColor(Qt::darkRed);
+    setGeometry(windowPosX, windowPosY, windowWidth, windowHeidht);
+    setWindowTitle("Sokoban");
+    setWindowFlag(Qt::MSWindowsFixedSizeDialogHint);
+
+    show();
 }
 
+void MainWindow::resizeGL(int, int){}
+
+void MainWindow::paintGL()
+{
+
+}
