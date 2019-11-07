@@ -10,9 +10,10 @@ MainWindow::MainWindow(QWidget *parent)
 void MainWindow::initializeGL()
 {
     qglClearColor(Qt::darkRed);
-    setGeometry(windowPosX, windowPosY, windowWidth, windowHeidht);
     setWindowTitle("Sokoban");
-    setWindowFlag(Qt::MSWindowsFixedSizeDialogHint);
+    setGeometry(100, 100, 0, 0);
+    setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
+    setFixedSize(windowWidth, windowHeidht);
 
     show();
 }
