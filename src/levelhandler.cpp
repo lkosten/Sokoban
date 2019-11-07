@@ -24,20 +24,22 @@ u - box + point
 
 LevelHandler::LevelHandler(){}
 
-LevelHandler::LevelHandler(const char* file_name){
+LevelHandler::LevelHandler(const QString& file_name){
    this->read(file_name);
 }
 
-void LevelHandler::read(const char* file_name){
-    FILE *input = std::fopen(file_name, "rb");
-    if (input == NULL){
+void LevelHandler::read(const  QString& file_name){
+    QFile file(":/levels/testlevel.bin");
+    file.open(QIODevice::ReadOnly);
+    QDataStream in(&file);
+    if (file.size() == 0){
         success = false;
         return;
     }
-
+    QByteArray blob = file.readAll();
     int i =0;
-    fread(&SizeX, sizeof(int), 1, input);
-    fread(&SizeY, sizeof(int), 1, input);
+    in >> SizeX;
+    in >> SizeY;
     Field = new char*[SizeX];
     for (;i<SizeX;i++){
         Field[i] = new char[SizeY];
@@ -46,36 +48,36 @@ void LevelHandler::read(const char* file_name){
         }
     }
 
-    fread(&i, sizeof(int), 1, input);
+    in >> i;
     i*=2;
     for(;i>=0;i--){
         int tx,ty;
-        fread(&tx, sizeof(int), 1, input);
-        fread(&ty, sizeof(int), 1, input);
+        in >> tx;
+        in >> ty;
         Field[tx][ty]= 'w';
     }
 
-    fread(&i, sizeof(int), 1, input);
+    in >> i;
     i*=2;
     for(;i>=0;i--){
         int tx,ty;
-        fread(&tx, sizeof(int), 1, input);
-        fread(&ty, sizeof(int), 1, input);
+        in >> tx;
+        in >> ty;
         Field[tx][ty]= 'b';
     }
 
-    fread(&i, sizeof(int), 1, input);
+    in >> i;
     i*=2;
     for(;i>=0;i--){
         int tx,ty;
-        fread(&tx, sizeof(int), 1, input);
-        fread(&ty, sizeof(int), 1, input);
+        in >> tx;
+        in >> ty;
         if(Field[tx][ty] != 'b') Field[tx][ty]= 'p';
         else Field[tx][ty]= 'u';
     }
 
-    fread(&PosX, sizeof(int), 1, input);
-    fread(&PosY, sizeof(int), 1, input);
+    in >> PosX;
+    in >> PosY;
 
     success = true;
 }

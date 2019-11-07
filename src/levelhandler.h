@@ -22,11 +22,14 @@ b - box
 p - point
 u - box + point
 */
+#include <QApplication>
 #include <string>
 #include <stdio.h>
 #include <conio.h>
 #include <fstream>
 #include <stdlib.h>
+#include <QFile>
+#include <QDataStream>
 
 class LevelHandler{
 private:
@@ -36,9 +39,9 @@ private:
     bool success = false;
 public:
     LevelHandler();
-    LevelHandler(const char* file_name);
-    void read(const char* file_name);
-    void write(const char* file_name);
+    LevelHandler(const  QString& file_name);
+    void read(const  QString& file_name);
+    void write(const  QString& file_name);
     bool step_left();
     bool step_right();
     bool step_up();
