@@ -27,8 +27,9 @@ QString LevelsList::GetFName(int n){
     if(n > Number)return NULL;
 
     const QString BIN = ".bin";
-    QString Name;
-    return List[n];
+    int FirstChar = List[n].lastIndexOf('/') + 1;
+    int LastChar = List[n].lastIndexOf(BIN);
+    return List->mid(FirstChar, LastChar - FirstChar);
 }
 
 int LevelsList::GetNumber(){
