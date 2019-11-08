@@ -14,7 +14,7 @@ spawnpoint : int x, int y
 
 flags:
 
-e - empty
+e - empy
 o - outside
 w - wall
 b - box
@@ -22,7 +22,6 @@ p - point
 u - box + point
 */
 
-LevelHandler::LevelHandler(){}
 
 LevelHandler::LevelHandler(const QString& file_name){
    this->read(file_name);
@@ -35,59 +34,111 @@ void LevelHandler::read(const  QString& file_name){
         success = false;
         return;
     }
-    QByteArray blob = file.readAll();
+    QByteArray InputArray = file.readAll();
+    file.close();
     unsigned int counter = 0;
     unsigned int i =0;
-    SizeX = BinToInt(blob,counter);
+
+    SizeX = BinToInt(InputArray,counter);
     counter+=4;
-    SizeY= BinToInt(blob,counter);
+    SizeY= BinToInt(InputArray,counter);
     counter+=4;
+
+    PosX = BinToInt(InputArray,counter);
+    counter+=4;
+    PosY = BinToInt(InputArray,counter);
+    counter+=4;
+
     Field = new char*[SizeX];
     for (;i<SizeX;i++){
         Field[i] = new char[SizeY];
         for (unsigned int j =0;j<SizeY;j++){
-            Field[i][j] = 'o';
+            Field[i][j] = OUTSIDE;
         }
     }
 
-    i = BinToInt(blob,counter);
+    //place walls
+    i = BinToInt(InputArray,counter);
     counter+=4;
     for(;i>0;i-=2){
-        unsigned int tx,ty;
-        tx= BinToInt(blob,counter);
+        unsigned int TempX,TempY;
+        TempX= BinToInt(InputArray,counter);
         counter+=4;
-        ty= BinToInt(blob,counter);
+        TempY= BinToInt(InputArray,counter);
         counter+=4;
-        Field[tx][ty]= 'w';
+        Field[TempX][TempY]= WALL;
     }
 
-    i = BinToInt(blob,counter);
+    //field ground where we can walk with empty
+    std::stack<std::pair<int,int>> dfs;
+    dfs.push({PosX,PosY});
+    while(dfs.size()){
+        std::pair<int,int> Current = dfs.top();
+        dfs.pop();
+        Field[Current.first][Current.second] = EMPTY;
+        if(Field[Current.first + 1][Current.second] == OUTSIDE) dfs.push({Current.first + 1, Current.second});
+        if(Field[Current.first][Current.second + 1] == OUTSIDE) dfs.push({Current.first, Current.second + 1});
+        if(Field[Current.first - 1][Current.second] == OUTSIDE) dfs.push({Current.first - 1, Current.second});
+        if(Field[Current.first][Current.second - 1] == OUTSIDE) dfs.push({Current.first, Current.second - 1});
+    }
+
+    //place boxes
+    i = BinToInt(InputArray,counter);
     counter+=4;
     for(;i>0;i-=2){
-        unsigned int tx,ty;
-        tx = BinToInt(blob,counter);
+        unsigned int TempX,TempY;
+        TempX = BinToInt(InputArray,counter);
         counter+=4;
-        ty = BinToInt(blob,counter);
+        TempY = BinToInt(InputArray,counter);
         counter+=4;
-        Field[tx][ty]= 'b';
+        Field[TempX][TempY]= BOX;
     }
 
-    i = BinToInt(blob,counter);
+    //place points
+    i = BinToInt(InputArray,counter);
     counter+=4;
     for(;i>0;i-=2){
-        unsigned int tx,ty;
-        tx = BinToInt(blob,counter);
+        unsigned int TempX,TempY;
+        TempX = BinToInt(InputArray,counter);
         counter+=4;
-        ty = BinToInt(blob,counter);
+        TempY = BinToInt(InputArray,counter);
         counter+=4;
-        if(Field[tx][ty] != 'b') Field[tx][ty]= 'p';
-        else Field[tx][ty]= 'u';
+        if(Field[TempX][TempY] != BOX) Field[TempX][TempY]= POINT;
+        else Field[TempX][TempY]= BOX_ON_POINT;
     }
 
-    PosX = BinToInt(blob,counter);
-    counter+=4;
-    PosY = BinToInt(blob,counter);
-    counter+=4;
-
+    std::ofstream check("check.txt");
+    i = 0;
+    for(;i<SizeX;i++){
+        for(unsigned int j = 0;j<SizeY;j++){
+            check << Field[i][j]<<" ";
+        }
+        check<<'\n';
+    }
+    check.close();
     success = true;
 }
+
+void LevelHandler::GetField(char **RetField, unsigned int& X, unsigned int& Y){
+    GetSize(X,Y);
+    RetField = new char*[X];
+    for (unsigned int i = 0; i < X; i++){
+        RetField[i] = new char[Y];
+        for (unsigned int j =0; j < Y; j++){
+            RetField[i][j] = Field[i][j];
+        }
+    }
+}
+void LevelHandler::GetSize(unsigned int& X, unsigned int& Y){
+    X = SizeX;
+    Y = SizeY;
+}
+void LevelHandler::GetSpawn(unsigned int& X, unsigned int& Y){
+    X = PosX;
+    Y = PosY;
+}
+bool LevelHandler::isSuccess(){
+    return success;
+}
+
+LevelHandler::~LevelHandler(){}

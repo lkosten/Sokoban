@@ -31,22 +31,28 @@ u - box + point
 #include <stdlib.h>
 #include <QFile>
 #include <QDataStream>
+#include <stack>
 
 class LevelHandler{
+public:
+    static const char EMPTY = 'e';
+    static const char BOX = 'b';
+    static const char WALL = 'w';
+    static const char OUTSIDE = 'o';
+    static const char POINT = 'p';
+    static const char BOX_ON_POINT = 'u';
 private:
     char** Field;
-    unsigned int SizeX, SizeY;
-    unsigned int PosX, PosY;
     bool success = false;
-public:
-    LevelHandler();
-    LevelHandler(const  QString& file_name);
     void read(const  QString& file_name);
-    void write(const  QString& file_name);
-    bool step_left();
-    bool step_right();
-    bool step_up();
-    bool step_down();
+    unsigned int SizeX, SizeY;  //size of playground
+    unsigned int PosX, PosY;    //spawnpoint
+public:
+    LevelHandler(const  QString& file_name);
+    ~LevelHandler();
+    void GetField(char **RetField, unsigned int& X, unsigned int& Y);
+    void GetSize(unsigned int& X, unsigned int& Y);
+    void GetSpawn(unsigned int& X, unsigned int& Y);
     bool isSuccess();
 };
 
