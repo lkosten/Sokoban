@@ -46,8 +46,8 @@ void MainWindow::resizeGL(int, int){}
 void MainWindow::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // очистка экрана
-    glMatrixMode(GL_MODELVIEW); // задаем модельно-видовую матрицу
-    glLoadIdentity();           // загрузка единичную матрицу
+    //glMatrixMode(GL_MODELVIEW); // задаем модельно-видовую матрицу
+    //glLoadIdentity();           // загрузка единичную матрицу
 
     switch (gameStatus)
     {
