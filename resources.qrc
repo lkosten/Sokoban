@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>levels/testlevel.bin</file>
+    </qresource>
+</RCC>
