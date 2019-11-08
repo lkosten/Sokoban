@@ -24,13 +24,11 @@ protected:
     void initializeGL() override;
     void resizeGL(int w, int h) override;
     void paintGL() override;
-    void keyReleaseEvent(QKeyEvent*) override;
 
     void initMainMenuVector();
     void initFont();
 
     void drawMainMenu();
-    void keyMainMenu(QKeyEvent*);
 
 public:
     MainWindow(QWidget *parent = nullptr);
