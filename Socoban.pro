@@ -17,10 +17,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     src/Drawer.cpp \
+    src/bintoint.cpp \
+    src/levelhandler.cpp \
     src/main.cpp \
     src/mainwindow.cpp
 
 HEADERS += \
+    src/bintoint.h \
+    src/levelhandler.h \
     src/mainwindow.h \
     src/statusEnums.h
 
@@ -30,3 +34,6 @@ FORMS +=
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    resources.qrc
