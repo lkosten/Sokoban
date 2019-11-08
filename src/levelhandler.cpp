@@ -69,7 +69,7 @@ void LevelHandler::read(const  QString& file_name){
         Field[TempX][TempY]= WALL;
     }
 
-    //field ground where we can walk with empty
+    //field ground where we can walk with EMPTY
     std::stack<std::pair<int,int>> dfs;
     dfs.push({PosX,PosY});
     while(dfs.size()){
@@ -107,6 +107,7 @@ void LevelHandler::read(const  QString& file_name){
         else Field[TempX][TempY]= BOX_ON_POINT;
     }
 
+    /* MATRIX CHECK
     std::ofstream check("check.txt");
     i = 0;
     for(;i<SizeX;i++){
@@ -116,6 +117,7 @@ void LevelHandler::read(const  QString& file_name){
         check<<'\n';
     }
     check.close();
+    */
     success = true;
 }
 
