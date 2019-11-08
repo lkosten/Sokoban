@@ -31,23 +31,38 @@ void MainWindow::keyReleaseEvent(QKeyEvent *key)
 void MainWindow::initializeGL()
 {
     setWindowTitle("Sokoban");
-    setGeometry(100, 100, 0, 0);
-    setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-    setFixedSize(windowWidth, windowHeidht);
 
-    glEnable(GL_DEPTH_TEST);
-    glShadeModel(GL_FLAT);
-    glEnable(GL_CULL_FACE);
-    glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(0, windowWidth, 0, windowHeight, 1, 0);
+     glDisable(GL_DEPTH_TEST);
+     glEnable(GL_BLEND);
+     glEnable(GL_LINE_SMOOTH);
+     glEnable(GL_POINT_SMOOTH);
+     glEnable(GL_SMOOTH);
+     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+     glEnable(GL_TEXTURE_2D);
+
+    setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
+    setFixedSize(windowWidth, windowHeight);
+
 }
 
 void MainWindow::resizeGL(int, int){}
 
 void MainWindow::paintGL()
 {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // очистка экрана
-    //glMatrixMode(GL_MODELVIEW); // задаем модельно-видовую матрицу
-    //glLoadIdentity();           // загрузка единичную матрицу
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    qglClearColor(Qt::black);
+
+    glEnable(GL_TEXTURE_2D);
+    QImage image;
+    bool ok = image.load(":/texture/0.png");
+    if (!ok) close();
+
+    drawTexture(QRectF{0, 0, 590, 100}, bindTexture(image));
+    glDisable(GL_TEXTURE_2D);
+
 
     switch (gameStatus)
     {
@@ -77,6 +92,7 @@ void MainWindow::drawMainMenu()
             qglColor(QColor(245, 140, 25));
             x = 400 - (fontSelected.pixelSize() * static_cast<int>(i.second.size() / 4));
             renderText(x, y, i.second.c_str(), fontSelected);
+            qglColor(Qt::white);
         }
         else
         {
