@@ -30,24 +30,43 @@ void MainWindow::keyReleaseEvent(QKeyEvent *key)
 
 void MainWindow::initializeGL()
 {
-    setWindowTitle("Sokoban");
-    setGeometry(100, 100, 0, 0);
-    setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-    setFixedSize(windowWidth, windowHeidht);
+    qglClearColor(Qt::black); // Черный цвет фона
 
-    glEnable(GL_DEPTH_TEST);
-    glShadeModel(GL_FLAT);
-    glEnable(GL_CULL_FACE);
-    glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
+    setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
+    setFixedSize(windowWidth, windowHeight);
 }
 
-void MainWindow::resizeGL(int, int){}
+void MainWindow::resizeGL(int nWidth, int nHeight)
+{
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glViewport(0, 0, (GLint)nWidth, (GLint)nHeight);
+}
 
 void MainWindow::paintGL()
 {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // очистка экрана
-    glMatrixMode(GL_MODELVIEW); // задаем модельно-видовую матрицу
-    glLoadIdentity();           // загрузка единичную матрицу
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // чистим буфер изображения и буфер глубины
+    glMatrixMode(GL_PROJECTION); // устанавливаем матрицу
+    glLoadIdentity(); // загружаем матрицу
+    glOrtho(0,windowWidth,windowHeight,0,1,0); // подготавливаем плоскости для матрицы
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        qglColor(Qt::white);
+
+    glEnable(GL_TEXTURE_2D);
+    QImage image;
+    bool ok = image.load(":/texture/brick_wall.png");
+    if (!ok) close();
+
+
+     qglColor(QColor(128, 0, 128));
+    drawTexture(QRectF{0, 0, 40, 40}, bindTexture(image));
+    drawTexture(QRectF{0, 40, 40, 40}, 1);
+    drawTexture(QRectF{40, 0, 40, 40}, 1);
+    drawTexture(QRectF{40, 40, 40, 40}, 1);
+    glDisable(GL_TEXTURE_2D);
+
 
     switch (gameStatus)
     {
@@ -74,9 +93,10 @@ void MainWindow::drawMainMenu()
     {
         if (menuStatus == i.first)
         {
-            qglColor(QColor(245, 140, 25));
+            qglColor(QColor(128, 0, 128));
             x = 400 - (fontSelected.pixelSize() * static_cast<int>(i.second.size() / 4));
             renderText(x, y, i.second.c_str(), fontSelected);
+            qglColor(Qt::white);
         }
         else
         {

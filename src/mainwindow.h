@@ -13,8 +13,8 @@ class MainWindow : public QGLWidget
     Q_OBJECT
 
 protected:
-    const int windowHeidht = 600, windowWidth = 800;
-    const int windowPosX = 200, windowPosY = 200;
+    const int windowHeight = 600, windowWidth = 800;
+    const int windowPosX = 0, windowPosY = 0;
     GameStatus gameStatus;
     MainMenuStatus menuStatus;
     QFont font;
