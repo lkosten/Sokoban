@@ -32,6 +32,7 @@ u - box + point
 #include <QFile>
 #include <QDataStream>
 #include <stack>
+#include <vector>
 
 class LevelHandler{
 public:
@@ -42,7 +43,7 @@ public:
     static const char POINT = 'p';
     static const char BOX_ON_POINT = 'u';
 private:
-    char** Field;
+    static std::vector<std::vector<char>> Field;
     bool success = false;
     void read(const  QString& file_name);
     unsigned int SizeX, SizeY;  //size of playground
@@ -50,7 +51,6 @@ private:
 public:
     LevelHandler(const  QString& file_name);
     ~LevelHandler();
-    void GetField(char **RetField, unsigned int& X, unsigned int& Y);
     void GetSize(unsigned int& X, unsigned int& Y);
     void GetSpawn(unsigned int& X, unsigned int& Y);
     bool isSuccess();
