@@ -19,12 +19,14 @@ SOURCES += \
     src/Drawer.cpp \
     src/bintoint.cpp \
     src/levelhandler.cpp \
+    src/levelslist.cpp \
     src/main.cpp \
     src/mainwindow.cpp
 
 HEADERS += \
     src/bintoint.h \
     src/levelhandler.h \
+    src/levelslist.h \
     src/mainwindow.h \
     src/statusEnums.h
 
