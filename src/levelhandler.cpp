@@ -49,12 +49,12 @@ void LevelHandler::read(const  QString& file_name){
     PosY = BinToInt(InputArray,counter);
     counter+=4;
 
-    Field = new char*[SizeX];
     for (;i<SizeX;i++){
-        Field[i] = new char[SizeY];
+        std::vector<char> temp;
         for (unsigned int j =0;j<SizeY;j++){
-            Field[i][j] = OUTSIDE;
+            temp.push_back(OUTSIDE);
         }
+        Field.push_back(temp);
     }
 
     //place walls
@@ -70,10 +70,10 @@ void LevelHandler::read(const  QString& file_name){
     }
 
     //field ground where we can walk with EMPTY
-    std::stack<std::pair<int,int>> dfs;
+    std::stack<std::pair<unsigned int,unsigned int>> dfs;
     dfs.push({PosX,PosY});
     while(dfs.size()){
-        std::pair<int,int> Current = dfs.top();
+        std::pair<unsigned int,unsigned int> Current = dfs.top();
         dfs.pop();
         Field[Current.first][Current.second] = EMPTY;
         if(Field[Current.first + 1][Current.second] == OUTSIDE) dfs.push({Current.first + 1, Current.second});
@@ -121,16 +121,6 @@ void LevelHandler::read(const  QString& file_name){
     success = true;
 }
 
-void LevelHandler::GetField(char **RetField, unsigned int& X, unsigned int& Y){
-    GetSize(X,Y);
-    RetField = new char*[X];
-    for (unsigned int i = 0; i < X; i++){
-        RetField[i] = new char[Y];
-        for (unsigned int j =0; j < Y; j++){
-            RetField[i][j] = Field[i][j];
-        }
-    }
-}
 void LevelHandler::GetSize(unsigned int& X, unsigned int& Y){
     X = SizeX;
     Y = SizeY;
