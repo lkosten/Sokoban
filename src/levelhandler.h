@@ -43,17 +43,14 @@ public:
     static const char POINT = 'p';
     static const char BOX_ON_POINT = 'u';
 private:
-    std::vector<std::vector<char>> Field;
-    bool success = false;
-    void read(const  QString& file_name);
-    unsigned int SizeX, SizeY;  //size of playground
-    unsigned int PosX, PosY;    //spawnpoint
-public:
-    LevelHandler(const  QString& file_name);
-    ~LevelHandler();
-    void GetSize(unsigned int& X, unsigned int& Y);
-    void GetSpawn(unsigned int& X, unsigned int& Y);
-    bool isSuccess();
+    static std::vector<std::vector<char>> Field;
+    static bool success;
+    static void read(const  QString& file_name);
+    static unsigned int SizeX, SizeY;  //size of playground
+    static unsigned int PosX, PosY;    //spawnpoint
+    static void GetSize(unsigned int& X, unsigned int& Y);
+    static void GetSpawn(unsigned int& X, unsigned int& Y);
+    static bool isSuccess();
 };
 
 #endif // LEVELHANDLER_H

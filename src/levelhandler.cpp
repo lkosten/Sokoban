@@ -22,12 +22,17 @@ p - point
 u - box + point
 */
 
-
-LevelHandler::LevelHandler(const QString& file_name){
-   this->read(file_name);
-}
+bool LevelHandler::success = true;
+unsigned int LevelHandler::SizeX = 0;
+unsigned int LevelHandler::SizeY = 0; //size of playground
+unsigned int LevelHandler::PosX = 0;
+unsigned int LevelHandler::PosY = 0;
+std::vector<std::vector<char>> LevelHandler::Field = std::vector<std::vector<char>>();
 
 void LevelHandler::read(const  QString& file_name){
+    success = false;
+    Field.clear();
+
     QFile file(":/levels/" + file_name);
     file.open(QIODevice::ReadOnly);
     if (file.size() == 0){
@@ -133,5 +138,3 @@ void LevelHandler::GetSpawn(unsigned int& X, unsigned int& Y){
 bool LevelHandler::isSuccess(){
     return success;
 }
-
-LevelHandler::~LevelHandler(){}

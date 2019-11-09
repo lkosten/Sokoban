@@ -1,9 +1,12 @@
 #include "levelslist.h"
 
-LevelsList::LevelsList(){
+std::vector<QString> LevelsList::List = std::vector<QString>();
+
+void LevelsList::GetList(){
     QDirIterator it(":/levels/", QDirIterator::Subdirectories);
     while (it.hasNext()) {
-        List.push_back(it.next());
+        QString tempstr = it.next();
+        List.push_back(tempstr);
     }
 }
 
