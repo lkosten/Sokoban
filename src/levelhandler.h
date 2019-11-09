@@ -43,7 +43,7 @@ public:
     static const char POINT = 'p';
     static const char BOX_ON_POINT = 'u';
 private:
-    static std::vector<std::vector<char>> Field;
+    std::vector<std::vector<char>> Field;
     bool success = false;
     void read(const  QString& file_name);
     unsigned int SizeX, SizeY;  //size of playground

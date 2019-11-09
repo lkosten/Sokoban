@@ -3,18 +3,18 @@
 
 #include <QtDebug>
 #include <QDirIterator>
-#include <string>
-#include <stack>
 #include <QString>
+#include <vector>
+#include <algorithm>
 
 class LevelsList{
-int Number;
-QString* List;
+std::vector<QString> List;
+QString GetFName(unsigned int n);
+QString GetFDirectory(unsigned int n);
 public:
     LevelsList();
-    QString GetFName(int n);
-    QString GetFDirectory(int n);
-    int GetNumber();
+    std::pair<QString,QString> GetFNameDir(unsigned int n);
+    unsigned int GetNumber();
 };
 
 #endif // LEVELSLIST_H

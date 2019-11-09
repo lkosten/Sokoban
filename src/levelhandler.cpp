@@ -51,8 +51,9 @@ void LevelHandler::read(const  QString& file_name){
 
     for (;i<SizeX;i++){
         std::vector<char> temp;
+        temp.resize(SizeY);
         for (unsigned int j =0;j<SizeY;j++){
-            temp.push_back(OUTSIDE);
+            temp[j] = OUTSIDE;
         }
         Field.push_back(temp);
     }

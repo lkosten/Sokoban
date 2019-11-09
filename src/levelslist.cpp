@@ -2,36 +2,32 @@
 
 LevelsList::LevelsList(){
     QDirIterator it(":/levels/", QDirIterator::Subdirectories);
-    std::stack<QString> input;
     while (it.hasNext()) {
-        input.push(it.next());
-    }
-
-    List = new QString[input.size()];
-    Number = static_cast<int>(input.size());
-
-    int i =0;
-    while(input.size()){
-        List[i] = input.top();
-        input.pop();
-        i++;
+        List.push_back(it.next());
     }
 }
 
-QString LevelsList::GetFDirectory(int n){
-    if(n > Number)return nullptr;
+QString LevelsList::GetFDirectory(unsigned int n){
+    if(static_cast<unsigned int>(n) >= List.size())return nullptr;
     return List[n];
 }
 
-QString LevelsList::GetFName(int n){
-    if(n > Number)return nullptr;
+QString LevelsList::GetFName(unsigned int n){
+    if(static_cast<unsigned int>(n) >= List.size())return nullptr;
 
     const QString BIN = ".bin";
     int FirstChar = List[n].lastIndexOf('/') + 1;
     int LastChar = List[n].lastIndexOf(BIN);
-    return List->mid(FirstChar, LastChar - FirstChar);
+    return List[n].mid(FirstChar, LastChar - FirstChar);
 }
 
-int LevelsList::GetNumber(){
-    return Number;
+std::pair<QString,QString> LevelsList::GetFNameDir(unsigned int n){
+    std::pair<QString,QString> Ret;
+    Ret.first = GetFName(n);
+    Ret.second = GetFDirectory(n);
+    return Ret;
+}
+
+unsigned int LevelsList::GetNumber(){
+    return static_cast<unsigned int>(List.size());
 }
