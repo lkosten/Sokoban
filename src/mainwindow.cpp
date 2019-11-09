@@ -34,25 +34,26 @@ void MainWindow::initializeGL()
 
     setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
     setFixedSize(windowWidth, windowHeight);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
 }
 
 void MainWindow::resizeGL(int nWidth, int nHeight)
 {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glViewport(0, 0, (GLint)nWidth, (GLint)nHeight);
+    glViewport(0, 0, static_cast<GLint>(nWidth), static_cast<GLint>(nHeight));
 }
 
 void MainWindow::paintGL()
 {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // чистим буфер изображения и буфер глубины
-    glMatrixMode(GL_PROJECTION); // устанавливаем матрицу
-    glLoadIdentity(); // загружаем матрицу
-    glOrtho(0,windowWidth,windowHeight,0,1,0); // подготавливаем плоскости для матрицы
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(0, windowWidth, windowHeight, 0, 1, 0);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-        qglColor(Qt::white);
+    qglColor(Qt::white);
 
     glEnable(GL_TEXTURE_2D);
     QImage image;

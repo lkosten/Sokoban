@@ -1,14 +1,14 @@
 #include "levelslist.h"
 
 LevelsList::LevelsList(){
-    QDirIterator it(":/levels/",QDirIterator::Subdirectories);
+    QDirIterator it(":/levels/", QDirIterator::Subdirectories);
     std::stack<QString> input;
     while (it.hasNext()) {
         input.push(it.next());
     }
 
     List = new QString[input.size()];
-    Number = (int)input.size();
+    Number = static_cast<int>(input.size());
 
     int i =0;
     while(input.size()){
@@ -19,12 +19,12 @@ LevelsList::LevelsList(){
 }
 
 QString LevelsList::GetFDirectory(int n){
-    if(n > Number)return NULL;
+    if(n > Number)return nullptr;
     return List[n];
 }
 
 QString LevelsList::GetFName(int n){
-    if(n > Number)return NULL;
+    if(n > Number)return nullptr;
 
     const QString BIN = ".bin";
     int FirstChar = List[n].lastIndexOf('/') + 1;
