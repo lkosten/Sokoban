@@ -19,6 +19,7 @@ SOURCES += \
     src/bintoint.cpp \
     src/leveldrawer.cpp \
     src/levelhandler.cpp \
+    src/levellogic.cpp \
     src/levelslist.cpp \
     src/main.cpp \
     src/mainwindow.cpp
@@ -27,6 +28,7 @@ HEADERS += \
     src/bintoint.h \
     src/leveldrawer.h \
     src/levelhandler.h \
+    src/levellogic.h \
     src/levelslist.h \
     src/mainwindow.h \
     src/statusEnums.h

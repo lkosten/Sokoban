@@ -42,16 +42,26 @@ public:
     static const char OUTSIDE = 'o';
     static const char POINT = 'p';
     static const char BOX_ON_POINT = 'u';
+
 private:
     friend class LevelDrawer;
+    friend class LevelLogic;
 
-    static std::vector<std::vector<char>> Field;
-    static bool success;
-    static void read(const  QString& file_name);
+    static unsigned int BoxOnPointNumber;
+    static unsigned int BoxNumber;
     static unsigned int SizeX, SizeY;  //size of playground
     static unsigned int PosX, PosY;    //spawnpoint
+    static bool success;
+
+    static std::list<std::pair<unsigned int, unsigned int>>  CheckList;
+    static std::vector<std::vector<char>> Field;
+    static void read(const  QString& file_name);
     static void GetSize(unsigned int& X, unsigned int& Y);
     static void GetSpawn(unsigned int& X, unsigned int& Y);
+    static unsigned int GetBoxOnPointNumber();
+    static unsigned int GetBoxNumber();
+    static unsigned int& GetPosX();
+    static unsigned int& GetPosY();
     static bool isSuccess();
 };
 
