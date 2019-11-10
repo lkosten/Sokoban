@@ -17,6 +17,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     src/bintoint.cpp \
+    src/leveldrawer.cpp \
     src/levelhandler.cpp \
     src/levelslist.cpp \
     src/main.cpp \
@@ -24,6 +25,7 @@ SOURCES += \
 
 HEADERS += \
     src/bintoint.h \
+    src/leveldrawer.h \
     src/levelhandler.h \
     src/levelslist.h \
     src/mainwindow.h \

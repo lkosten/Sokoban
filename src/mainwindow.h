@@ -14,7 +14,9 @@ class MainWindow : public QGLWidget
     Q_OBJECT
 
 protected:
-    const int windowHeight = 600, windowWidth = 800;
+    friend class LevelDrawer;
+
+    const size_t windowHeight = 600, windowWidth = 800;
     const int windowPosX = 0, windowPosY = 0;
     GameStatus gameStatus;
     MainMenuStatus menuStatus;
