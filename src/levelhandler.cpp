@@ -31,6 +31,7 @@ unsigned int LevelHandler::BoxNumber = 0;
 unsigned int LevelHandler::BoxOnPointNumber = 0;
 
 std::vector<std::vector<char>> LevelHandler::Field = std::vector<std::vector<char>>();
+std::list<std::pair<unsigned int, unsigned int>> LevelHandler::CheckList = std::list<std::pair<unsigned int, unsigned int>>();
 
 void LevelHandler::read(const  QString& file_name){
     success = false;
@@ -153,10 +154,10 @@ unsigned int LevelHandler::GetBoxNumber(){
     return BoxNumber;
 }
 
-unsigned int LevelHandler::GetPosX(){
+unsigned int& LevelHandler::GetPosX(){
     return PosX;
 }
 
-unsigned int LevelHandler::GetPosY(){
+unsigned int& LevelHandler::GetPosY(){
     return PosY;
 }

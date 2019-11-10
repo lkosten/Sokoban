@@ -53,14 +53,15 @@ private:
     static unsigned int PosX, PosY;    //spawnpoint
     static bool success;
 
+    static std::list<std::pair<unsigned int, unsigned int>>  CheckList;
     static std::vector<std::vector<char>> Field;
     static void read(const  QString& file_name);
     static void GetSize(unsigned int& X, unsigned int& Y);
     static void GetSpawn(unsigned int& X, unsigned int& Y);
     static unsigned int GetBoxOnPointNumber();
     static unsigned int GetBoxNumber();
-    static unsigned int GetPosX();
-    static unsigned int GetPosY();
+    static unsigned int& GetPosX();
+    static unsigned int& GetPosY();
     static bool isSuccess();
 };
 
