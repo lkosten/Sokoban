@@ -16,8 +16,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    src/Drawer.cpp \
     src/bintoint.cpp \
+    src/leveldrawer.cpp \
     src/levelhandler.cpp \
     src/levelslist.cpp \
     src/main.cpp \
@@ -25,6 +25,7 @@ SOURCES += \
 
 HEADERS += \
     src/bintoint.h \
+    src/leveldrawer.h \
     src/levelhandler.h \
     src/levelslist.h \
     src/mainwindow.h \

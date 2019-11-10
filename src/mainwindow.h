@@ -6,6 +6,7 @@
 #include <QTimer>
 #include <vector>
 #include <string>
+#include <map>
 #include "statusEnums.h"
 
 class MainWindow : public QGLWidget
@@ -13,13 +14,16 @@ class MainWindow : public QGLWidget
     Q_OBJECT
 
 protected:
-    const int windowHeight = 600, windowWidth = 800;
+    friend class LevelDrawer;
+
+    const size_t windowHeight = 600, windowWidth = 800;
     const int windowPosX = 0, windowPosY = 0;
     GameStatus gameStatus;
     MainMenuStatus menuStatus;
     QFont font;
     QFont fontSelected;
     std::vector<std::pair<MainMenuStatus, std::string>> mainMenuItems;
+    std::map<Texture, GLuint> textureID;
 
     void initializeGL() override;
     void resizeGL(int w, int h) override;
@@ -28,6 +32,7 @@ protected:
 
     void initMainMenuVector();
     void initFont();
+    void initTextures();
 
     void drawMainMenu();
     void keyMainMenu(QKeyEvent*);

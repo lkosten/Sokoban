@@ -36,6 +36,9 @@ void MainWindow::initializeGL()
     setFixedSize(windowWidth, windowHeight);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
+
+    initTextures();
+
 }
 
 void MainWindow::resizeGL(int nWidth, int nHeight)
@@ -56,16 +59,13 @@ void MainWindow::paintGL()
     qglColor(Qt::white);
 
     glEnable(GL_TEXTURE_2D);
-    QImage image;
-    bool ok = image.load(":/texture/brick_wall.png");
-    if (!ok) close();
-
-
-     qglColor(QColor(128, 0, 128));
-    drawTexture(QRectF{0, 0, 40, 40}, bindTexture(image));
-    drawTexture(QRectF{0, 40, 40, 40}, 1);
-    drawTexture(QRectF{40, 0, 40, 40}, 1);
-    drawTexture(QRectF{40, 40, 40, 40}, 1);
+    qglColor(QColor(128, 0, 128));
+    drawTexture(QRectF{0, 0, 128, 128}, 0);
+    drawTexture(QRectF{0, 128, 128, 128}, 1);
+    drawTexture(QRectF{128, 128, 128, 128}, 3);
+    qglColor(Qt::white);
+    drawTexture(QRectF{128, 0, 128, 128}, 4);
+    drawTexture(QRectF{128, 128, 128, 128}, 2);
     glDisable(GL_TEXTURE_2D);
 
 
@@ -145,5 +145,29 @@ void MainWindow::initFont()
 
     fontSelected.setPixelSize(60);
     fontSelected.setStyleHint(QFont::OldEnglish);
+}
+void MainWindow::initTextures()
+{
+
+    glEnable(GL_TEXTURE_2D);
+    QImage image;
+
+    image.load(":/texture/brick_wall.png");
+    textureID[Texture::WALL] = bindTexture(image);
+
+    image.load(":/texture/barrel.png");
+    textureID[Texture::BOX] = bindTexture(image);
+
+    image.load(":/texture/circle.png");
+    textureID[Texture::CIRCLE] = bindTexture(image);
+
+    image.load(":/texture/skeleton.png");
+    textureID[Texture::MAN] = bindTexture(image);
+
+
+    image.load(":/texture/empty.png");
+    textureID[Texture::EMPTY] = textureID[Texture::OUTSIDE] = bindTexture(image);
+
+    glDisable(GL_TEXTURE_2D);
 }
 

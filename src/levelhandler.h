@@ -43,6 +43,8 @@ public:
     static const char POINT = 'p';
     static const char BOX_ON_POINT = 'u';
 private:
+    friend class LevelDrawer;
+
     static std::vector<std::vector<char>> Field;
     static bool success;
     static void read(const  QString& file_name);
