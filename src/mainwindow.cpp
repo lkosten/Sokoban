@@ -58,15 +58,7 @@ void MainWindow::paintGL()
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     qglColor(Qt::white);
 
-    glEnable(GL_TEXTURE_2D);
-    qglColor(QColor(128, 0, 128));
-    drawTexture(QRectF{0, 0, 128, 128}, 0);
-    drawTexture(QRectF{0, 128, 128, 128}, 1);
-    drawTexture(QRectF{128, 128, 128, 128}, 3);
-    qglColor(Qt::white);
-    drawTexture(QRectF{128, 0, 128, 128}, 4);
-    drawTexture(QRectF{128, 128, 128, 128}, 2);
-    glDisable(GL_TEXTURE_2D);
+
 
 
     switch (gameStatus)
@@ -88,21 +80,31 @@ void MainWindow::paintGL()
 
 void MainWindow::drawMainMenu()
 {
+
+    glEnable(GL_TEXTURE_2D);
+    qglColor(Qt::darkMagenta);
+    drawTexture(QRectF{650, 0, 150, 150}, 1);
+    drawTexture(QRectF{650, 150, 150, 150}, 1);
+    drawTexture(QRectF{650, 300, 150, 150}, 1);
+    drawTexture(QRectF{650, 450, 150, 150}, 1);
+    glDisable(GL_TEXTURE_2D);
+
+
     int y = 200;
-    int x = 300;
+    int x = 30;
     for (const auto &i : mainMenuItems)
     {
         if (menuStatus == i.first)
         {
             qglColor(QColor(128, 0, 128));
-            x = 400 - (fontSelected.pixelSize() * static_cast<int>(i.second.size() / 4));
+            //x = 400 - (fontSelected.pixelSize() * static_cast<int>(i.second.size() / 4));
             renderText(x, y, i.second.c_str(), fontSelected);
             qglColor(Qt::white);
         }
         else
         {
             qglColor(Qt::white);
-            x = 400 - (font.pixelSize() * static_cast<int>(i.second.size() / 4));
+            //x = 400 - (font.pixelSize() * static_cast<int>(i.second.size() / 4));
             renderText(x, y, i.second.c_str(), font);
         }
         y += 70;
