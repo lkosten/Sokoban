@@ -27,6 +27,9 @@ unsigned int LevelHandler::SizeX = 0;
 unsigned int LevelHandler::SizeY = 0; //size of playground
 unsigned int LevelHandler::PosX = 0;
 unsigned int LevelHandler::PosY = 0;
+unsigned int LevelHandler::BoxNumber = 0;
+unsigned int LevelHandler::BoxOnPointNumber = 0;
+
 std::vector<std::vector<char>> LevelHandler::Field = std::vector<std::vector<char>>();
 
 void LevelHandler::read(const  QString& file_name){
@@ -91,6 +94,7 @@ void LevelHandler::read(const  QString& file_name){
     //place boxes
     i = BinToInt(InputArray,counter);
     counter+=4;
+    BoxNumber = i/2;
     for(;i>0;i-=2){
         unsigned int TempX,TempY;
         TempX = BinToInt(InputArray,counter);
@@ -110,7 +114,7 @@ void LevelHandler::read(const  QString& file_name){
         TempY = BinToInt(InputArray,counter);
         counter+=4;
         if(Field[TempX][TempY] != BOX) Field[TempX][TempY]= POINT;
-        else Field[TempX][TempY]= BOX_ON_POINT;
+        else {Field[TempX][TempY]= BOX_ON_POINT; BoxOnPointNumber++;}
     }
 
     /* MATRIX CHECK
@@ -131,10 +135,28 @@ void LevelHandler::GetSize(unsigned int& X, unsigned int& Y){
     X = SizeX;
     Y = SizeY;
 }
+
 void LevelHandler::GetSpawn(unsigned int& X, unsigned int& Y){
     X = PosX;
     Y = PosY;
 }
+
 bool LevelHandler::isSuccess(){
     return success;
+}
+
+unsigned int LevelHandler::GetBoxOnPointNumber(){
+    return BoxOnPointNumber;
+}
+
+unsigned int LevelHandler::GetBoxNumber(){
+    return BoxNumber;
+}
+
+unsigned int LevelHandler::GetPosX(){
+    return PosX;
+}
+
+unsigned int LevelHandler::GetPosY(){
+    return PosY;
 }
