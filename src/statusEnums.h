@@ -17,4 +17,14 @@ enum MainMenuStatus
     MENU_EXIT
 };
 
+enum Texture
+{
+    EMPTY = 0,
+    BOX,
+    WALL,
+    CIRCLE,
+    OUTSIDE,
+    MAN
+};
+
 #endif // STATUS_ENUMS_H
