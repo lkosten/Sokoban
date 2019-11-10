@@ -49,9 +49,9 @@ void LevelHandler::read(const  QString& file_name){
     SizeY= BinToInt(InputArray,counter);
     counter+=4;
 
-    PosX = BinToInt(InputArray,counter);
-    counter+=4;
     PosY = BinToInt(InputArray,counter);
+    counter+=4;
+    PosX = BinToInt(InputArray,counter);
     counter+=4;
 
     for (;i<SizeX;i++){
