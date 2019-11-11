@@ -7,7 +7,13 @@
 #include <vector>
 #include <string>
 #include <map>
+#include <QtDebug>
+
 #include "statusEnums.h"
+#include "levelslist.h"
+#include "levelhandler.h"
+#include "leveldrawer.h"
+#include "levellogic.h"
 
 class MainWindow : public QGLWidget
 {
@@ -35,7 +41,10 @@ protected:
     void initTextures();
 
     void drawMainMenu();
+    void drawLevelSelection();
     void keyMainMenu(QKeyEvent*);
+    void keyLevelSelection(QKeyEvent*);
+    void keyPlaying(QKeyEvent*);
 
 public:
     MainWindow(QWidget *parent = nullptr);

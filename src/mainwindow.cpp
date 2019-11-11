@@ -5,6 +5,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     initFont();
     initMainMenuVector();
+    LevelsList::GetList();
+
     show();
 }
 
@@ -17,12 +19,17 @@ void MainWindow::keyReleaseEvent(QKeyEvent *key)
         break;
 
     case LEVEL_SELECTION:
+        keyLevelSelection(key);
         break;
 
     case STATISTICS:
         break;
 
     case SETTINGS:
+        break;
+
+    case PLAYING:
+        keyPlaying(key);
         break;
     }
     updateGL();
@@ -33,7 +40,7 @@ void MainWindow::initializeGL()
     qglClearColor(Qt::black); // Черный цвет фона
 
     setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-    setFixedSize(windowWidth, windowHeight);
+    setFixedSize(static_cast<int>(windowWidth), static_cast<int>(windowHeight));
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
@@ -59,8 +66,6 @@ void MainWindow::paintGL()
     qglColor(Qt::white);
 
 
-
-
     switch (gameStatus)
     {
     case MAIN_MENU:
@@ -68,12 +73,17 @@ void MainWindow::paintGL()
         break;
 
     case LEVEL_SELECTION:
+        drawLevelSelection();
         break;
 
     case STATISTICS:
         break;
 
     case SETTINGS:
+        break;
+
+    case PLAYING:
+        LevelDrawer::fullRender(*this);
         break;
     }
 }
@@ -110,6 +120,28 @@ void MainWindow::drawMainMenu()
         y += 70;
     }
 }
+void MainWindow::drawLevelSelection()
+{
+    int y = 100;
+    int x = 30;
+
+    for (unsigned int i = 0; i < LevelsList::GetNumber(); ++i)
+    {
+        if (i == LevelsList::selectedLevel)
+        {
+            qglColor(QColor(128, 0, 128));
+            renderText(x, y, LevelsList::GetFNameDir(i).first, fontSelected);
+            qglColor(Qt::white);
+        }
+        else
+        {
+            qglColor(Qt::white);
+            renderText(x, y, LevelsList::GetFNameDir(i).first, font);
+            qglColor(Qt::white);
+        }
+    }
+}
+
 void MainWindow::keyMainMenu(QKeyEvent *key)
 {
     switch (key->key())
@@ -129,9 +161,76 @@ void MainWindow::keyMainMenu(QKeyEvent *key)
         break;
 
     case Qt::Key_Return:
-        if (menuStatus == MENU_EXIT) close();
+        switch (menuStatus)
+        {
+        case MENU_EXIT:
+            close();
+            break;
+
+        case MENU_PLAY:
+            gameStatus = LEVEL_SELECTION;
+
+            break;
+
+        case MENU_SETTINGS:
+            break;
+
+        case MENU_STATISTICS:
+            break;
+        }
         break;
     }
+
+    updateGL();
+}
+void MainWindow::keyLevelSelection(QKeyEvent *key)
+{
+    switch (key->key())
+    {
+    case Qt::Key_Up:
+        if (LevelsList::selectedLevel != 0)
+        {
+            --LevelsList::selectedLevel;
+        }
+        break;
+
+    case Qt::Key_Down:
+        if (LevelsList::selectedLevel != LevelsList::GetNumber() - 1)
+        {
+            ++LevelsList::selectedLevel;
+        }
+        break;
+
+    case Qt::Key_Return:
+        LevelHandler::read(LevelsList::GetFNameDir(static_cast<unsigned int>(LevelsList::selectedLevel)).second);
+        gameStatus = PLAYING;
+        break;
+    }
+
+    updateGL();
+}
+void MainWindow::keyPlaying(QKeyEvent *key)
+{
+    switch (key->key())
+    {
+    case Qt::Key_Up:
+        LevelLogic::MoveUp();
+        break;
+
+    case Qt::Key_Down:
+        LevelLogic::MoveDown();
+        break;
+
+    case Qt::Key_Right:
+        LevelLogic::MoveRight();
+        break;
+
+    case Qt::Key_Left:
+        LevelLogic::MoveLeft();
+        break;
+    }
+
+    updateGL();
 }
 void MainWindow::initMainMenuVector()
 {

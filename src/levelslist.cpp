@@ -1,5 +1,7 @@
 #include "levelslist.h"
 
+size_t LevelsList::selectedLevel = 0;
+
 std::vector<QString> LevelsList::List = std::vector<QString>();
 
 void LevelsList::GetList(){
@@ -31,6 +33,6 @@ std::pair<QString,QString> LevelsList::GetFNameDir(unsigned int n){
     return Ret;
 }
 
-unsigned int LevelsList::GetNumber(){
-    return static_cast<unsigned int>(List.size());
+size_t LevelsList::GetNumber(){
+    return List.size();
 }

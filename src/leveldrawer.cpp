@@ -1,13 +1,11 @@
 #include "leveldrawer.h"
 
-
-
-QColor LevelDrawer::wallColor      = Qt::white;
+QColor LevelDrawer::wallColor      = Qt::darkMagenta;
 QColor LevelDrawer::outsideColor   = Qt::white;
 QColor LevelDrawer::emptyColor     = Qt::white;
 QColor LevelDrawer::manColor       = Qt::white;
-QColor LevelDrawer::boxColor       = Qt::white;
-QColor LevelDrawer::pointColor     = Qt::white;
+QColor LevelDrawer::boxColor       = Qt::yellow;
+QColor LevelDrawer::pointColor     = Qt::red;
 QColor LevelDrawer::circleBoxColor = Qt::white;
 
 void LevelDrawer::fullRender(MainWindow &window)
@@ -28,40 +26,40 @@ void LevelDrawer::fullRender(MainWindow &window)
             {
             case LevelHandler::BOX:
                 window.qglColor(boxColor);
-                window.drawTexture(QRectF{curX, curY, blockSize, blockSize},
+                window.drawTexture(QRectF{curY, curX, blockSize, blockSize},
                                    window.textureID[Texture::BOX]);
                 break;
 
             case LevelHandler::WALL:
                 window.qglColor(wallColor);
-                window.drawTexture(QRectF{curX, curY, blockSize, blockSize},
+                window.drawTexture(QRectF{curY, curX, blockSize, blockSize},
                                    window.textureID[Texture::WALL]);
                 break;
 
             case LevelHandler::EMPTY:
                 window.qglColor(emptyColor);
-                window.drawTexture(QRectF{curX, curY, blockSize, blockSize},
+                window.drawTexture(QRectF{curY, curX, blockSize, blockSize},
                                    window.textureID[Texture::EMPTY]);
                 break;
 
             case LevelHandler::POINT:
                 window.qglColor(pointColor);
-                window.drawTexture(QRectF{curX, curY, blockSize, blockSize},
+                window.drawTexture(QRectF{curY, curX, blockSize, blockSize},
                                    window.textureID[Texture::CIRCLE]);
                 break;
 
             case LevelHandler::OUTSIDE:
                 window.qglColor(outsideColor);
-                window.drawTexture(QRectF{curX, curY, blockSize, blockSize},
+                window.drawTexture(QRectF{curY, curX, blockSize, blockSize},
                                    window.textureID[Texture::OUTSIDE]);
                 break;
 
             case LevelHandler::BOX_ON_POINT:
                 window.qglColor(circleBoxColor);
-                window.drawTexture(QRectF{curX, curY, blockSize, blockSize},
+                window.drawTexture(QRectF{curY, curX, blockSize, blockSize},
                                    window.textureID[Texture::CIRCLE]);
                 window.qglColor(boxColor);
-                window.drawTexture(QRectF{curX, curY, blockSize, blockSize},
+                window.drawTexture(QRectF{curY, curX, blockSize, blockSize},
                                    window.textureID[Texture::BOX]);
                 break;
             }
@@ -72,12 +70,12 @@ void LevelDrawer::fullRender(MainWindow &window)
         curY += blockSize;
     }
 
-    curX = LevelHandler::PosX;
-    curY = LevelHandler::PosY;
+    curX = protectedAreaY / 2 + LevelHandler::PosX * blockSize;
+        curY = protectedAreaX / 2 + LevelHandler::PosY * blockSize;
 
-    window.qglColor(manColor);
-    window.drawTexture(QRectF{curX, curY, blockSize, blockSize},
-                       window.textureID[Texture::MAN]);
+        window.qglColor(manColor);
+        window.drawTexture(QRectF{curX, curY, blockSize, blockSize},
+                           window.textureID[Texture::MAN]);
 
     glDisable(GL_TEXTURE_2D);
 
