@@ -43,6 +43,8 @@ public:
     static const char POINT = 'p';
     static const char BOX_ON_POINT = 'u';
 
+    static void read(const  QString& file_name);
+
 private:
     friend class LevelDrawer;
     friend class LevelLogic;
@@ -55,7 +57,6 @@ private:
 
     static std::list<std::pair<unsigned int, unsigned int>>  CheckList;
     static std::vector<std::vector<char>> Field;
-    static void read(const  QString& file_name);
     static void GetSize(unsigned int& X, unsigned int& Y);
     static void GetSpawn(unsigned int& X, unsigned int& Y);
     static unsigned int GetBoxOnPointNumber();

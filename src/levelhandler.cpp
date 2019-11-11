@@ -37,7 +37,8 @@ void LevelHandler::read(const  QString& file_name){
     success = false;
     Field.clear();
 
-    QFile file(":/levels/" + file_name);
+    QFile file(file_name);
+
     file.open(QIODevice::ReadOnly);
     if (file.size() == 0){
         success = false;
