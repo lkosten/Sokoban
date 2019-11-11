@@ -3,7 +3,7 @@
 :grin: - complete, :rage: - incomplete
 
 1. **Menu** (play,settings and quit buttons):grin:
-2. **Level selection** (available levels list):rage:
+2. **Level selection** (available levels list):grin:
 3. **Level handler** (processing and drawing chosen level):grin:
 4. **Ability to move character**:grin:
 5. **Ability to move boxes**:grin:
