@@ -24,6 +24,7 @@ bool LevelLogic::Move(int i,int j){
     unsigned int PosX = LevelHandler::GetPosX();
     unsigned int PosY = LevelHandler::GetPosY();
 
+    LevelHandler::CheckList.clear();
     LevelHandler::CheckList.push_back({PosX, PosY});
     LevelHandler::CheckList.push_back({static_cast<unsigned int>(static_cast<int>(PosX) + i), static_cast<unsigned int>(static_cast<int>(PosY) + j)});
     LevelHandler::CheckList.push_back({static_cast<unsigned int>(static_cast<int>(PosX) + i*2), static_cast<unsigned int>(static_cast<int>(PosY) + j*2)});
