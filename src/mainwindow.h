@@ -12,6 +12,7 @@
 #include "levelslist.h"
 #include "levelhandler.h"
 #include "leveldrawer.h"
+#include "levellogic.h"
 
 class MainWindow : public QGLWidget
 {
@@ -42,6 +43,7 @@ protected:
     void drawLevelSelection();
     void keyMainMenu(QKeyEvent*);
     void keyLevelSelection(QKeyEvent*);
+    void keyPlaying(QKeyEvent*);
 
 public:
     MainWindow(QWidget *parent = nullptr);

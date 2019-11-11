@@ -9,13 +9,14 @@ class LevelLogic{
     static unsigned int CorrectNumber;
     static unsigned int TotalNumber;
 
+    static bool Move(int i, int j);
+public:
+
     static bool MoveRight();
     static bool MoveLeft();
     static bool MoveDown();
     static bool MoveUp();
 
-public:
-    static bool Move(int i, int j);
     static bool CheckNum();
 };
 

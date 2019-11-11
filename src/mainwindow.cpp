@@ -29,6 +29,7 @@ void MainWindow::keyReleaseEvent(QKeyEvent *key)
         break;
 
     case PLAYING:
+        keyPlaying(key);
         break;
     }
     updateGL();
@@ -203,6 +204,29 @@ void MainWindow::keyLevelSelection(QKeyEvent *key)
     case Qt::Key_Return:
         LevelHandler::read(LevelsList::GetFNameDir(static_cast<unsigned int>(LevelsList::selectedLevel)).second);
         gameStatus = PLAYING;
+        break;
+    }
+
+    updateGL();
+}
+void MainWindow::keyPlaying(QKeyEvent *key)
+{
+    switch (key->key())
+    {
+    case Qt::Key_Up:
+        LevelLogic::MoveUp();
+        break;
+
+    case Qt::Key_Down:
+        LevelLogic::MoveDown();
+        break;
+
+    case Qt::Key_Right:
+        LevelLogic::MoveRight();
+        break;
+
+    case Qt::Key_Left:
+        LevelLogic::MoveLeft();
         break;
     }
 
