@@ -1,7 +1,5 @@
 #include "leveldrawer.h"
 
-
-
 QColor LevelDrawer::wallColor      = Qt::white;
 QColor LevelDrawer::outsideColor   = Qt::white;
 QColor LevelDrawer::emptyColor     = Qt::white;

@@ -5,6 +5,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     initFont();
     initMainMenuVector();
+    LevelsList::GetList();
+
     show();
 }
 
@@ -33,7 +35,7 @@ void MainWindow::initializeGL()
     qglClearColor(Qt::black); // Черный цвет фона
 
     setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-    setFixedSize(windowWidth, windowHeight);
+    setFixedSize(static_cast<int>(windowWidth), static_cast<int>(windowHeight));
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
@@ -59,8 +61,6 @@ void MainWindow::paintGL()
     qglColor(Qt::white);
 
 
-
-
     switch (gameStatus)
     {
     case MAIN_MENU:
@@ -68,6 +68,7 @@ void MainWindow::paintGL()
         break;
 
     case LEVEL_SELECTION:
+        drawLevelSelection();
         break;
 
     case STATISTICS:
@@ -110,6 +111,28 @@ void MainWindow::drawMainMenu()
         y += 70;
     }
 }
+void MainWindow::drawLevelSelection()
+{
+    int y = 100;
+    int x = 30;
+
+    for (unsigned int i = 0; i < LevelsList::GetNumber(); ++i)
+    {
+        if (i == LevelsList::selectedLevel)
+        {
+            qglColor(QColor(128, 0, 128));
+            renderText(x, y, LevelsList::GetFNameDir(i).first, fontSelected);
+            qglColor(Qt::white);
+        }
+        else
+        {
+            qglColor(Qt::white);
+            renderText(x, y, LevelsList::GetFNameDir(i).first, font);
+            qglColor(Qt::white);
+        }
+    }
+}
+
 void MainWindow::keyMainMenu(QKeyEvent *key)
 {
     switch (key->key())
@@ -129,9 +152,28 @@ void MainWindow::keyMainMenu(QKeyEvent *key)
         break;
 
     case Qt::Key_Return:
+        switch (menuStatus)
+        {
+        case MENU_EXIT:
+            close();
+            break;
+
+        case MENU_PLAY:
+            gameStatus = LEVEL_SELECTION;
+
+            break;
+
+        case MENU_SETTINGS:
+            break;
+
+        case MENU_STATISTICS:
+            break;
+        }
         if (menuStatus == MENU_EXIT) close();
         break;
     }
+
+    updateGL();
 }
 void MainWindow::initMainMenuVector()
 {

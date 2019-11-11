@@ -15,7 +15,8 @@ private:
 public:
     static void GetList();
     static std::pair<QString,QString> GetFNameDir(unsigned int n);
-    static unsigned int GetNumber();
+    static size_t GetNumber();
+    static size_t selectedLevel;
 };
 
 #endif // LEVELSLIST_H
