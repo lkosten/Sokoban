@@ -7,6 +7,7 @@
 #include <vector>
 #include <string>
 #include <map>
+#include <QtDebug>
 
 #include "statusEnums.h"
 #include "levelslist.h"

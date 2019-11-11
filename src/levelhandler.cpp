@@ -54,15 +54,15 @@ void LevelHandler::read(const  QString& file_name){
     SizeY= BinToInt(InputArray,counter);
     counter+=4;
 
-    PosY = BinToInt(InputArray,counter);
-    counter+=4;
     PosX = BinToInt(InputArray,counter);
     counter+=4;
+    PosY = BinToInt(InputArray,counter);
+    counter+=4;
 
-    for (;i<SizeX;i++){
+    for (;i<SizeY;i++){
         std::vector<char> temp;
-        temp.resize(SizeY);
-        for (unsigned int j =0;j<SizeY;j++){
+        temp.resize(SizeX);
+        for (unsigned int j =0;j<SizeX;j++){
             temp[j] = OUTSIDE;
         }
         Field.push_back(temp);
@@ -73,9 +73,9 @@ void LevelHandler::read(const  QString& file_name){
     counter+=4;
     for(;i>0;i-=2){
         unsigned int TempX,TempY;
-        TempX= BinToInt(InputArray,counter);
-        counter+=4;
         TempY= BinToInt(InputArray,counter);
+        counter+=4;
+        TempX= BinToInt(InputArray,counter);
         counter+=4;
         Field[TempX][TempY]= WALL;
     }
@@ -99,9 +99,9 @@ void LevelHandler::read(const  QString& file_name){
     BoxNumber = i/2;
     for(;i>0;i-=2){
         unsigned int TempX,TempY;
-        TempX = BinToInt(InputArray,counter);
-        counter+=4;
         TempY = BinToInt(InputArray,counter);
+        counter+=4;
+        TempX = BinToInt(InputArray,counter);
         counter+=4;
         Field[TempX][TempY]= BOX;
     }
@@ -111,9 +111,9 @@ void LevelHandler::read(const  QString& file_name){
     counter+=4;
     for(;i>0;i-=2){
         unsigned int TempX,TempY;
-        TempX = BinToInt(InputArray,counter);
-        counter+=4;
         TempY = BinToInt(InputArray,counter);
+        counter+=4;
+        TempX = BinToInt(InputArray,counter);
         counter+=4;
         if(Field[TempX][TempY] != BOX) Field[TempX][TempY]= POINT;
         else {Field[TempX][TempY]= BOX_ON_POINT; BoxOnPointNumber++;}

@@ -1,6 +1,7 @@
 #ifndef LEVELLOGIC_H
 #define LEVELLOGIC_H
 
+#include <QtDebug>
 #include <vector>
 #include <algorithm>
 #include <list>
