@@ -82,7 +82,7 @@ void LevelHandler::read(const  QString& file_name){
 
     //field ground where we can walk with EMPTY
     std::stack<std::pair<unsigned int,unsigned int>> dfs;
-    dfs.push({PosX,PosY});
+    dfs.push({PosY,PosX});
     while(dfs.size()){
         std::pair<unsigned int,unsigned int> Current = dfs.top();
         dfs.pop();

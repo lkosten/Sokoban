@@ -1,11 +1,11 @@
 #include "leveldrawer.h"
 
-QColor LevelDrawer::wallColor      = Qt::white;
+QColor LevelDrawer::wallColor      = Qt::darkMagenta;
 QColor LevelDrawer::outsideColor   = Qt::white;
 QColor LevelDrawer::emptyColor     = Qt::white;
 QColor LevelDrawer::manColor       = Qt::white;
-QColor LevelDrawer::boxColor       = Qt::white;
-QColor LevelDrawer::pointColor     = Qt::white;
+QColor LevelDrawer::boxColor       = Qt::yellow;
+QColor LevelDrawer::pointColor     = Qt::red;
 QColor LevelDrawer::circleBoxColor = Qt::white;
 
 void LevelDrawer::fullRender(MainWindow &window)
@@ -70,12 +70,12 @@ void LevelDrawer::fullRender(MainWindow &window)
         curY += blockSize;
     }
 
-    curX = LevelHandler::PosX;
-    curY = LevelHandler::PosY;
+    curX = protectedAreaX / 2 + LevelHandler::PosX * blockSize;
+        curY = protectedAreaY / 2 + LevelHandler::PosY * blockSize;
 
-    window.qglColor(manColor);
-    window.drawTexture(QRectF{curX, curY, blockSize, blockSize},
-                       window.textureID[Texture::MAN]);
+        window.qglColor(manColor);
+        window.drawTexture(QRectF{curX, curY, blockSize, blockSize},
+                           window.textureID[Texture::MAN]);
 
     glDisable(GL_TEXTURE_2D);
 
