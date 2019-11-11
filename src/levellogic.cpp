@@ -5,29 +5,29 @@ unsigned int LevelLogic::CorrectNumber = LevelHandler::GetBoxOnPointNumber();
 unsigned int LevelLogic::TotalNumber = LevelHandler::GetBoxNumber();
 
 bool LevelLogic::MoveRight(){
-    std::swap(LevelHandler::PosX,LevelHandler::PosY);
-    bool temp = Move(0, 1);
-    std::swap(LevelHandler::PosX,LevelHandler::PosY);
+   // std::swap(LevelHandler::PosX,LevelHandler::PosY);
+    bool temp = Move(1, 0);
+   // std::swap(LevelHandler::PosX,LevelHandler::PosY);
     return temp;
 }
 bool LevelLogic::MoveLeft(){
-    std::swap(LevelHandler::PosX,LevelHandler::PosY);
-    bool temp = Move(0, -1);
-    std::swap(LevelHandler::PosX,LevelHandler::PosY);
+   // std::swap(LevelHandler::PosX,LevelHandler::PosY);
+    bool temp = Move(-1, 0);
+   // std::swap(LevelHandler::PosX,LevelHandler::PosY);
     return temp;
 
 }
 bool LevelLogic::MoveDown(){
-    std::swap(LevelHandler::PosX,LevelHandler::PosY);
-    bool temp = Move(1, 0);
-    std::swap(LevelHandler::PosX,LevelHandler::PosY);
+   // std::swap(LevelHandler::PosX,LevelHandler::PosY);
+    bool temp = Move(0, 1);
+   // std::swap(LevelHandler::PosX,LevelHandler::PosY);
     return temp;
 
 }
 bool LevelLogic::MoveUp(){
-    std::swap(LevelHandler::PosX,LevelHandler::PosY);
-    bool temp = Move(-1, 0);
-    std::swap(LevelHandler::PosX,LevelHandler::PosY);
+   // std::swap(LevelHandler::PosX,LevelHandler::PosY);
+    bool temp = Move(0, -1);
+   // std::swap(LevelHandler::PosX,LevelHandler::PosY);
     return temp;
 
 }

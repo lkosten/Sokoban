@@ -59,10 +59,10 @@ void LevelHandler::read(const  QString& file_name){
     PosY = BinToInt(InputArray,counter);
     counter+=4;
 
-    for (;i<SizeY;i++){
+    for (;i<SizeX;i++){
         std::vector<char> temp;
-        temp.resize(SizeX);
-        for (unsigned int j =0;j<SizeX;j++){
+        temp.resize(SizeY);
+        for (unsigned int j =0;j<SizeY;j++){
             temp[j] = OUTSIDE;
         }
         Field.push_back(temp);
@@ -73,16 +73,16 @@ void LevelHandler::read(const  QString& file_name){
     counter+=4;
     for(;i>0;i-=2){
         unsigned int TempX,TempY;
-        TempY= BinToInt(InputArray,counter);
-        counter+=4;
         TempX= BinToInt(InputArray,counter);
+        counter+=4;
+        TempY= BinToInt(InputArray,counter);
         counter+=4;
         Field[TempX][TempY]= WALL;
     }
 
     //field ground where we can walk with EMPTY
     std::stack<std::pair<unsigned int,unsigned int>> dfs;
-    dfs.push({PosY,PosX});
+    dfs.push({PosX,PosY});
     while(dfs.size()){
         std::pair<unsigned int,unsigned int> Current = dfs.top();
         dfs.pop();
@@ -99,9 +99,9 @@ void LevelHandler::read(const  QString& file_name){
     BoxNumber = i/2;
     for(;i>0;i-=2){
         unsigned int TempX,TempY;
-        TempY = BinToInt(InputArray,counter);
-        counter+=4;
         TempX = BinToInt(InputArray,counter);
+        counter+=4;
+        TempY = BinToInt(InputArray,counter);
         counter+=4;
         Field[TempX][TempY]= BOX;
     }
@@ -111,9 +111,9 @@ void LevelHandler::read(const  QString& file_name){
     counter+=4;
     for(;i>0;i-=2){
         unsigned int TempX,TempY;
-        TempY = BinToInt(InputArray,counter);
-        counter+=4;
         TempX = BinToInt(InputArray,counter);
+        counter+=4;
+        TempY = BinToInt(InputArray,counter);
         counter+=4;
         if(Field[TempX][TempY] != BOX) Field[TempX][TempY]= POINT;
         else {Field[TempX][TempY]= BOX_ON_POINT; BoxOnPointNumber++;}
