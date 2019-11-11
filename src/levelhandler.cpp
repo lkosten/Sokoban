@@ -38,6 +38,7 @@ void LevelHandler::read(const  QString& file_name){
     Field.clear();
 
     QFile file(file_name);
+
     file.open(QIODevice::ReadOnly);
     if (file.size() == 0){
         success = false;
