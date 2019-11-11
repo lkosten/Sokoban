@@ -10,6 +10,8 @@
 
 #include "statusEnums.h"
 #include "levelslist.h"
+#include "levelhandler.h"
+#include "leveldrawer.h"
 
 class MainWindow : public QGLWidget
 {
@@ -39,6 +41,7 @@ protected:
     void drawMainMenu();
     void drawLevelSelection();
     void keyMainMenu(QKeyEvent*);
+    void keyLevelSelection(QKeyEvent*);
 
 public:
     MainWindow(QWidget *parent = nullptr);

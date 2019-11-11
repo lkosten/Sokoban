@@ -19,12 +19,16 @@ void MainWindow::keyReleaseEvent(QKeyEvent *key)
         break;
 
     case LEVEL_SELECTION:
+        keyLevelSelection(key);
         break;
 
     case STATISTICS:
         break;
 
     case SETTINGS:
+        break;
+
+    case PLAYING:
         break;
     }
     updateGL();
@@ -75,6 +79,10 @@ void MainWindow::paintGL()
         break;
 
     case SETTINGS:
+        break;
+
+    case PLAYING:
+        LevelDrawer::fullRender(*this);
         break;
     }
 }
@@ -169,7 +177,32 @@ void MainWindow::keyMainMenu(QKeyEvent *key)
         case MENU_STATISTICS:
             break;
         }
-        if (menuStatus == MENU_EXIT) close();
+        break;
+    }
+
+    updateGL();
+}
+void MainWindow::keyLevelSelection(QKeyEvent *key)
+{
+    switch (key->key())
+    {
+    case Qt::Key_Up:
+        if (LevelsList::selectedLevel != 0)
+        {
+            --LevelsList::selectedLevel;
+        }
+        break;
+
+    case Qt::Key_Down:
+        if (LevelsList::selectedLevel != LevelsList::GetNumber() - 1)
+        {
+            ++LevelsList::selectedLevel;
+        }
+        break;
+
+    case Qt::Key_Return:
+        LevelHandler::read(LevelsList::GetFNameDir(static_cast<unsigned int>(LevelsList::selectedLevel)).second);
+        gameStatus = PLAYING;
         break;
     }
 

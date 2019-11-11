@@ -6,7 +6,8 @@ enum GameStatus
     MAIN_MENU = 0,
     LEVEL_SELECTION,
     STATISTICS,
-    SETTINGS
+    SETTINGS,
+    PLAYING
 };
 
 enum MainMenuStatus

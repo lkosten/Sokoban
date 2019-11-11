@@ -4,6 +4,7 @@
 #include "mainwindow.h"
 #include "levelhandler.h"
 
+class MainWindow;
 
 class LevelDrawer
 {
