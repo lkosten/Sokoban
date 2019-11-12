@@ -7,7 +7,8 @@ enum GameStatus
     LEVEL_SELECTION,
     STATISTICS,
     SETTINGS,
-    PLAYING
+    PLAYING,
+    LEVEL_CREATOR
 };
 
 enum MainMenuStatus

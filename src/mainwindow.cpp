@@ -31,6 +31,10 @@ void MainWindow::keyReleaseEvent(QKeyEvent *key)
     case PLAYING:
         keyPlaying(key);
         break;
+
+    case LEVEL_CREATOR:
+        keyCreating(key);
+        break;
     }
     updateGL();
 }
@@ -84,6 +88,10 @@ void MainWindow::paintGL()
 
     case PLAYING:
         LevelDrawer::fullRender(*this);
+        break;
+
+    case LEVEL_CREATOR:
+        CreatorDrawer::fullRender(*this);
         break;
     }
 }
@@ -168,8 +176,8 @@ void MainWindow::keyMainMenu(QKeyEvent *key)
             break;
 
         case MENU_PLAY:
-            gameStatus = LEVEL_SELECTION;
-
+            //gameStatus = LEVEL_SELECTION;
+            gameStatus = LEVEL_CREATOR;
             break;
 
         case MENU_SETTINGS:
@@ -183,6 +191,28 @@ void MainWindow::keyMainMenu(QKeyEvent *key)
 
     updateGL();
 }
+
+static QString newfilename("newlevel");
+void MainWindow::keyCreating(QKeyEvent *key)
+{
+    switch (key->key())
+    {
+    case Qt::Key_Up:
+        LevelCreator::KeyUp();
+        break;
+
+    case Qt::Key_Down:
+        LevelCreator::KeyDown();
+        break;
+
+    case Qt::Key_Return:
+        LevelCreator::Write(newfilename);
+        break;
+    }
+
+    updateGL();
+}
+
 void MainWindow::keyLevelSelection(QKeyEvent *key)
 {
     switch (key->key())
@@ -272,3 +302,27 @@ void MainWindow::initTextures()
     glDisable(GL_TEXTURE_2D);
 }
 
+void MainWindow::mousePressEvent(QMouseEvent *mouse){
+    switch (gameStatus)
+    {
+    case MAIN_MENU:
+        break;
+
+    case LEVEL_SELECTION:
+        break;
+
+    case STATISTICS:
+        break;
+
+    case SETTINGS:
+        break;
+
+    case PLAYING:
+        break;
+
+    case LEVEL_CREATOR:
+        LevelCreator::MouseClicked(mouse->x(), mouse->y());
+        break;
+    }
+    updateGL();
+}

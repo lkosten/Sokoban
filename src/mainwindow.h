@@ -8,12 +8,14 @@
 #include <string>
 #include <map>
 #include <QtDebug>
+#include <QMouseEvent>
 
 #include "statusEnums.h"
 #include "levelslist.h"
 #include "levelhandler.h"
 #include "leveldrawer.h"
 #include "levellogic.h"
+#include "levelcreator.h"
 
 class MainWindow : public QGLWidget
 {
@@ -31,10 +33,13 @@ protected:
     std::vector<std::pair<MainMenuStatus, std::string>> mainMenuItems;
     std::map<Texture, GLuint> textureID;
 
+    bool mouseHold = false;
+
     void initializeGL() override;
     void resizeGL(int w, int h) override;
     void paintGL() override;
     void keyReleaseEvent(QKeyEvent*) override;
+    void mousePressEvent(QMouseEvent*) override;
 
     void initMainMenuVector();
     void initFont();
@@ -45,6 +50,8 @@ protected:
     void keyMainMenu(QKeyEvent*);
     void keyLevelSelection(QKeyEvent*);
     void keyPlaying(QKeyEvent*);
+
+    void mouseCreatin(QMouseEvent*);
 
 public:
     MainWindow(QWidget *parent = nullptr);

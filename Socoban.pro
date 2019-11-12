@@ -19,6 +19,7 @@ SOURCES += \
     src/bintoint.cpp \
     src/levelcreator.cpp \
     src/levelcreatorbrush.cpp \
+    src/levelcreatormap.cpp \
     src/leveldrawer.cpp \
     src/levelhandler.cpp \
     src/levellogic.cpp \
@@ -32,7 +33,6 @@ HEADERS += \
     src/levelcreatorbrush.h \
     src/levelcreatordrawer.h \
     src/levelcreatormap.h \
-    src/levelcreatortools.h \
     src/leveldrawer.h \
     src/levelhandler.h \
     src/levellogic.h \
