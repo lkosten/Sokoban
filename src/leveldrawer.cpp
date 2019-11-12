@@ -6,7 +6,7 @@ QColor LevelDrawer::emptyColor     = Qt::white;
 QColor LevelDrawer::manColor       = Qt::white;
 QColor LevelDrawer::boxColor       = Qt::yellow;
 QColor LevelDrawer::pointColor     = Qt::red;
-QColor LevelDrawer::circleBoxColor = Qt::white;
+QColor LevelDrawer::circleBoxColor = Qt::green;
 
 void LevelDrawer::fullRender(MainWindow &window)
 {

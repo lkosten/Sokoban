@@ -26,7 +26,9 @@ enum Texture
     WALL,
     CIRCLE,
     OUTSIDE,
-    MAN
+    MAN,
+    ERASER,
+    SPAWNPOINT
 };
 
 #endif // STATUS_ENUMS_H

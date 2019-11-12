@@ -178,6 +178,7 @@ void MainWindow::keyMainMenu(QKeyEvent *key)
         case MENU_PLAY:
             //gameStatus = LEVEL_SELECTION;
             gameStatus = LEVEL_CREATOR;
+            LevelCreator::initMap();
             break;
 
         case MENU_SETTINGS:
@@ -295,6 +296,11 @@ void MainWindow::initTextures()
     image.load(":/texture/skeleton.png");
     textureID[Texture::MAN] = bindTexture(image);
 
+    image.load(":/texture/rubber.png");
+    textureID[Texture::ERASER] = bindTexture(image);
+
+    image.load(":/texture/round_star.png");
+    textureID[Texture::SPAWNPOINT] = bindTexture(image);
 
     image.load(":/texture/empty.png");
     textureID[Texture::EMPTY] = textureID[Texture::OUTSIDE] = bindTexture(image);

@@ -16,6 +16,7 @@
 #include "leveldrawer.h"
 #include "levellogic.h"
 #include "levelcreator.h"
+#include "levelcreatordrawer.h"
 
 class MainWindow : public QGLWidget
 {
@@ -23,6 +24,7 @@ class MainWindow : public QGLWidget
 
 protected:
     friend class LevelDrawer;
+    friend class CreatorDrawer;
 
     const size_t windowHeight = 600, windowWidth = 800;
     const int windowPosX = 0, windowPosY = 0;
@@ -50,6 +52,7 @@ protected:
     void keyMainMenu(QKeyEvent*);
     void keyLevelSelection(QKeyEvent*);
     void keyPlaying(QKeyEvent*);
+    void keyCreating(QKeyEvent*);
 
     void mouseCreatin(QMouseEvent*);
 

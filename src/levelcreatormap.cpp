@@ -11,10 +11,10 @@ void CreatorMap::SetSize(unsigned int x, unsigned int y){
     SizeY = y;
 
     std::vector<char> temp;
-    temp.resize(SizeY, OUTSIDE);
+    temp.resize(SizeY, static_cast<char>(BOX));
 
     Field.resize(SizeX, temp);
     for(unsigned int i = 0; i < SizeX; i++){
-        Field[i].resize(SizeY,OUTSIDE);
+        Field[i].resize(SizeY, static_cast<char>(BOX));
     }
 }

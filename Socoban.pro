@@ -19,6 +19,7 @@ SOURCES += \
     src/bintoint.cpp \
     src/levelcreator.cpp \
     src/levelcreatorbrush.cpp \
+    src/levelcreatordrawer.cpp \
     src/levelcreatormap.cpp \
     src/leveldrawer.cpp \
     src/levelhandler.cpp \

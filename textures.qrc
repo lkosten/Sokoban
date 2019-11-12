@@ -5,5 +5,7 @@
         <file>texture/circle.png</file>
         <file>texture/skeleton.png</file>
         <file>texture/empty.png</file>
+        <file>texture/round_star.png</file>
+        <file>texture/rubber.png</file>
     </qresource>
 </RCC>
