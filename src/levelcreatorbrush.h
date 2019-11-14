@@ -26,6 +26,7 @@ class CreatorBrush{
 
     static void ChangeTool(bool up);
     static void SetGate(unsigned int x, unsigned int y);
+    static unsigned int GetToolNum();
 };
 
 #endif // LEVELCREATORBRUSH_H

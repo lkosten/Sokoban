@@ -305,6 +305,9 @@ void MainWindow::initTextures()
     image.load(":/texture/empty.png");
     textureID[Texture::EMPTY] = textureID[Texture::OUTSIDE] = bindTexture(image);
 
+    image.load(":/texture/frame.png");
+    textureID[Texture::FRAME] = bindTexture(image);
+
     glDisable(GL_TEXTURE_2D);
 }
 

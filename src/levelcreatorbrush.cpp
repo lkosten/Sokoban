@@ -65,3 +65,7 @@ void CreatorBrush::SetGate(unsigned int x, unsigned int y){
         }
     }
 }
+
+unsigned int CreatorBrush::GetToolNum(){
+    return static_cast<unsigned int>(currentTool);
+}

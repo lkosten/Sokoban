@@ -28,7 +28,8 @@ enum Texture
     OUTSIDE,
     MAN,
     ERASER,
-    SPAWNPOINT
+    SPAWNPOINT,
+    FRAME
 };
 
 #endif // STATUS_ENUMS_H

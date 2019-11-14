@@ -4,6 +4,7 @@
 #include <vector>
 #include <algorithm>
 #include "mainwindow.h"
+#include "levelcreatorbrush.h"
 
 class MainWindow;
 
@@ -20,6 +21,7 @@ class CreatorDrawer{
     static QColor circleBoxColor;
     static QColor spawnColor;
     static QColor eraserColor;
+    static QColor frameColor;
 
     static const size_t FieldX = 100;
     static const size_t FieldY = 100;

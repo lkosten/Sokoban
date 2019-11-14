@@ -7,5 +7,6 @@
         <file>texture/empty.png</file>
         <file>texture/round_star.png</file>
         <file>texture/rubber.png</file>
+        <file>texture/frame.png</file>
     </qresource>
 </RCC>
