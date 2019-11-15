@@ -54,31 +54,50 @@ void LevelCreator::KeyDown(){
     CreatorBrush::ChangeTool(false);
 }
 bool LevelCreator::check(){
+    unsigned int totalBoxes = 0;
+    unsigned int totalPoints = 0;
+    unsigned int foundBoxes = 0;
+    unsigned int foundPoints = 0;
 
-    if(CreatorMap::PointCounter!= CreatorMap::BoxCounter) return false;
+    for(unsigned int j =0; j <CreatorMap::SizeY; j++){
+        for(unsigned int i =0; i <CreatorMap::SizeX; i++){
+            if(CreatorMap::Field[i][j]== FLAGS::BOX){
+                totalBoxes++;
+            }
+            if(CreatorMap::Field[i][j]== FLAGS::POINT){
+                totalPoints++;
+            }
+            if(CreatorMap::Field[i][j]== FLAGS::BOX_ON_POINT){
+                totalBoxes++;
+                totalPoints++;
+            }
+        }
+    }
+    if(totalBoxes!= totalPoints) return false;
+
     std::stack<std::pair<unsigned int,unsigned int>> dfs;
     dfs.push({ CreatorMap::PosX, CreatorMap::PosY});
     std::vector<bool> TmpVec;
     TmpVec.resize(CreatorMap::SizeY,false);
     std::vector<std::vector<bool>> used;
     used.resize(CreatorMap::SizeX, TmpVec);
+
     used[CreatorMap::PosX][CreatorMap::PosY] = true;
-    unsigned int foundBoxes = 0;
-    unsigned int foundPoints = 0;
+
     while(dfs.size()){
         std::pair<unsigned int,unsigned int> Current = dfs.top();
         dfs.pop();
-        if(CreatorMap::Field[Current.first][Current.second]== CreatorMap::BOX){
+        if(CreatorMap::Field[Current.first][Current.second]== FLAGS::BOX){
             foundBoxes++;
         }
-        if(CreatorMap::Field[Current.first][Current.second]== CreatorMap::POINT){
+        if(CreatorMap::Field[Current.first][Current.second]== FLAGS::POINT){
             foundPoints++;
         }
-        if(CreatorMap::Field[Current.first][Current.second]== CreatorMap::BOX_ON_POINT){
+        if(CreatorMap::Field[Current.first][Current.second]== FLAGS::BOX_ON_POINT){
             foundBoxes++;
             foundPoints++;
         }
-        if(CreatorMap::Field[Current.first][Current.second]!= CreatorMap::WALL){
+        if(CreatorMap::Field[Current.first][Current.second]!= FLAGS::WALL){
             if(Current.first == 0 || Current.first == CreatorMap::SizeX - 1) {
                 TmpVec.clear();
                 used.clear();
@@ -108,7 +127,7 @@ bool LevelCreator::check(){
             }
         }
     }
-    if(foundBoxes != CreatorMap::BoxCounter || foundPoints != CreatorMap::PointCounter) {
+    if(foundBoxes != totalBoxes || foundPoints != totalPoints) {
         TmpVec.clear();
         used.clear();
         return false;
@@ -126,23 +145,23 @@ void LevelCreator::Write(QString name){
     FILE* ifile;
     ifile = fopen("testgood.bin", "wb");
 
-    size_t temp = CreatorMap::SizeX + 2;
-    fwrite(&temp, sizeof(int), 1, ifile);
+    unsigned int temp = CreatorMap::SizeX + 2;
+    fwrite(&temp, sizeof(unsigned int), 1, ifile);
 
     temp = CreatorMap::SizeY + 2;
-    fwrite(&temp, sizeof(int), 1, ifile);
+    fwrite(&temp, sizeof(unsigned int), 1, ifile);
 
     temp = CreatorMap::PosX + 1;
-    fwrite(&temp, sizeof(int), 1, ifile);
+    fwrite(&temp, sizeof(unsigned int), 1, ifile);
 
     temp = CreatorMap::PosY + 1;
-    fwrite(&temp, sizeof(int), 1, ifile);
+    fwrite(&temp, sizeof(unsigned int), 1, ifile);
 
-    std::stack<size_t> walls;
-    std::stack<size_t> boxes;
-    std::stack<size_t> points;
-    for (size_t i = 0; i < CreatorMap::SizeY; i++) {
-        for (size_t j = 0; j < CreatorMap::SizeX; j++) {
+    std::stack<unsigned int> walls;
+    std::stack<unsigned int> boxes;
+    std::stack<unsigned int> points;
+    for (unsigned int i = 0; i < CreatorMap::SizeY; i++) {
+        for (unsigned int j = 0; j < CreatorMap::SizeX; j++) {
             if (CreatorMap::Field[j][i] == 'w') {
                 walls.push(i);
                 walls.push(j);
@@ -165,25 +184,25 @@ void LevelCreator::Write(QString name){
         }
     }
     temp = walls.size();
-    fwrite(&temp, sizeof(int), 1, ifile);
+    fwrite(&temp, sizeof(unsigned int), 1, ifile);
     while (walls.size()) {
         temp = walls.top() + 1;
-        fwrite(&temp, sizeof(int), 1, ifile);
+        fwrite(&temp, sizeof(unsigned int), 1, ifile);
         walls.pop();
     }
     temp = boxes.size();
-    fwrite(&temp, sizeof(int), 1, ifile);
+    fwrite(&temp, sizeof(unsigned int), 1, ifile);
     while (boxes.size()) {
         temp = boxes.top() + 1;
-        fwrite(&temp, sizeof(int), 1, ifile);
+        fwrite(&temp, sizeof(unsigned int), 1, ifile);
         boxes.pop();
     }
 
     temp = points.size();
-    fwrite(&temp, sizeof(int), 1, ifile);
+    fwrite(&temp, sizeof(unsigned int), 1, ifile);
     while (points.size()) {
         temp = points.top() + 1;
-        fwrite(&temp, sizeof(int), 1, ifile);
+        fwrite(&temp, sizeof(unsigned int), 1, ifile);
         points.pop();
     }
     fclose(ifile);

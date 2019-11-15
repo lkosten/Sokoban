@@ -1,7 +1,19 @@
 <RCC>
     <qresource prefix="/">
-        <file>levels/testlevel.bin</file>
+        <file>levels/2.bin</file>
+        <file>levels/3.bin</file>
+        <file>levels/4.bin</file>
         <file>levels/1.bin</file>
-        <file>levels/newlevel.bin</file>
+        <file>levels/5.bin</file>
+        <file>levels/6.bin</file>
+        <file>levels/7.bin</file>
+        <file>levels/8.bin</file>
+        <file>levels/9.bin</file>
+        <file>levels/10.bin</file>
+        <file>levels/11.bin</file>
+        <file>levels/12.bin</file>
+        <file>levels/13.bin</file>
+        <file>levels/14.bin</file>
+        <file>levels/15.bin</file>
     </qresource>
 </RCC>

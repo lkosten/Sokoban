@@ -1,6 +1,8 @@
 #ifndef LEVELSLIST_H
 #define LEVELSLIST_H
 
+#include "FLAGS.h"
+
 #include <QtDebug>
 #include <QDirIterator>
 #include <QString>

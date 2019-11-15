@@ -1,6 +1,6 @@
 #ifndef LEVELCREATORDRAWER_H
 #define LEVELCREATORDRAWER_H
-
+#include "FLAGS.h"
 #include <vector>
 #include <algorithm>
 #include <QtOpenGL>
@@ -14,17 +14,6 @@ class CreatorDrawer{
     friend class CreatorMap;
     friend class LevelCreator;
 
-    static QColor wallColor;
-    static QColor outsideColor;
-    static QColor emptyColor;
-    static QColor manColor;
-    static QColor boxColor;
-    static QColor pointColor;
-    static QColor circleBoxColor;
-    static QColor spawnColor;
-    static QColor eraserColor;
-    static QColor frameColor;
-
     static const size_t FieldX = 100;
     static const size_t FieldY = 100;
 
@@ -36,8 +25,7 @@ class CreatorDrawer{
 
     static const size_t ToolsWidth = 100;
     static const size_t ToolsHeight = 400;
-/*qglColor(QColor(128, 0, 128));
-            renderText(x, y, LevelsList::GetFNameDir(i).first, fontSelected);*/
+
     static const size_t XresizeX = 300;
     static const size_t XresizeY = 525;
 

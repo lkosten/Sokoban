@@ -1,6 +1,6 @@
 #ifndef LEVELCREATOR_H
 #define LEVELCREATOR_H
-
+#include "FLAGS.h"
 
 #include <fstream>
 #include <stdio.h>

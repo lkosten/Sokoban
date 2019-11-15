@@ -44,40 +44,34 @@ void LevelHandler::read(const  QString& file_name){
         success = false;
         return;
     }
+
     QByteArray InputArray = file.readAll();
-    file.close();
-    unsigned int counter = 0;
+    QDataStream Input(InputArray);
+
     unsigned int i =0;
 
-    SizeX = BinToInt(InputArray,counter);
-    counter+=4;
-    SizeY= BinToInt(InputArray,counter);
-    counter+=4;
-
-    PosX = BinToInt(InputArray,counter);
-    counter+=4;
-    PosY = BinToInt(InputArray,counter);
-    counter+=4;
+    SizeX = BinToInt(Input);
+    SizeY = BinToInt(Input);
+    PosX = BinToInt(Input);
+    PosY = BinToInt(Input);
 
     for (;i<SizeX;i++){
         std::vector<char> temp;
         temp.resize(SizeY);
         for (unsigned int j =0;j<SizeY;j++){
-            temp[j] = OUTSIDE;
+            temp[j] = FLAGS::OUTSIDE;
         }
         Field.push_back(temp);
     }
 
     //place walls
-    i = BinToInt(InputArray,counter);
-    counter+=4;
+    i = BinToInt(Input);
+    qDebug() << i;
     for(;i>0;i-=2){
         unsigned int TempX,TempY;
-        TempX= BinToInt(InputArray,counter);
-        counter+=4;
-        TempY= BinToInt(InputArray,counter);
-        counter+=4;
-        Field[TempX][TempY]= WALL;
+        TempX = BinToInt(Input);
+        TempY = BinToInt(Input);
+        Field[TempX][TempY]= FLAGS::WALL;
     }
 
     //field ground where we can walk with EMPTY
@@ -86,50 +80,36 @@ void LevelHandler::read(const  QString& file_name){
     while(dfs.size()){
         std::pair<unsigned int,unsigned int> Current = dfs.top();
         dfs.pop();
-        Field[Current.first][Current.second] = EMPTY;
-        if(Field[Current.first + 1][Current.second] == OUTSIDE) dfs.push({Current.first + 1, Current.second});
-        if(Field[Current.first][Current.second + 1] == OUTSIDE) dfs.push({Current.first, Current.second + 1});
-        if(Field[Current.first - 1][Current.second] == OUTSIDE) dfs.push({Current.first - 1, Current.second});
-        if(Field[Current.first][Current.second - 1] == OUTSIDE) dfs.push({Current.first, Current.second - 1});
+        Field[Current.first][Current.second] = FLAGS::EMPTY;
+        if(Field[Current.first + 1][Current.second] == FLAGS::OUTSIDE) dfs.push({Current.first + 1, Current.second});
+        if(Field[Current.first][Current.second + 1] == FLAGS::OUTSIDE) dfs.push({Current.first, Current.second + 1});
+        if(Field[Current.first - 1][Current.second] == FLAGS::OUTSIDE) dfs.push({Current.first - 1, Current.second});
+        if(Field[Current.first][Current.second - 1] == FLAGS::OUTSIDE) dfs.push({Current.first, Current.second - 1});
     }
 
     //place boxes
-    i = BinToInt(InputArray,counter);
-    counter+=4;
+    i = BinToInt(Input);
     BoxNumber = i/2;
+    qDebug() << i;
     for(;i>0;i-=2){
         unsigned int TempX,TempY;
-        TempX = BinToInt(InputArray,counter);
-        counter+=4;
-        TempY = BinToInt(InputArray,counter);
-        counter+=4;
-        Field[TempX][TempY]= BOX;
+        TempX = BinToInt(Input);
+        TempY = BinToInt(Input);
+        Field[TempX][TempY]= FLAGS::BOX;
     }
 
     //place points
-    i = BinToInt(InputArray,counter);
-    counter+=4;
+    i = BinToInt(Input);
+    qDebug() << i;
     for(;i>0;i-=2){
         unsigned int TempX,TempY;
-        TempX = BinToInt(InputArray,counter);
-        counter+=4;
-        TempY = BinToInt(InputArray,counter);
-        counter+=4;
-        if(Field[TempX][TempY] != BOX) Field[TempX][TempY]= POINT;
-        else {Field[TempX][TempY]= BOX_ON_POINT; BoxOnPointNumber++;}
+        TempX = BinToInt(Input);
+        TempY = BinToInt(Input);
+        if(Field[TempX][TempY] != FLAGS::BOX) Field[TempX][TempY]= FLAGS::POINT;
+        else {Field[TempX][TempY]= FLAGS::BOX_ON_POINT; BoxOnPointNumber++;}
     }
 
-    /* MATRIX CHECK
-    std::ofstream check("check.txt");
-    i = 0;
-    for(;i<SizeX;i++){
-        for(unsigned int j = 0;j<SizeY;j++){
-            check << Field[i][j]<<" ";
-        }
-        check<<'\n';
-    }
-    check.close();
-    */
+    qDebug() <<"build level successed!";
     success = true;
 }
 

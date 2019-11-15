@@ -29,6 +29,7 @@ SOURCES += \
     src/mainwindow.cpp
 
 HEADERS += \
+    src/FLAGS.h \
     src/bintoint.h \
     src/levelcreator.h \
     src/levelcreatorbrush.h \

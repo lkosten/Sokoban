@@ -1,6 +1,19 @@
 #include "mainwindow.h"
 #include "QLineEdit"
 
+
+const QColor FLAGS::wallColor      = Qt::darkMagenta;
+const QColor FLAGS::outsideColor   = Qt::white;
+const QColor FLAGS::emptyColor     = Qt::white;
+const QColor FLAGS::manColor       = Qt::white;
+const QColor FLAGS::boxColor       = Qt::yellow;
+const QColor FLAGS::pointColor     = Qt::red;
+const QColor FLAGS::circleBoxColor = Qt::green;
+const QColor FLAGS::spawnColor     = Qt::white;
+const QColor FLAGS::eraserColor    = Qt::blue;
+const QColor FLAGS::frameColor     = Qt::white;
+
+
 MainWindow::MainWindow(QWidget *parent)
     : QGLWidget(parent), gameStatus(MAIN_MENU), menuStatus(MENU_PLAY)
 {

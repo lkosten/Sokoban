@@ -1,6 +1,8 @@
 #ifndef LEVELLOGIC_H
 #define LEVELLOGIC_H
 
+#include "FLAGS.h"
+
 #include <QtDebug>
 #include <vector>
 #include <algorithm>

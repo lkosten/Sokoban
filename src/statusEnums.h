@@ -1,6 +1,8 @@
 #ifndef STATUS_ENUMS_H
 #define STATUS_ENUMS_H
 
+#include "FLAGS.h"
+
 enum GameStatus
 {
     MAIN_MENU = 0,

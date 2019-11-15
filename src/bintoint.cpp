@@ -1,11 +1,16 @@
 #include "bintoint.h"
 #include <cmath>
 
-unsigned int BinToInt(QByteArray& arr, unsigned int t){
+unsigned int BinToInt(QDataStream &Input){
+    quint8 i;
     unsigned int ret = 0;
-    for (unsigned int i =0;i<4;i++){
-        ret += static_cast<unsigned int>(static_cast<char>(arr[t+i]) * pow(256,i));
+    unsigned int mult = 1;
+    for(int j =0;j<4;j++){
+        Input >> i;
+        ret += i * mult;
+        mult *= 256;
     }
 
+    qDebug() << ret;
     return ret;
 }

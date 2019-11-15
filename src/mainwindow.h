@@ -1,6 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "FLAGS.h"
+
 #include <QGLWidget>
 #include <QtOpenGL>
 #include <QTimer>
