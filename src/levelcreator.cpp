@@ -53,8 +53,9 @@ void LevelCreator::KeyUp(){
 void LevelCreator::KeyDown(){
     CreatorBrush::ChangeTool(false);
 }
-void LevelCreator::Write(QString name){
-    if(CreatorMap::PointCounter!= CreatorMap::BoxCounter) return;
+bool LevelCreator::check(){
+
+    if(CreatorMap::PointCounter!= CreatorMap::BoxCounter) return false;
     std::stack<std::pair<unsigned int,unsigned int>> dfs;
     dfs.push({ CreatorMap::PosX, CreatorMap::PosY});
     std::vector<bool> TmpVec;
@@ -81,12 +82,12 @@ void LevelCreator::Write(QString name){
             if(Current.first == 0 || Current.first == CreatorMap::SizeX - 1) {
                 TmpVec.clear();
                 used.clear();
-                return;
+                return false;
             }
-            if(Current.first == 0 || Current.first == CreatorMap::SizeY - 1) {
+            if(Current.second == 0 || Current.second == CreatorMap::SizeY - 1) {
                 TmpVec.clear();
                 used.clear();
-                return;
+                return false;
             }
 
             if(!used[Current.first + 1][Current.second]){
@@ -110,11 +111,17 @@ void LevelCreator::Write(QString name){
     if(foundBoxes != CreatorMap::BoxCounter || foundPoints != CreatorMap::PointCounter) {
         TmpVec.clear();
         used.clear();
-        return;
+        return false;
     }
 
     TmpVec.clear();
     used.clear();
+
+    return true;
+}
+void LevelCreator::Write(QString name){
+    if(!check()) return;
+    qDebug() <<"check passed!";
 
     FILE* ifile;
     ifile = fopen("testgood.bin", "wb");

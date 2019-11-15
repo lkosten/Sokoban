@@ -29,6 +29,7 @@ public:
     static void KeyUp();
     static void KeyDown();
     static void clear();
+    static bool check();
     static void Write(QString name);
 };
 
