@@ -11,6 +11,6 @@
 
 # **OPTIONAL**
 
-1. **Ingame level creator**:rage:
+1. **Ingame level creator**:grin:
 2. **Adding support of texture packs**:rage:
 3. **Leader boards**:rage:
