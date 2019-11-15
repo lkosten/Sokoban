@@ -176,11 +176,11 @@ void MainWindow::keyMainMenu(QKeyEvent *key)
             break;
 
         case MENU_PLAY:
-            //gameStatus = LEVEL_SELECTION;
-            gameStatus = LEVEL_CREATOR;
-            LevelCreator::initMap();
+            gameStatus = LEVEL_SELECTION;
             break;
         case MENU_SETTINGS:
+            gameStatus = LEVEL_CREATOR;
+            LevelCreator::initMap();
             break;
 
         case MENU_STATISTICS:
@@ -207,6 +207,10 @@ void MainWindow::keyCreating(QKeyEvent *key)
 
     case Qt::Key_Return:
         LevelCreator::Write(newfilename);
+        break;
+    case Qt::Key_Escape:
+        LevelCreator::clear();
+        gameStatus = MAIN_MENU;
         break;
     }
 
@@ -235,6 +239,10 @@ void MainWindow::keyLevelSelection(QKeyEvent *key)
         LevelHandler::read(LevelsList::GetFNameDir(static_cast<unsigned int>(LevelsList::selectedLevel)).second);
         gameStatus = PLAYING;
         break;
+
+    case Qt::Key_Escape:
+        gameStatus = MAIN_MENU;
+        break;
     }
 
     updateGL();
@@ -258,6 +266,10 @@ void MainWindow::keyPlaying(QKeyEvent *key)
     case Qt::Key_Left:
         LevelLogic::MoveLeft();
         break;
+    case Qt::Key_R:{
+        LevelHandler::read(LevelsList::GetFNameDir(static_cast<unsigned int>(LevelsList::selectedLevel)).second);
+        break;
+    }
     }
 
     updateGL();

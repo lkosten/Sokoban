@@ -1,6 +1,14 @@
 #ifndef LEVELCREATOR_H
 #define LEVELCREATOR_H
 
+
+#include <fstream>
+#include <stdio.h>
+#include <conio.h>
+#include <stdlib.h>
+#include <stack>
+#include <string>
+#include <iostream>
 #include <QString>
 #include <QTextEdit>
 #include <QWidget>
@@ -11,6 +19,7 @@
 #include "mainwindow.h"
 
 
+
 class LevelCreator{
     static int windowX,windowY;
 public:
@@ -18,6 +27,7 @@ public:
     static void MouseClicked(int x, int y);
     static void KeyUp();
     static void KeyDown();
+    static void clear();
     static void Write(QString name);
 };
 

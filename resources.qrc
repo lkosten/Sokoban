@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>levels/testlevel.bin</file>
+        <file>levels/1.bin</file>
+        <file>levels/newlevel.bin</file>
     </qresource>
 </RCC>
