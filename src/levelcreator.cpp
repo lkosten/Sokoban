@@ -54,7 +54,7 @@ void LevelCreator::KeyDown(){
     CreatorBrush::ChangeTool(false);
 }
 void LevelCreator::Write(QString name){
-
+    if(CreatorMap::PointCounter!= CreatorMap::BoxCounter) return;
     std::stack<std::pair<unsigned int,unsigned int>> dfs;
     dfs.push({ CreatorMap::PosX, CreatorMap::PosY});
     std::vector<bool> TmpVec;
@@ -62,12 +62,32 @@ void LevelCreator::Write(QString name){
     std::vector<std::vector<bool>> used;
     used.resize(CreatorMap::SizeX, TmpVec);
     used[CreatorMap::PosX][CreatorMap::PosY] = true;
+    unsigned int foundBoxes = 0;
+    unsigned int foundPoints = 0;
     while(dfs.size()){
         std::pair<unsigned int,unsigned int> Current = dfs.top();
         dfs.pop();
+        if(CreatorMap::Field[Current.first][Current.second]== CreatorMap::BOX){
+            foundBoxes++;
+        }
+        if(CreatorMap::Field[Current.first][Current.second]== CreatorMap::POINT){
+            foundPoints++;
+        }
+        if(CreatorMap::Field[Current.first][Current.second]== CreatorMap::BOX_ON_POINT){
+            foundBoxes++;
+            foundPoints++;
+        }
         if(CreatorMap::Field[Current.first][Current.second]!= CreatorMap::WALL){
-            if(Current.first == 0 || Current.first == CreatorMap::SizeX - 1) return;
-            if(Current.first == 0 || Current.first == CreatorMap::SizeY - 1) return;
+            if(Current.first == 0 || Current.first == CreatorMap::SizeX - 1) {
+                TmpVec.clear();
+                used.clear();
+                return;
+            }
+            if(Current.first == 0 || Current.first == CreatorMap::SizeY - 1) {
+                TmpVec.clear();
+                used.clear();
+                return;
+            }
 
             if(!used[Current.first + 1][Current.second]){
             dfs.push({Current.first + 1, Current.second});
@@ -77,16 +97,22 @@ void LevelCreator::Write(QString name){
             dfs.push({Current.first, Current.second + 1});
             used[Current.first][Current.second + 1] = true;
             }
-            if(!used[Current.first][Current.second + 1]){
+            if(!used[Current.first - 1][Current.second]){
             dfs.push({Current.first - 1, Current.second});
             used[Current.first - 1][Current.second] = true;
             }
-            if(!used[Current.first][Current.second + 1]){
+            if(!used[Current.first][Current.second - 1]){
             dfs.push({Current.first, Current.second - 1});
             used[Current.first][Current.second - 1] = true;
             }
         }
     }
+    if(foundBoxes != CreatorMap::BoxCounter || foundPoints != CreatorMap::PointCounter) {
+        TmpVec.clear();
+        used.clear();
+        return;
+    }
+
     TmpVec.clear();
     used.clear();
 

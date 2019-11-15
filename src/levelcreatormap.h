@@ -14,6 +14,7 @@ public:
 private:
     static unsigned int SizeX, SizeY, PosX, PosY;
     static std::vector<std::vector<char>> Field;
+    static unsigned int BoxCounter,PointCounter;
 
     friend class CreatorDrawer;
     friend class CreatorBrush;

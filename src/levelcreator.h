@@ -13,6 +13,7 @@
 #include <QTextEdit>
 #include <QWidget>
 #include <algorithm>
+#include <QDebug>
 #include "levelcreatorbrush.h"
 #include "levelcreatordrawer.h"
 #include "levelcreatormap.h"
