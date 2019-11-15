@@ -61,18 +61,34 @@ void LevelCreator::Write(QString name){
     TmpVec.resize(CreatorMap::SizeY,false);
     std::vector<std::vector<bool>> used;
     used.resize(CreatorMap::SizeX, TmpVec);
+    used[CreatorMap::PosX][CreatorMap::PosY] = true;
     while(dfs.size()){
         std::pair<unsigned int,unsigned int> Current = dfs.top();
         dfs.pop();
         if(CreatorMap::Field[Current.first][Current.second]!= CreatorMap::WALL){
             if(Current.first == 0 || Current.first == CreatorMap::SizeX - 1) return;
             if(Current.first == 0 || Current.first == CreatorMap::SizeY - 1) return;
+
+            if(!used[Current.first + 1][Current.second]){
             dfs.push({Current.first + 1, Current.second});
+            used[Current.first + 1][Current.second] = true;
+            }
+            if(!used[Current.first][Current.second + 1]){
             dfs.push({Current.first, Current.second + 1});
+            used[Current.first][Current.second + 1] = true;
+            }
+            if(!used[Current.first][Current.second + 1]){
             dfs.push({Current.first - 1, Current.second});
+            used[Current.first - 1][Current.second] = true;
+            }
+            if(!used[Current.first][Current.second + 1]){
             dfs.push({Current.first, Current.second - 1});
+            used[Current.first][Current.second - 1] = true;
+            }
         }
     }
+    TmpVec.clear();
+    used.clear();
 
     FILE* ifile;
     ifile = fopen("testgood.bin", "wb");
