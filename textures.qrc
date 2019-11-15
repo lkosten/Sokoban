@@ -8,5 +8,7 @@
         <file>texture/round_star.png</file>
         <file>texture/rubber.png</file>
         <file>texture/frame.png</file>
+        <file>texture/minus.png</file>
+        <file>texture/plus.png</file>
     </qresource>
 </RCC>

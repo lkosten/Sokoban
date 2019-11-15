@@ -2,9 +2,14 @@
 #define LEVELCREATOR_H
 
 #include <QString>
+#include <QTextEdit>
+#include <QWidget>
+#include <algorithm>
 #include "levelcreatorbrush.h"
 #include "levelcreatordrawer.h"
 #include "levelcreatormap.h"
+#include "mainwindow.h"
+
 
 class LevelCreator{
     static int windowX,windowY;

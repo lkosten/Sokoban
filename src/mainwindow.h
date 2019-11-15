@@ -25,6 +25,7 @@ class MainWindow : public QGLWidget
 protected:
     friend class LevelDrawer;
     friend class CreatorDrawer;
+    friend class LevelCreator;
 
     const size_t windowHeight = 600, windowWidth = 800;
     const int windowPosX = 0, windowPosY = 0;
@@ -40,7 +41,7 @@ protected:
     void initializeGL() override;
     void resizeGL(int w, int h) override;
     void paintGL() override;
-    void keyReleaseEvent(QKeyEvent*) override;
+    void keyPressEvent(QKeyEvent*) override;
     void mousePressEvent(QMouseEvent*) override;
 
     void initMainMenuVector();

@@ -125,6 +125,54 @@ void CreatorDrawer::fullRender(MainWindow &window)
     window.drawTexture(QRectF{curX, curY + blockSize * CreatorBrush::GetToolNum(), blockSize, blockSize},
                        window.textureID[Texture::FRAME]);
 
+
+    QFont currentFont;
+    currentFont.setPixelSize(50);
+    size_t PixelSize = static_cast<size_t>(currentFont.pixelSize());
+    window.qglColor(QColor(255, 255, 255));
+
+    int counter = 0;
+    unsigned int tempSize = CreatorMap::SizeX;
+    while(tempSize){
+        counter++;
+        tempSize/=10;
+    }
+    if(counter == 2)
+    window.renderText(XresizeX - 25, static_cast<int>(XresizeY + PixelSize) - 5, QString::number(CreatorMap::SizeX), currentFont);
+    else
+    window.renderText(XresizeX - 5, static_cast<int>(XresizeY + PixelSize) - 5, QString::number(CreatorMap::SizeX), currentFont);
+
+    window.qglColor(QColor(200, 55, 90));
+    window.drawTexture(QRectF{XresizeX - 75, XresizeY, 50, 50},
+                       window.textureID[Texture::MINUS]);
+
+    window.qglColor(QColor(200, 55, 90));
+    window.drawTexture(QRectF{XresizeX + 25, XresizeY, 50, 50},
+                       window.textureID[Texture::PLUS]);
+
+
+
+    window.qglColor(QColor(255, 255, 255));
+
+    counter = 0;
+    tempSize = CreatorMap::SizeY;
+    while(tempSize){
+        counter++;
+        tempSize/=10;
+    }
+    if(counter == 2)
+    window.renderText(YresizeX, static_cast<int>(YresizeY + PixelSize/2) - 5, QString::number(CreatorMap::SizeY), currentFont);
+    else
+    window.renderText(YresizeX + 15, static_cast<int>(YresizeY + PixelSize/2) - 5, QString::number(CreatorMap::SizeY), currentFont);
+
+    window.qglColor(QColor(200, 55, 90));
+    window.drawTexture(QRectF{YresizeX, YresizeY + 25, 50, 50},
+                       window.textureID[Texture::MINUS]);
+
+    window.qglColor(QColor(200, 55, 90));
+    window.drawTexture(QRectF{YresizeX, YresizeY - 75, 50, 50},
+                       window.textureID[Texture::PLUS]);
+
     glDisable(GL_TEXTURE_2D);
 
 }

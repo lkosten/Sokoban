@@ -29,7 +29,9 @@ enum Texture
     MAN,
     ERASER,
     SPAWNPOINT,
-    FRAME
+    FRAME,
+    PLUS,
+    MINUS
 };
 
 #endif // STATUS_ENUMS_H

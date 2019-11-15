@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "QLineEdit"
 
 MainWindow::MainWindow(QWidget *parent)
     : QGLWidget(parent), gameStatus(MAIN_MENU), menuStatus(MENU_PLAY)
@@ -6,11 +7,10 @@ MainWindow::MainWindow(QWidget *parent)
     initFont();
     initMainMenuVector();
     LevelsList::GetList();
-
     show();
 }
 
-void MainWindow::keyReleaseEvent(QKeyEvent *key)
+void MainWindow::keyPressEvent(QKeyEvent *key)
 {
     switch (gameStatus)
     {
@@ -180,7 +180,6 @@ void MainWindow::keyMainMenu(QKeyEvent *key)
             gameStatus = LEVEL_CREATOR;
             LevelCreator::initMap();
             break;
-
         case MENU_SETTINGS:
             break;
 
@@ -307,6 +306,12 @@ void MainWindow::initTextures()
 
     image.load(":/texture/frame.png");
     textureID[Texture::FRAME] = bindTexture(image);
+
+    image.load(":/texture/plus.png");
+    textureID[Texture::PLUS] = bindTexture(image);
+
+    image.load(":/texture/minus.png");
+    textureID[Texture::MINUS] = bindTexture(image);
 
     glDisable(GL_TEXTURE_2D);
 }

@@ -3,6 +3,8 @@
 
 #include <vector>
 #include <algorithm>
+#include <QtOpenGL>
+#include <QPainter>
 #include "mainwindow.h"
 #include "levelcreatorbrush.h"
 
@@ -34,6 +36,13 @@ class CreatorDrawer{
 
     static const size_t ToolsWidth = 100;
     static const size_t ToolsHeight = 400;
+/*qglColor(QColor(128, 0, 128));
+            renderText(x, y, LevelsList::GetFNameDir(i).first, fontSelected);*/
+    static const size_t XresizeX = 300;
+    static const size_t XresizeY = 525;
+
+    static const size_t YresizeX = 25;
+    static const size_t YresizeY = 300;
 
 public:
     static void fullRender(MainWindow&);
