@@ -10,7 +10,7 @@ class LevelDrawer
 {
 private:
     static const size_t protectedAreaY = 200;
-    static const size_t protectedAreaX = 300;
+    static const size_t protectedAreaX = 100;
 
 
 public:
