@@ -121,7 +121,7 @@ void MainWindow::drawMainMenu()
     glDisable(GL_TEXTURE_2D);
 
 
-    int y = 200;
+    int y = 165;
     int x = 30;
     for (const auto &i : mainMenuItems)
     {
@@ -172,12 +172,20 @@ void MainWindow::keyMainMenu(QKeyEvent *key)
         {
             menuStatus = static_cast<MainMenuStatus>(static_cast<int>(menuStatus) - 1);
         }
+        else
+        {
+            menuStatus = MENU_EXIT;
+        }
         break;
 
     case Qt::Key_Down:
         if (menuStatus != MENU_EXIT)
         {
             menuStatus = static_cast<MainMenuStatus>(static_cast<int>(menuStatus) + 1);
+        }
+        else
+        {
+            menuStatus = MENU_PLAY;
         }
         break;
 
