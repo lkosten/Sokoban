@@ -25,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 void MainWindow::keyPressEvent(QKeyEvent *key)
 {
-    switch (gameStatus)
+   switch (gameStatus)
     {
     case MAIN_MENU:
         keyMainMenu(key);
@@ -191,15 +191,23 @@ void MainWindow::keyMainMenu(QKeyEvent *key)
         case MENU_PLAY:
             gameStatus = LEVEL_SELECTION;
             break;
+
         case MENU_SETTINGS:
-            gameStatus = LEVEL_CREATOR;
-            LevelCreator::initMap();
             break;
 
         case MENU_STATISTICS:
             break;
+
+        case MENU_LEVEL_CREATOR:
+            gameStatus = LEVEL_CREATOR;
+            LevelCreator::initMap();
+            break;
         }
         break;
+
+    case Qt::Key_Escape:
+        close();
+
     }
 
     updateGL();
@@ -279,10 +287,11 @@ void MainWindow::keyPlaying(QKeyEvent *key)
     case Qt::Key_Left:
         LevelLogic::MoveLeft();
         break;
-    case Qt::Key_R:{
+    case Qt::Key_R:
         LevelHandler::read(LevelsList::GetFNameDir(static_cast<unsigned int>(LevelsList::selectedLevel)).second);
         break;
-    }
+    case Qt::Key_Escape:
+        gameStatus = LEVEL_SELECTION;
     }
 
     updateGL();
@@ -290,6 +299,7 @@ void MainWindow::keyPlaying(QKeyEvent *key)
 void MainWindow::initMainMenuVector()
 {
     mainMenuItems.emplace_back(MENU_PLAY, "Play");
+    mainMenuItems.emplace_back(MENU_LEVEL_CREATOR, "Level creator");
     mainMenuItems.emplace_back(MENU_STATISTICS, "Statistics");
     mainMenuItems.emplace_back(MENU_SETTINGS, "Settings");
     mainMenuItems.emplace_back(MENU_EXIT, "Exit");
