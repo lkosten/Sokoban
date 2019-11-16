@@ -25,23 +25,27 @@ void LevelCreator::MouseClicked(int x, int y){
 
     if(static_cast<unsigned int>(x) >= CreatorDrawer::XresizeX - 75 && static_cast<unsigned int>(x) < CreatorDrawer::XresizeX - 25
             && static_cast<unsigned int>(y) >= CreatorDrawer::XresizeY && static_cast<unsigned int>(y) <= CreatorDrawer::XresizeY + 50){
+        if(CreatorMap::SizeX == 3) return;
         CreatorMap::SetSize(CreatorMap::SizeX - 1, CreatorMap::SizeY);
     }
 
     if(static_cast<unsigned int>(x) >= CreatorDrawer::XresizeX + 25 && static_cast<unsigned int>(x) < CreatorDrawer::XresizeX + 75
             && static_cast<unsigned int>(y) >= CreatorDrawer::XresizeY && static_cast<unsigned int>(y) <= CreatorDrawer::XresizeY + 50){
+        if(CreatorMap::SizeX == 50) return;
         CreatorMap::SetSize(CreatorMap::SizeX + 1, CreatorMap::SizeY);
 
     }
 
     if(static_cast<unsigned int>(x) >= CreatorDrawer::YresizeX && static_cast<unsigned int>(x) <= CreatorDrawer::YresizeX + 50
             && static_cast<unsigned int>(y) >= CreatorDrawer::YresizeY - 75 && static_cast<unsigned int>(y) <= CreatorDrawer::YresizeY - 25){
+        if(CreatorMap::SizeY == 50) return;
         CreatorMap::SetSize(CreatorMap::SizeX, CreatorMap::SizeY + 1);
 
     }
 
     if(static_cast<unsigned int>(x) >= CreatorDrawer::YresizeX && static_cast<unsigned int>(x) <= CreatorDrawer::YresizeX + 50
             && static_cast<unsigned int>(y) >= CreatorDrawer::YresizeY + 25 && static_cast<unsigned int>(y) <= CreatorDrawer::YresizeY + 75){
+        if(CreatorMap::SizeY == 3) return;
         CreatorMap::SetSize(CreatorMap::SizeX, CreatorMap::SizeY - 1);
 
     }
