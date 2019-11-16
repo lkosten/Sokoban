@@ -5,6 +5,8 @@
 
 #include <QApplication>
 #include "bintoint.h"
+#include "levellogic.h"
+#include "statistic.h"
 #include <string>
 #include <stdio.h>
 #include <conio.h>

@@ -34,6 +34,9 @@ std::vector<std::vector<char>> LevelHandler::Field = std::vector<std::vector<cha
 std::list<std::pair<unsigned int, unsigned int>> LevelHandler::CheckList = std::list<std::pair<unsigned int, unsigned int>>();
 
 void LevelHandler::read(const  QString& file_name){
+    Stat::reset();
+    BoxOnPointNumber = 0;
+    BoxNumber = 0;
     success = false;
     Field.clear();
 
@@ -66,7 +69,6 @@ void LevelHandler::read(const  QString& file_name){
 
     //place walls
     i = BinToInt(Input);
-    qDebug() << i;
     for(;i>0;i-=2){
         unsigned int TempX,TempY;
         TempX = BinToInt(Input);
@@ -90,7 +92,6 @@ void LevelHandler::read(const  QString& file_name){
     //place boxes
     i = BinToInt(Input);
     BoxNumber = i/2;
-    qDebug() << i;
     for(;i>0;i-=2){
         unsigned int TempX,TempY;
         TempX = BinToInt(Input);
@@ -100,7 +101,6 @@ void LevelHandler::read(const  QString& file_name){
 
     //place points
     i = BinToInt(Input);
-    qDebug() << i;
     for(;i>0;i-=2){
         unsigned int TempX,TempY;
         TempX = BinToInt(Input);
@@ -108,6 +108,8 @@ void LevelHandler::read(const  QString& file_name){
         if(Field[TempX][TempY] != FLAGS::BOX) Field[TempX][TempY]= FLAGS::POINT;
         else {Field[TempX][TempY]= FLAGS::BOX_ON_POINT; BoxOnPointNumber++;}
     }
+    LevelLogic::CorrectNumber = BoxOnPointNumber;
+    LevelLogic::TotalNumber = BoxNumber;
 
     qDebug() <<"build level successed!";
     success = true;
