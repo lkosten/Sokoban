@@ -48,6 +48,10 @@ void MainWindow::keyPressEvent(QKeyEvent *key)
     case LEVEL_CREATOR:
         keyCreating(key);
         break;
+
+   case LEVEL_COMPLETED:
+       gameStatus = LEVEL_SELECTION;
+       break;
     }
     updateGL();
 }
@@ -106,6 +110,9 @@ void MainWindow::paintGL()
     case LEVEL_CREATOR:
         CreatorDrawer::fullRender(*this);
         break;
+
+    case LEVEL_COMPLETED:
+        break;
     }
 }
 
@@ -146,7 +153,7 @@ void MainWindow::drawLevelSelection()
     int y = 100;
     int x = 30;
 
-    for (unsigned int i = 0; i < LevelsList::GetNumber(); ++i)
+    for (unsigned int i = LevelsList::minPrintedLevel; i <= LevelsList::maxPrintedLevel; ++i)
     {
         if (i == LevelsList::selectedLevel)
         {
@@ -160,6 +167,7 @@ void MainWindow::drawLevelSelection()
             renderText(x, y, LevelsList::GetFNameDir(i).first, font);
             qglColor(Qt::white);
         }
+        y += 70;
     }
 }
 
@@ -253,6 +261,11 @@ void MainWindow::keyLevelSelection(QKeyEvent *key)
     case Qt::Key_Up:
         if (LevelsList::selectedLevel != 0)
         {
+            if (LevelsList::selectedLevel == LevelsList::minPrintedLevel)
+            {
+                --LevelsList::minPrintedLevel;
+                --LevelsList::maxPrintedLevel;
+            }
             --LevelsList::selectedLevel;
         }
         break;
@@ -260,6 +273,11 @@ void MainWindow::keyLevelSelection(QKeyEvent *key)
     case Qt::Key_Down:
         if (LevelsList::selectedLevel != LevelsList::GetNumber() - 1)
         {
+            if (LevelsList::selectedLevel == LevelsList::maxPrintedLevel)
+            {
+             ++LevelsList::minPrintedLevel;
+             ++LevelsList::maxPrintedLevel;
+            }
             ++LevelsList::selectedLevel;
         }
         break;
@@ -379,6 +397,9 @@ void MainWindow::mousePressEvent(QMouseEvent *mouse){
 
     case LEVEL_CREATOR:
         LevelCreator::MouseClicked(mouse->x(), mouse->y());
+        break;
+
+    case LEVEL_COMPLETED:
         break;
     }
     updateGL();

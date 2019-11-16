@@ -17,8 +17,10 @@ private:
 public:
     static void GetList();
     static std::pair<QString,QString> GetFNameDir(unsigned int n);
-    static size_t GetNumber();
-    static size_t selectedLevel;
+    static unsigned int GetNumber();
+    static unsigned int selectedLevel;
+    static unsigned int minPrintedLevel;
+    static unsigned int maxPrintedLevel;
 };
 
 #endif // LEVELSLIST_H

@@ -1,6 +1,8 @@
 #include "levelslist.h"
 
-size_t LevelsList::selectedLevel = 0;
+unsigned int LevelsList::selectedLevel = 0;
+unsigned int LevelsList::minPrintedLevel = 0;
+unsigned int LevelsList::maxPrintedLevel = 6;
 
 std::vector<QString> LevelsList::List = std::vector<QString>();
 
@@ -33,6 +35,6 @@ std::pair<QString,QString> LevelsList::GetFNameDir(unsigned int n){
     return Ret;
 }
 
-size_t LevelsList::GetNumber(){
-    return List.size();
+unsigned int LevelsList::GetNumber(){
+    return static_cast<unsigned int>(List.size());
 }

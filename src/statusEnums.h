@@ -10,7 +10,8 @@ enum GameStatus
     STATISTICS,
     SETTINGS,
     PLAYING,
-    LEVEL_CREATOR
+    LEVEL_CREATOR,
+    LEVEL_COMPLETED
 };
 
 enum MainMenuStatus
