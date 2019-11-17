@@ -1,8 +1,7 @@
 #include "levellogic.h"
-#include "levelhandler.h"
 
-unsigned int LevelLogic::CorrectNumber = LevelHandler::GetBoxOnPointNumber();
-unsigned int LevelLogic::TotalNumber = LevelHandler::GetBoxNumber();
+unsigned int LevelLogic::CorrectNumber = 0;
+unsigned int LevelLogic::TotalNumber = 0;
 
 bool LevelLogic::MoveRight(){
     bool temp = Move(1, 0);
@@ -36,12 +35,14 @@ bool LevelLogic::Move(int i,int j){
     if(LevelHandler::Field[static_cast<unsigned long long>(static_cast<int>(LevelHandler::PosX) + i)][static_cast<unsigned long long>(static_cast<int>(LevelHandler::PosY) + j)] == FLAGS::EMPTY){
         LevelHandler::PosX = static_cast<unsigned int>(static_cast<int>(LevelHandler::PosX) + i);
         LevelHandler::PosY = static_cast<unsigned int>(static_cast<int>(LevelHandler::PosY) + j);
+        Stat::move();
         return true;
     }
     //PLAYER - POINT
     if(LevelHandler::Field[static_cast<unsigned long long>(static_cast<int>(LevelHandler::PosX) + i)][static_cast<unsigned long long>(static_cast<int>(LevelHandler::PosY) + j)] == FLAGS::POINT){
         LevelHandler::PosX = static_cast<unsigned int>(static_cast<int>(LevelHandler::PosX) + i);
         LevelHandler::PosY = static_cast<unsigned int>(static_cast<int>(LevelHandler::PosY) + j);
+        Stat::move();
         return true;
     }
     //PLAYER - BOX - EMPTYorPOINT
@@ -57,6 +58,7 @@ bool LevelLogic::Move(int i,int j){
             CorrectNumber++;
             LevelHandler::PosX = static_cast<unsigned int>(static_cast<int>(LevelHandler::PosX) + i);
             LevelHandler::PosY = static_cast<unsigned int>(static_cast<int>(LevelHandler::PosY) + j);
+            Stat::push();
             return true;
         }
         else{//PLAYER - BOX - EMPTY
@@ -64,6 +66,7 @@ bool LevelLogic::Move(int i,int j){
             LevelHandler::Field[static_cast<unsigned long long>(static_cast<int>(LevelHandler::PosX) + i*2)][static_cast<unsigned long long>(static_cast<int>(LevelHandler::PosY) + j*2)] = FLAGS::BOX;
             LevelHandler::PosX = static_cast<unsigned int>(static_cast<int>(LevelHandler::PosX) + i);
             LevelHandler::PosY = static_cast<unsigned int>(static_cast<int>(LevelHandler::PosY) + j);
+            Stat::push();
             return true;
         }
     }
@@ -79,6 +82,7 @@ bool LevelLogic::Move(int i,int j){
             LevelHandler::Field[static_cast<unsigned long long>(static_cast<int>(LevelHandler::PosX) + i*2)][static_cast<unsigned long long>(static_cast<int>(LevelHandler::PosY) + j*2)] = FLAGS::BOX_ON_POINT;
             LevelHandler::PosX = static_cast<unsigned int>(static_cast<int>(LevelHandler::PosX) + i);
             LevelHandler::PosY = static_cast<unsigned int>(static_cast<int>(LevelHandler::PosY) + j);
+            Stat::push();
             return true;
         }
         else{//PLAYER - BOXonPOINT - EMPTY
@@ -87,6 +91,7 @@ bool LevelLogic::Move(int i,int j){
             CorrectNumber--;
             LevelHandler::PosX = static_cast<unsigned int>(static_cast<int>(LevelHandler::PosX) + i);
             LevelHandler::PosY = static_cast<unsigned int>(static_cast<int>(LevelHandler::PosY) + j);
+            Stat::push();
             return true;
         }
     }
@@ -95,4 +100,10 @@ bool LevelLogic::Move(int i,int j){
 bool LevelLogic::CheckNum(){
     if (CorrectNumber == TotalNumber) return true;
     else return false;
+}
+unsigned int LevelLogic::GetCorrectNumber(){
+    return CorrectNumber;
+}
+unsigned int LevelLogic::GetTotalNumber(){
+    return TotalNumber;
 }

@@ -26,7 +26,8 @@ SOURCES += \
     src/levellogic.cpp \
     src/levelslist.cpp \
     src/main.cpp \
-    src/mainwindow.cpp
+    src/mainwindow.cpp \
+    src/statistic.cpp
 
 HEADERS += \
     src/FLAGS.h \
@@ -40,6 +41,7 @@ HEADERS += \
     src/levellogic.h \
     src/levelslist.h \
     src/mainwindow.h \
+    src/statistic.h \
     src/statusEnums.h
 
 FORMS +=

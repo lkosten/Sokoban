@@ -338,7 +338,9 @@ void MainWindow::keyPlaying(QKeyEvent *key)
     case Qt::Key_Escape:
         gameStatus = LEVEL_SELECTION;
     }
-
+    //qDebug() << "moves:" << Stat::getMoves() << "pushes:" << Stat::getPushes();
+    qDebug() << LevelLogic::GetCorrectNumber() << LevelLogic::GetTotalNumber();
+    if(LevelLogic::CheckNum()) gameStatus = LEVEL_SELECTION;
     updateGL();
 }
 void MainWindow::initMainMenuVector()
