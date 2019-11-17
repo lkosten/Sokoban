@@ -87,7 +87,7 @@ void LevelDrawer::fullRender(MainWindow &window)
         window.renderText(30, static_cast<int>(window.windowHeight - protectedAreaY / 2 + 40),
                           "Level completed!", window.fontSmall);
         window.renderText(30, static_cast<int>(window.windowHeight - protectedAreaY / 2 + 90),
-                          "Press any key to continue...", window.fontSmall);
+                          "Press space to continue...", window.fontSmall);
     }
     glDisable(GL_TEXTURE_2D);
 

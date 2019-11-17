@@ -50,7 +50,7 @@ void MainWindow::keyPressEvent(QKeyEvent *key)
         break;
 
    case LEVEL_COMPLETED:
-       gameStatus = LEVEL_SELECTION;
+       if (key->key() == Qt::Key_Space) gameStatus = LEVEL_SELECTION;
        break;
     }
     updateGL();
@@ -165,7 +165,7 @@ void MainWindow::drawLevelSelection()
     {
         if (i == LevelsList::selectedLevel)
         {
-            qglColor(QColor(128, 0, 128));
+            qglColor(Qt::red);
             renderText(x, y, LevelsList::GetFNameDir(i).first, fontSelected);
             qglColor(Qt::white);
         }
