@@ -79,16 +79,16 @@ void LevelDrawer::fullRender(MainWindow &window)
                        window.textureID[Texture::MAN]);
 
 
-    /*if (LevelHandler::isSuccess())
+    if (LevelLogic::CheckNum())
     {
         window.gameStatus = LEVEL_COMPLETED;
 
         window.qglColor(FLAGS::manColor);
-        window.renderText(30, static_cast<int>(window.windowHeight - protectedAreaY / 2),
-                          "Level completed!", window.font);
-        window.renderText(30, static_cast<int>(window.windowHeight - protectedAreaY) - 50,
-                          "Press any key to continue...", window.font);
-    }*/
+        window.renderText(30, static_cast<int>(window.windowHeight - protectedAreaY / 2 + 40),
+                          "Level completed!", window.fontSmall);
+        window.renderText(30, static_cast<int>(window.windowHeight - protectedAreaY / 2 + 90),
+                          "Press any key to continue...", window.fontSmall);
+    }
     glDisable(GL_TEXTURE_2D);
 
 }

@@ -35,6 +35,7 @@ protected:
     MainMenuStatus menuStatus;
     QFont font;
     QFont fontSelected;
+    QFont fontSmall;
     std::vector<std::pair<MainMenuStatus, std::string>> mainMenuItems;
     std::map<Texture, GLuint> textureID;
 

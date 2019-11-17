@@ -112,6 +112,7 @@ void MainWindow::paintGL()
         break;
 
     case LEVEL_COMPLETED:
+        LevelDrawer::fullRender(*this);
         break;
     }
 }
@@ -340,7 +341,6 @@ void MainWindow::keyPlaying(QKeyEvent *key)
     }
     //qDebug() << "moves:" << Stat::getMoves() << "pushes:" << Stat::getPushes();
     qDebug() << LevelLogic::GetCorrectNumber() << LevelLogic::GetTotalNumber();
-    if(LevelLogic::CheckNum()) gameStatus = LEVEL_SELECTION;
     updateGL();
 }
 void MainWindow::initMainMenuVector()
@@ -358,6 +358,9 @@ void MainWindow::initFont()
 
     fontSelected.setPixelSize(60);
     fontSelected.setStyleHint(QFont::OldEnglish);
+
+    fontSmall.setPixelSize(30);
+    fontSmall.setStyleHint(QFont::OldEnglish);
 }
 void MainWindow::initTextures()
 {
