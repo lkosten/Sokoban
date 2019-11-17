@@ -150,6 +150,13 @@ void MainWindow::drawMainMenu()
 }
 void MainWindow::drawLevelSelection()
 {
+    glEnable(GL_TEXTURE_2D);
+    qglColor(Qt::red);
+    drawTexture(QRectF{650, 0, 150, 150}, 1);
+    drawTexture(QRectF{650, 150, 150, 150}, 1);
+    drawTexture(QRectF{650, 300, 150, 150}, 1);
+    drawTexture(QRectF{650, 450, 150, 150}, 1);
+    glDisable(GL_TEXTURE_2D);
     int y = 100;
     int x = 30;
 
@@ -268,6 +275,12 @@ void MainWindow::keyLevelSelection(QKeyEvent *key)
             }
             --LevelsList::selectedLevel;
         }
+        else
+        {
+            LevelsList::selectedLevel = LevelsList::GetNumber() - 1;
+            LevelsList::maxPrintedLevel = LevelsList::GetNumber() - 1;
+            LevelsList::minPrintedLevel = LevelsList::GetNumber() - 7;
+        }
         break;
 
     case Qt::Key_Down:
@@ -279,6 +292,12 @@ void MainWindow::keyLevelSelection(QKeyEvent *key)
              ++LevelsList::maxPrintedLevel;
             }
             ++LevelsList::selectedLevel;
+        }
+        else
+        {
+            LevelsList::selectedLevel = 0;
+            LevelsList::maxPrintedLevel = 6;
+            LevelsList::minPrintedLevel = 0;
         }
         break;
 
