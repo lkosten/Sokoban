@@ -152,7 +152,7 @@ void MainWindow::drawMainMenu()
 void MainWindow::drawLevelSelection()
 {
     glEnable(GL_TEXTURE_2D);
-    qglColor(Qt::red);
+    qglColor(QColor(200, 55, 90));
     drawTexture(QRectF{650, 0, 150, 150}, 1);
     drawTexture(QRectF{650, 150, 150, 150}, 1);
     drawTexture(QRectF{650, 300, 150, 150}, 1);
@@ -165,7 +165,7 @@ void MainWindow::drawLevelSelection()
     {
         if (i == LevelsList::selectedLevel)
         {
-            qglColor(Qt::red);
+            qglColor(QColor(200, 55, 90));
             renderText(x, y, LevelsList::GetFNameDir(i).first, fontSelected);
             qglColor(Qt::white);
         }
@@ -173,7 +173,6 @@ void MainWindow::drawLevelSelection()
         {
             qglColor(Qt::white);
             renderText(x, y, LevelsList::GetFNameDir(i).first, font);
-            qglColor(Qt::white);
         }
         y += 70;
     }
