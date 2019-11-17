@@ -2,73 +2,93 @@
 
 void LevelDrawer::fullRender(MainWindow &window)
 {
-    qreal curX = protectedAreaX / 2;
-    qreal curY = protectedAreaY / 2;
+    qreal blockSize = std::min((window.windowWidth - protectedAreaX) /
+                               (LevelHandler::Field.size() - 2),
+                                (window.windowHeight - protectedAreaY) /
+                               (LevelHandler::Field.front().size() - 2));
 
-    qreal blockSize = std::min((window.windowWidth - protectedAreaX) / LevelHandler::Field.front().size(),
-                                (window.windowHeight - protectedAreaY) / LevelHandler::Field.size());
+    size_t areaX = window.windowWidth - static_cast<size_t>(blockSize) * (LevelHandler::Field.size() - 2);
+    areaX /= 2;
+
+    size_t areaY = window.windowHeight - static_cast<size_t>(blockSize) * (LevelHandler::Field.front().size() - 2);
+    areaY /= 2;
+
+    qreal curX = areaX;
+    qreal curY = areaY;
 
     glEnable(GL_TEXTURE_2D);
-    for (const auto &curRow : LevelHandler::Field)
+    for (size_t i = 1; i < LevelHandler::Field.size() - 1; ++i)
     {
-        curX = protectedAreaX / 2;
-        for (const auto &curElement : curRow)
+        curY = areaY;
+        for (size_t j = 1; j < LevelHandler::Field[i].size() - 1; ++j)
         {
+            char curElement = LevelHandler::Field[i][j];
             switch (curElement)
             {
             case FLAGS::BOX:
                 window.qglColor(FLAGS::boxColor);
-                window.drawTexture(QRectF{curY, curX, blockSize, blockSize},
+                window.drawTexture(QRectF{curX, curY, blockSize, blockSize},
                                    window.textureID[Texture::BOX]);
                 break;
 
             case FLAGS::WALL:
                 window.qglColor(FLAGS::wallColor);
-                window.drawTexture(QRectF{curY, curX, blockSize, blockSize},
+                window.drawTexture(QRectF{curX, curY, blockSize, blockSize},
                                    window.textureID[Texture::WALL]);
                 break;
 
             case FLAGS::EMPTY:
                 window.qglColor(FLAGS::emptyColor);
-                window.drawTexture(QRectF{curY, curX, blockSize, blockSize},
+                window.drawTexture(QRectF{curX, curY, blockSize, blockSize},
                                    window.textureID[Texture::EMPTY]);
                 break;
 
             case FLAGS::POINT:
                 window.qglColor(FLAGS::pointColor);
-                window.drawTexture(QRectF{curY, curX, blockSize, blockSize},
+                window.drawTexture(QRectF{curX, curY, blockSize, blockSize},
                                    window.textureID[Texture::CIRCLE]);
                 break;
 
             case FLAGS::OUTSIDE:
                 window.qglColor(FLAGS::outsideColor);
-                window.drawTexture(QRectF{curY, curX, blockSize, blockSize},
+                window.drawTexture(QRectF{curX, curY, blockSize, blockSize},
                                    window.textureID[Texture::OUTSIDE]);
                 break;
 
             case FLAGS::BOX_ON_POINT:
                 window.qglColor(FLAGS::circleBoxColor);
-                window.drawTexture(QRectF{curY, curX, blockSize, blockSize},
+                window.drawTexture(QRectF{curX, curY, blockSize, blockSize},
                                    window.textureID[Texture::CIRCLE]);
                 window.qglColor(FLAGS::boxColor);
-                window.drawTexture(QRectF{curY, curX, blockSize, blockSize},
+                window.drawTexture(QRectF{curX, curY, blockSize, blockSize},
                                    window.textureID[Texture::BOX]);
                 break;
             }
 
-            curX += blockSize;
+            curY += blockSize;
         }
 
-        curY += blockSize;
+        curX += blockSize;
     }
 
-    curX = protectedAreaY / 2 + LevelHandler::PosX * blockSize;
-        curY = protectedAreaX / 2 + LevelHandler::PosY * blockSize;
+    curX = areaX + (LevelHandler::PosX - 1) * blockSize;
+    curY = areaY + (LevelHandler::PosY - 1) * blockSize;
+
+    window.qglColor(FLAGS::manColor);
+    window.drawTexture(QRectF{curX, curY, blockSize, blockSize},
+                       window.textureID[Texture::MAN]);
+
+
+    /*if (LevelHandler::isSuccess())
+    {
+        window.gameStatus = LEVEL_COMPLETED;
 
         window.qglColor(FLAGS::manColor);
-        window.drawTexture(QRectF{curX, curY, blockSize, blockSize},
-                           window.textureID[Texture::MAN]);
-
+        window.renderText(30, static_cast<int>(window.windowHeight - protectedAreaY / 2),
+                          "Level completed!", window.font);
+        window.renderText(30, static_cast<int>(window.windowHeight - protectedAreaY) - 50,
+                          "Press any key to continue...", window.font);
+    }*/
     glDisable(GL_TEXTURE_2D);
 
 }
