@@ -16,6 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    src/ColorPallete.cpp \
     src/bintoint.cpp \
     src/levelcreator.cpp \
     src/levelcreatorbrush.cpp \
@@ -30,6 +31,7 @@ SOURCES += \
     src/statistic.cpp
 
 HEADERS += \
+    src/ColorPallete.h \
     src/FLAGS.h \
     src/bintoint.h \
     src/levelcreator.h \

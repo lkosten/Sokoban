@@ -19,6 +19,7 @@
 #include "levellogic.h"
 #include "levelcreator.h"
 #include "levelcreatordrawer.h"
+#include "ColorPallete.h"
 
 class MainWindow : public QGLWidget
 {
@@ -28,6 +29,7 @@ protected:
     friend class LevelDrawer;
     friend class CreatorDrawer;
     friend class LevelCreator;
+    friend class ColorPallete;
 
     const size_t windowHeight = 600, windowWidth = 800;
     const int windowPosX = 0, windowPosY = 0;

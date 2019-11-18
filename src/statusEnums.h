@@ -36,7 +36,8 @@ enum Texture
     SPAWNPOINT,
     FRAME,
     PLUS,
-    MINUS
+    MINUS,
+    DOT
 };
 
 #endif // STATUS_ENUMS_H

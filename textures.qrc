@@ -10,5 +10,6 @@
         <file>texture/frame.png</file>
         <file>texture/minus.png</file>
         <file>texture/plus.png</file>
+        <file>texture/dot.png</file>
     </qresource>
 </RCC>

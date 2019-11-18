@@ -147,7 +147,7 @@ void LevelCreator::Write(QString name){
     qDebug() <<"check passed!";
 
     FILE* ifile;
-    ifile = fopen("testgood.bin", "wb");
+    ifile = fopen("test.bin", "wb");
 
     unsigned int temp = CreatorMap::SizeX + 2;
     fwrite(&temp, sizeof(unsigned int), 1, ifile);
@@ -210,6 +210,8 @@ void LevelCreator::Write(QString name){
         points.pop();
     }
     fclose(ifile);
+
+    QResource::registerResource("/test.bin" , ":/levels/");
 }
 void LevelCreator::initMap(){
     CreatorMap::SetSize(10,10);

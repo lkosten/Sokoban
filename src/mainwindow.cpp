@@ -148,6 +148,8 @@ void MainWindow::drawMainMenu()
         }
         y += 70;
     }
+
+    ColorPallete::draw(*this);
 }
 void MainWindow::drawLevelSelection()
 {
@@ -397,6 +399,9 @@ void MainWindow::initTextures()
 
     image.load(":/texture/minus.png");
     textureID[Texture::MINUS] = bindTexture(image);
+
+    image.load(":/texture/dot.png");
+    textureID[Texture::DOT] = bindTexture(image);
 
     glDisable(GL_TEXTURE_2D);
 }
