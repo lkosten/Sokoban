@@ -31,6 +31,7 @@ protected:
     friend class LevelCreator;
     friend class ColorPallete;
 
+    bool mouseHold = false;
     const size_t windowHeight = 600, windowWidth = 800;
     const int windowPosX = 0, windowPosY = 0;
     GameStatus gameStatus;
@@ -41,12 +42,12 @@ protected:
     std::vector<std::pair<MainMenuStatus, std::string>> mainMenuItems;
     std::map<Texture, GLuint> textureID;
 
-    bool mouseHold = false;
-
     void initializeGL() override;
     void resizeGL(int w, int h) override;
     void paintGL() override;
     void keyPressEvent(QKeyEvent*) override;
+    void mouseReleaseEvent(QMouseEvent*) override;
+    void mouseMoveEvent(QMouseEvent*) override;
     void mousePressEvent(QMouseEvent*) override;
 
     void initMainMenuVector();

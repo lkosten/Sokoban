@@ -4,6 +4,8 @@ int LevelCreator::windowX = 100;
 int LevelCreator::windowY = 100;
 
 void LevelCreator::MouseClicked(int x, int y){
+    qDebug() << "press";
+
     size_t FieldMaxSize;
     if(CreatorDrawer::FieldWidth > CreatorDrawer::FieldHeight) FieldMaxSize = CreatorDrawer::FieldWidth;
             else FieldMaxSize = CreatorDrawer::FieldHeight;
