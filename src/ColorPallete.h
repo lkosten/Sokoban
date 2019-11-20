@@ -29,6 +29,7 @@ public:
     static void Click(qreal X, qreal Y);
     static void Release();
     static QColor GetColor();
+    static void placeMarker(QColor color);
 };
 
 #endif // PALLET_H

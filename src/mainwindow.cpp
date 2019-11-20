@@ -258,6 +258,7 @@ void MainWindow::keyMainMenu(QKeyEvent *key)
         case MENU_SETTINGS:
             gameStatus = SETTINGS;
             ColorPallete::init( 450 , 350 , 200 , 4);
+            ColorPallete::placeMarker(FLAGS::manColor);
             break;
 
         case MENU_STATISTICS:

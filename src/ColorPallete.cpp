@@ -217,3 +217,146 @@ QColor ColorPallete::GetColor(){
     QColor temp(sR,sG,sB);
     return temp;
 }
+void ColorPallete::placeMarker(QColor color){
+
+    int R,G,B;
+
+    R = color.red();
+    G = color.green();
+    B = color.blue();
+
+    //FOR COLUMN FRAME
+    int stage = 0;
+    int itR = 255;
+    int itG = 0;
+    int itB = 0;
+    int change = 6;
+    int findR = 0 , findG = 0 , findB = 0;
+
+    //SELECT 2 MAIN COMPONENTS
+    if(R <= G && R <= B){
+       findR = 0;
+       if(G <= B){
+           findB = 255;
+           findG = G*255/B;
+       }
+       else{
+           findG = 255;
+           findB = B*255/G;
+       }
+    }
+    if(G <= R && G <= B){
+       findG = 0;
+       if(R <= B){
+           findB = 255;
+           findR = R*255/B;
+       }
+       else{
+           findR = 255;
+           findB = B*255/R;
+       }
+    }
+    if(B <= R && B <= G){
+       findB = 0;
+       if(R <= G){
+           findG = 255;
+           findR = R*255/G;
+       }
+       else{
+           findR = 255;
+           findG = G*255/R;
+       }
+    }
+
+    //SEEK THEESE COMPONENTS
+    for(qreal i = 0; true ; i++){
+
+        switch (stage){
+            case 0:{//Blue is rising to 255
+                itB += change;
+                if(itB == 258) {
+                    itB -= change/2;
+                    itR -= change/2;
+                    stage = 1;
+                }
+                break;
+            }
+            case 1:{//Red is decreasing to 0
+                itR -= change;
+                if(itR == 0) {
+                    stage = 2;
+                }
+                break;
+            }
+            case 2:{//Green is rising to 255
+                itG += change;
+                if(itG == 258) {
+                    itG -= change/2;
+                    itB -= change/2;
+                    stage = 3;
+                }
+                break;
+            }
+            case 3:{//Blue is decreasing to 0
+                itB -= change;
+                if(itB == 0) {
+                    stage = 4;
+                }
+                break;
+            }
+            case 4:{//Red is rising to 255
+                itR += change;
+                if(itR == 258) {
+                    itR -= change/2;
+                    itG -= change/2;
+                    stage = 5;
+                }
+                break;
+            }
+                case 5:{//Green is decreasing to 0
+                itG -= change;
+                if(itG == 0) {
+                    stage = 6;
+                }
+                break;
+            }
+        }
+
+       //PLACE FRAME THERE IF FOUND
+        if(itR <= findR && findR < itR + change){
+            if(itG <= findG && findG < itG + change){
+                if(itB <= findB && findB < itB + change){
+                    ColorPallete::FrameY = ColorPallete::PalleteY + i*ColorPallete::PalleteH/255;
+                    break;
+                }
+            }
+        }
+    }
+
+    //SEEK DOT KNOWING 2 MAIN COMPONENTS
+
+    qreal tR,tG,tB;
+    qreal mainColor;
+
+    for(qreal i = 0; i < 256; i+= 5){
+
+        //get temporary variables
+        tR=findR - findR/255 * i;
+        tG=findG - findG/255 * i;
+        tB=findB - findB/255 * i;
+
+        mainColor = std::max(tR, std::max(tG, tB));//number that was 255 is main , other temporary variables are heading to it current temporary value
+
+        //PLACE DOT THERE IF FOUND
+        for(qreal j = 0; j < 256; j += 5){
+            if(abs(tR + j*(mainColor - tR)/255 - R) <= 3){
+                if(abs(tG + j*(mainColor - tG)/255 - G) <= 3){
+                    if(abs(tB + j*(mainColor - tB)/255 - B) <= 3){
+                        ColorPallete::SelectX = ColorPallete::PalleteX + j*ColorPallete::PalleteH/255;
+                        ColorPallete::SelectY = ColorPallete::PalleteY + i*ColorPallete::PalleteH/255;
+                    }
+                }
+            }
+        }
+    }
+}
