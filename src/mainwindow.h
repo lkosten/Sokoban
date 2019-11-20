@@ -19,6 +19,7 @@
 #include "levellogic.h"
 #include "levelcreator.h"
 #include "levelcreatordrawer.h"
+#include "ColorPallete.h"
 
 class MainWindow : public QGLWidget
 {
@@ -28,7 +29,9 @@ protected:
     friend class LevelDrawer;
     friend class CreatorDrawer;
     friend class LevelCreator;
+    friend class ColorPallete;
 
+    bool mouseHold = false;
     const size_t windowHeight = 600, windowWidth = 800;
     const int windowPosX = 0, windowPosY = 0;
     size_t textureManIndex = 0;
@@ -41,12 +44,12 @@ protected:
     std::vector<GLuint> textureManID;
     std::map<Texture, GLuint> textureID;
 
-    bool mouseHold = false;
-
     void initializeGL() override;
     void resizeGL(int w, int h) override;
     void paintGL() override;
     void keyPressEvent(QKeyEvent*) override;
+    void mouseReleaseEvent(QMouseEvent*) override;
+    void mouseMoveEvent(QMouseEvent*) override;
     void mousePressEvent(QMouseEvent*) override;
 
     void initMainMenuVector();

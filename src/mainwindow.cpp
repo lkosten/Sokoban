@@ -13,13 +13,13 @@ const QColor FLAGS::spawnColor     = Qt::white;
 const QColor FLAGS::eraserColor    = Qt::blue;
 const QColor FLAGS::frameColor     = Qt::white;
 
-
 MainWindow::MainWindow(QWidget *parent)
     : QGLWidget(parent), gameStatus(MAIN_MENU), menuStatus(MENU_PLAY)
 {
     initFont();
     initMainMenuVector();
     LevelsList::GetList();
+    ColorPallete::init( 0 , 0 , 300 , 4);
     show();
 }
 
@@ -92,6 +92,7 @@ void MainWindow::paintGL()
     {
     case MAIN_MENU:
         drawMainMenu();
+        ColorPallete::draw(*this);
         break;
 
     case LEVEL_SELECTION:
@@ -372,7 +373,6 @@ void MainWindow::keyPlaying(QKeyEvent *key)
     case Qt::Key_Escape:
         gameStatus = LEVEL_SELECTION;
     }
-    //qDebug() << "moves:" << Stat::getMoves() << "pushes:" << Stat::getPushes();
     qDebug() << LevelLogic::GetCorrectNumber() << LevelLogic::GetTotalNumber();
     updateGL();
 }
@@ -467,10 +467,15 @@ void MainWindow::initTextures()
 
     textureID[Texture::MAN] = textureManID.front();
 
+    image.load(":/texture/dot.png");
+    textureID[Texture::DOT] = bindTexture(image);
+
     glDisable(GL_TEXTURE_2D);
 }
 
 void MainWindow::mousePressEvent(QMouseEvent *mouse){
+    mouseHold = true;
+    ColorPallete::Click(mouse->x(), mouse->y());
     switch (gameStatus)
     {
     case MAIN_MENU:
@@ -496,4 +501,14 @@ void MainWindow::mousePressEvent(QMouseEvent *mouse){
         break;
     }
     updateGL();
+}
+void MainWindow::mouseReleaseEvent(QMouseEvent *mouse){
+    mouseHold = false;
+    ColorPallete::Release();
+}
+void MainWindow::mouseMoveEvent(QMouseEvent *mouse){
+    if(mouseHold){
+        ColorPallete::Hold(mouse->x(), mouse->y());
+        updateGL();
+    }
 }

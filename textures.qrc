@@ -10,8 +10,12 @@
         <file>texture/frame.png</file>
         <file>texture/minus.png</file>
         <file>texture/plus.png</file>
+<<<<<<< HEAD
         <file>texture/egyptian_walk.png</file>
         <file>texture/pig.png</file>
         <file>texture/high_kick.png</file>
+=======
+        <file>texture/dot.png</file>
+>>>>>>> color_pallet
     </qresource>
 </RCC>
