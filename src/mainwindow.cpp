@@ -376,9 +376,6 @@ void MainWindow::initTextures()
     image.load(":/texture/circle.png");
     textureID[Texture::CIRCLE] = bindTexture(image);
 
-    image.load(":/texture/skeleton.png");
-    textureID[Texture::MAN] = bindTexture(image);
-
     image.load(":/texture/rubber.png");
     textureID[Texture::ERASER] = bindTexture(image);
 
@@ -396,6 +393,20 @@ void MainWindow::initTextures()
 
     image.load(":/texture/minus.png");
     textureID[Texture::MINUS] = bindTexture(image);
+
+    image.load(":/texture/skeleton.png");
+    textureManID.push_back(bindTexture(image));
+
+    image.load(":/texture/pig.png");
+    textureManID.push_back(bindTexture(image));
+
+    image.load(":/texture/egyptian_walk.png");
+    textureManID.push_back(bindTexture(image));
+
+    image.load(":/texture/high_kick.png");
+    textureManID.push_back(bindTexture(image));
+
+    textureID[Texture::MAN] = textureManID.front();
 
     glDisable(GL_TEXTURE_2D);
 }

@@ -37,6 +37,7 @@ protected:
     QFont fontSelected;
     QFont fontSmall;
     std::vector<std::pair<MainMenuStatus, std::string>> mainMenuItems;
+    std::vector<GLuint> textureManID;
     std::map<Texture, GLuint> textureID;
 
     bool mouseHold = false;

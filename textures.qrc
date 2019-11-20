@@ -10,5 +10,8 @@
         <file>texture/frame.png</file>
         <file>texture/minus.png</file>
         <file>texture/plus.png</file>
+        <file>texture/egyptian_walk.png</file>
+        <file>texture/pig.png</file>
+        <file>texture/high_kick.png</file>
     </qresource>
 </RCC>
