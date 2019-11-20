@@ -31,6 +31,7 @@ protected:
 
     const size_t windowHeight = 600, windowWidth = 800;
     const int windowPosX = 0, windowPosY = 0;
+    size_t textureManIndex = 0;
     GameStatus gameStatus;
     MainMenuStatus menuStatus;
     QFont font;
@@ -54,6 +55,7 @@ protected:
 
     void drawMainMenu();
     void drawLevelSelection();
+    void drawSettings();
     void keyMainMenu(QKeyEvent*);
     void keyLevelSelection(QKeyEvent*);
     void keyPlaying(QKeyEvent*);

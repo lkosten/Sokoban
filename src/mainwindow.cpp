@@ -101,6 +101,7 @@ void MainWindow::paintGL()
         break;
 
     case SETTINGS:
+        drawSettings();
         break;
 
     case PLAYING:
@@ -177,6 +178,34 @@ void MainWindow::drawLevelSelection()
         y += 70;
     }
 }
+void MainWindow::drawSettings()
+{
+    const qreal blockSize = 200;
+    const qreal delta = 50;
+
+    qreal curX = delta, curY = delta;
+
+    glEnable(GL_TEXTURE_2D);
+
+    qglColor(FLAGS::manColor);
+    drawTexture(QRectF{curX, curY, blockSize, blockSize},
+                textureManID[(textureManIndex + textureManID.size() - 1)
+                % textureManID.size()]);
+
+    curX += blockSize + delta;
+    drawTexture(QRectF{curX, curY, blockSize, blockSize},
+                textureManID[(textureManIndex + textureManID.size())
+                % textureManID.size()]);
+    drawTexture(QRectF{curX - 10, curY - 10, blockSize + 20, blockSize + 20},
+                textureID[Texture::FRAME]);
+
+    curX += blockSize + delta;
+    drawTexture(QRectF{curX, curY, blockSize, blockSize},
+                textureManID[(textureManIndex + textureManID.size() + 1)
+                % textureManID.size()]);
+
+    glDisable(GL_TEXTURE_2D);
+}
 
 void MainWindow::keyMainMenu(QKeyEvent *key)
 {
@@ -216,6 +245,7 @@ void MainWindow::keyMainMenu(QKeyEvent *key)
             break;
 
         case MENU_SETTINGS:
+            gameStatus = SETTINGS;
             break;
 
         case MENU_STATISTICS:
