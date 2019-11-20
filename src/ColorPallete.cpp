@@ -4,6 +4,10 @@ qreal ColorPallete::R = 255;
 qreal ColorPallete::G = 0;
 qreal ColorPallete::B = 0;
 
+int ColorPallete::sR = 0;
+int ColorPallete::sG = 0;
+int ColorPallete::sB = 0;
+
 qreal ColorPallete::ColumnX = 0;
 qreal ColorPallete::ColumnY = 0;
 
@@ -15,11 +19,13 @@ qreal ColorPallete::PalleteY = 0;
 qreal ColorPallete::PalleteH = 0;
 qreal ColorPallete::PalleteAcc = 1;
 
+qreal ColorPallete::SelectX = 0;
+qreal ColorPallete::SelectY = 0;
+
 qreal ColorPallete::FrameY = 0;
 
 bool ColorPallete::changing = false;
-
-std::vector<std::vector<RGB>> ColorPallete::matrix = std::vector<std::vector<RGB>>();
+bool ColorPallete::selecting = false;
 
 void ColorPallete::init(qreal X, qreal Y, qreal H, qreal accuracy){
     ColorPallete::PalleteX = X;
@@ -56,8 +62,35 @@ void ColorPallete::drawMatrix(MainWindow &window){
                                    static_cast<int>(tB + j*(mainColor - tB)/255)));
             window.drawTexture(QRectF{X + j*mult, Y + i*mult, blockSize*mult*accuracy, blockSize*mult*accuracy},
                                window.textureID[Texture::DOT]);
+
+            if(X + (j+accuracy)*mult > ColorPallete::SelectX && ColorPallete::SelectX >= X + j*mult){
+                if(Y + (i+accuracy)*mult > ColorPallete::SelectY && ColorPallete::SelectY >= Y + i*mult){
+                    ColorPallete::sR = static_cast<int>(tR + j*(mainColor - tR)/255);
+                    ColorPallete::sG = static_cast<int>(tG + j*(mainColor - tG)/255);
+                    ColorPallete::sB = static_cast<int>(tB + j*(mainColor - tB)/255);
+                }
+            }
         }
     }
+    if(X + H < ColorPallete::SelectX){
+        ColorPallete::SelectX = X+H;
+    }
+    if(X > ColorPallete::SelectX){
+        ColorPallete::SelectX = X;
+    }
+    if(Y + H < ColorPallete::SelectY){
+        ColorPallete::SelectY = Y+H;
+    }
+    if(Y > ColorPallete::SelectY){
+        ColorPallete::SelectY = Y;
+    }
+    window.qglColor(QColor(255,255,255));
+    window.drawTexture(QRectF{ColorPallete::SelectX - 2.5*mult, ColorPallete::SelectY -  2.5*mult, blockSize*5*mult, blockSize*5*mult},
+                       window.textureID[Texture::DOT]);
+
+    window.qglColor(ColorPallete::GetColor());
+    window.drawTexture(QRectF{X + 100*mult, Y + 300*mult, 50, 50},
+                       window.textureID[Texture::DOT]);
 }
 void ColorPallete::drawColumn(MainWindow &window){
     qreal X =  ColorPallete::PalleteX, Y =  ColorPallete::PalleteY, H = ColorPallete::PalleteH, accuracy =  ColorPallete::PalleteAcc;
@@ -147,9 +180,13 @@ void ColorPallete::drawColumn(MainWindow &window){
                            window.textureID[Texture::DOT]);
     }
 }
-void ColorPallete::Hold(qreal Y){
+void ColorPallete::Hold(qreal X, qreal Y){
     if(changing){
         ColorPallete::FrameY = Y;
+    }
+    if(selecting){
+        ColorPallete::SelectX = X;
+        ColorPallete::SelectY = Y;
     }
 }
 void ColorPallete::Click(qreal X, qreal Y){
@@ -159,8 +196,21 @@ void ColorPallete::Click(qreal X, qreal Y){
             ColorPallete::FrameY = Y;
         }
     }
+    if(X <= PalleteH + PalleteX && X >= PalleteX){
+        if(Y <= PalleteH + PalleteY && Y >= PalleteY){
+            qDebug() <<"matrix click";
+            selecting = true;
+            ColorPallete::SelectX = X;
+            ColorPallete::SelectY = Y;
+        }
+    }
 }
 void ColorPallete::Release(){
     changing = false;
+    selecting = false;
 }
 
+QColor ColorPallete::GetColor(){
+    QColor temp(sR,sG,sB);
+    return temp;
+}

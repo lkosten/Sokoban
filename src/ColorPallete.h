@@ -3,33 +3,30 @@
 #include "FLAGS.h"
 #include <algorithm>
 #include <QtOpenGL>
+#include <QColor>
 #include <vector>
 #include <QPainter>
 #include "mainwindow.h"
 
-struct RGB{
-    int R;
-    int G;
-    int B;
-};
-
 class ColorPallete{
-    static std::vector<std::vector<RGB>> matrix;
+    static QColor GetColor();
     static qreal R,G,B;
+    static int sR,sG,sB;
     static qreal ColumnX,ColumnY;
     static qreal ColumnH,ColumnW;
     static qreal FrameY;
     static qreal PalleteX, PalleteY, PalleteH, PalleteAcc;
+    static qreal SelectX,SelectY;
     static bool changing;
+    static bool selecting;
 
     static void drawMatrix(MainWindow &window);
     static void drawColumn(MainWindow &window);
-    static RGB GetColor(size_t x, size_t y);
 
 public:
     static void init(qreal X, qreal Y, qreal H, qreal accuracy);
     static void draw(MainWindow &window);
-    static void Hold(qreal Y);
+    static void Hold(qreal X, qreal Y);
     static void Click(qreal X, qreal Y);
     static void Release();
 };

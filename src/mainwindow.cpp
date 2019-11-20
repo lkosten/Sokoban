@@ -439,7 +439,7 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *mouse){
 }
 void MainWindow::mouseMoveEvent(QMouseEvent *mouse){
     if(mouseHold){
-        ColorPallete::Hold(mouse->y());
+        ColorPallete::Hold(mouse->x(), mouse->y());
         updateGL();
     }
 }
