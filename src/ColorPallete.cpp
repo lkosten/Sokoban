@@ -45,6 +45,13 @@ void ColorPallete::drawMatrix(MainWindow &window){
     qreal blockSize = 1;
     qreal tR,tG,tB;
     qreal mainColor;
+
+    //draw frame
+    window.qglColor(QColor(255,255,255));
+    window.drawTexture(QRectF{X-3, Y-3, blockSize*mult*255 + 6, blockSize*mult*255 + 6},
+                       window.textureID[Texture::FRAME]);
+
+
     //draw colourfull square
     for(qreal i = 0; i < 256; i+= accuracy){
 
@@ -86,10 +93,6 @@ void ColorPallete::drawMatrix(MainWindow &window){
     }
     window.qglColor(QColor(255,255,255));
     window.drawTexture(QRectF{ColorPallete::SelectX - 2.5*mult, ColorPallete::SelectY -  2.5*mult, blockSize*5*mult, blockSize*5*mult},
-                       window.textureID[Texture::DOT]);
-
-    window.qglColor(ColorPallete::GetColor());
-    window.drawTexture(QRectF{X + 100*mult, Y + 300*mult, 50, 50},
                        window.textureID[Texture::DOT]);
 }
 void ColorPallete::drawColumn(MainWindow &window){

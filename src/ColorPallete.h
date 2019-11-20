@@ -9,7 +9,6 @@
 #include "mainwindow.h"
 
 class ColorPallete{
-    static QColor GetColor();
     static qreal R,G,B;
     static int sR,sG,sB;
     static qreal ColumnX,ColumnY;
@@ -29,6 +28,7 @@ public:
     static void Hold(qreal X, qreal Y);
     static void Click(qreal X, qreal Y);
     static void Release();
+    static QColor GetColor();
 };
 
 #endif // PALLET_H

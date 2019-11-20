@@ -19,7 +19,6 @@ MainWindow::MainWindow(QWidget *parent)
     initFont();
     initMainMenuVector();
     LevelsList::GetList();
-    ColorPallete::init( 0 , 0 , 300 , 4);
     show();
 }
 
@@ -92,7 +91,6 @@ void MainWindow::paintGL()
     {
     case MAIN_MENU:
         drawMainMenu();
-        ColorPallete::draw(*this);
         break;
 
     case LEVEL_SELECTION:
@@ -185,6 +183,14 @@ void MainWindow::drawSettings()
     const qreal blockSize = 200;
     const qreal delta = 50;
 
+    ColorPallete::draw(*this);
+
+    qglColor(ColorPallete::GetColor());
+    drawTexture(QRectF{200, 350, blockSize, blockSize},
+                textureManID[(textureManIndex + textureManID.size())
+                % textureManID.size()]);
+
+
     qreal curX = delta, curY = delta;
 
     glEnable(GL_TEXTURE_2D);
@@ -251,6 +257,7 @@ void MainWindow::keyMainMenu(QKeyEvent *key)
 
         case MENU_SETTINGS:
             gameStatus = SETTINGS;
+            ColorPallete::init( 450 , 350 , 200 , 4);
             break;
 
         case MENU_STATISTICS:
@@ -475,7 +482,6 @@ void MainWindow::initTextures()
 
 void MainWindow::mousePressEvent(QMouseEvent *mouse){
     mouseHold = true;
-    ColorPallete::Click(mouse->x(), mouse->y());
     switch (gameStatus)
     {
     case MAIN_MENU:
@@ -488,6 +494,7 @@ void MainWindow::mousePressEvent(QMouseEvent *mouse){
         break;
 
     case SETTINGS:
+        ColorPallete::Click(mouse->x(), mouse->y());
         break;
 
     case PLAYING:
@@ -504,11 +511,60 @@ void MainWindow::mousePressEvent(QMouseEvent *mouse){
 }
 void MainWindow::mouseReleaseEvent(QMouseEvent *mouse){
     mouseHold = false;
-    ColorPallete::Release();
+    switch (gameStatus)
+    {
+    case MAIN_MENU:
+        break;
+
+    case LEVEL_SELECTION:
+        break;
+
+    case STATISTICS:
+        break;
+
+    case SETTINGS:
+        ColorPallete::Release();
+        break;
+
+    case PLAYING:
+        break;
+
+    case LEVEL_CREATOR:
+        LevelCreator::MouseClicked(mouse->x(), mouse->y());
+        break;
+
+    case LEVEL_COMPLETED:
+        break;
+    }
+    updateGL();
 }
 void MainWindow::mouseMoveEvent(QMouseEvent *mouse){
-    if(mouseHold){
-        ColorPallete::Hold(mouse->x(), mouse->y());
-        updateGL();
+    switch (gameStatus)
+    {
+    case MAIN_MENU:
+        break;
+
+    case LEVEL_SELECTION:
+        break;
+
+    case STATISTICS:
+        break;
+
+    case SETTINGS:
+        if(mouseHold){
+            ColorPallete::Hold(mouse->x(), mouse->y());
+        }
+        break;
+
+    case PLAYING:
+        break;
+
+    case LEVEL_CREATOR:
+        LevelCreator::MouseClicked(mouse->x(), mouse->y());
+        break;
+
+    case LEVEL_COMPLETED:
+        break;
     }
+    updateGL();
 }
