@@ -3,6 +3,9 @@
 #include "FLAGS.h"
 #include "mainwindow.h"
 #include "levelhandler.h"
+#include "statistic.h"
+
+#include <string>
 
 class MainWindow;
 
@@ -13,6 +16,7 @@ private:
     static const size_t protectedAreaX = 100;
 
 
+    static void renderStats(MainWindow&);
 public:
     static void fullRender(MainWindow&);
 

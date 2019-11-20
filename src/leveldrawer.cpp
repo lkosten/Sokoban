@@ -78,6 +78,7 @@ void LevelDrawer::fullRender(MainWindow &window)
     window.drawTexture(QRectF{curX, curY, blockSize, blockSize},
                        window.textureID[Texture::MAN]);
 
+    renderStats(window);
 
     if (LevelLogic::CheckNum())
     {
@@ -91,4 +92,13 @@ void LevelDrawer::fullRender(MainWindow &window)
     }
     glDisable(GL_TEXTURE_2D);
 
+}
+
+void LevelDrawer::renderStats(MainWindow &window)
+{
+    std::string moves = "Moves: " + std::to_string(Stat::getMoves());
+    std::string pushes = "Pushes: " + std::to_string(Stat::getPushes());
+
+    window.renderText(30, 40, moves.c_str(), window.fontSmall);
+    window.renderText(30, 90, pushes.c_str(), window.fontSmall);
 }
