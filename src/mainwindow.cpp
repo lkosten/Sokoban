@@ -392,6 +392,7 @@ void MainWindow::keySettings(QKeyEvent *key)
         textureID[Texture::MAN] = textureManID[textureManIndex];
         break;
 
+    case Qt::Key_Return:
     case Qt::Key_Escape:
         gameStatus = MAIN_MENU;
         break;
