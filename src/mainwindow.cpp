@@ -28,30 +28,31 @@ void MainWindow::keyPressEvent(QKeyEvent *key)
    switch (gameStatus)
     {
     case MAIN_MENU:
-        keyMainMenu(key);
-        break;
+       keyMainMenu(key);
+       break;
 
     case LEVEL_SELECTION:
-        keyLevelSelection(key);
-        break;
+       keyLevelSelection(key);
+       break;
 
     case STATISTICS:
-        break;
+       break;
 
     case SETTINGS:
-        break;
+       keySettings(key);
+       break;
 
     case PLAYING:
-        keyPlaying(key);
-        break;
+       keyPlaying(key);
+       break;
 
     case LEVEL_CREATOR:
-        keyCreating(key);
-        break;
+       keyCreating(key);
+       break;
 
    case LEVEL_COMPLETED:
-       if (key->key() == Qt::Key_Space) gameStatus = LEVEL_SELECTION;
-       break;
+      if (key->key() == Qt::Key_Space) gameStatus = LEVEL_SELECTION;
+      break;
     }
     updateGL();
 }
@@ -196,9 +197,12 @@ void MainWindow::drawSettings()
     drawTexture(QRectF{curX, curY, blockSize, blockSize},
                 textureManID[(textureManIndex + textureManID.size())
                 % textureManID.size()]);
+
+    qglColor(Qt::white);
     drawTexture(QRectF{curX - 10, curY - 10, blockSize + 20, blockSize + 20},
                 textureID[Texture::FRAME]);
 
+    qglColor(FLAGS::manColor);
     curX += blockSize + delta;
     drawTexture(QRectF{curX, curY, blockSize, blockSize},
                 textureManID[(textureManIndex + textureManID.size() + 1)
@@ -372,6 +376,30 @@ void MainWindow::keyPlaying(QKeyEvent *key)
     qDebug() << LevelLogic::GetCorrectNumber() << LevelLogic::GetTotalNumber();
     updateGL();
 }
+void MainWindow::keySettings(QKeyEvent *key)
+{
+    switch (key->key())
+    {
+    case Qt::Key_Right:
+        ++textureManIndex;
+        textureManIndex %= textureManID.size();
+        textureID[Texture::MAN] = textureManID[textureManIndex];
+        break;
+
+    case Qt::Key_Left:
+        textureManIndex += textureManID.size() - 1;
+        textureManIndex %= textureManID.size();
+        textureID[Texture::MAN] = textureManID[textureManIndex];
+        break;
+
+    case Qt::Key_Escape:
+        gameStatus = MAIN_MENU;
+        break;
+    }
+
+    updateGL();
+}
+
 void MainWindow::initMainMenuVector()
 {
     mainMenuItems.emplace_back(MENU_PLAY, "Play");

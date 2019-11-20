@@ -60,6 +60,7 @@ protected:
     void keyLevelSelection(QKeyEvent*);
     void keyPlaying(QKeyEvent*);
     void keyCreating(QKeyEvent*);
+    void keySettings(QKeyEvent*);
 
     void mouseCreatin(QMouseEvent*);
 
