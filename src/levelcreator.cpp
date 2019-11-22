@@ -213,7 +213,10 @@ void LevelCreator::Write(QString name){
     }
     fclose(ifile);
 
-    QResource::registerResource("/test.bin" , ":/levels/");
+    std::ofstream custom("playerlevels.ini", std::ios::app);
+    custom << "test.bin\n";
+    custom.close();
+    LevelsList::List.push_back(QString::fromStdString("test.bin"));
 }
 void LevelCreator::initMap(){
     CreatorMap::SetSize(10,10);

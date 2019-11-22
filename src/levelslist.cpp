@@ -12,6 +12,15 @@ void LevelsList::GetList(){
         QString tempstr = it.next();
         List.push_back(tempstr);
     }
+
+    std::ifstream custom("playerlevels.ini");
+    if(!custom) return;
+    std::string str;
+    while(!custom.eof()){
+        custom >> str;
+        List.push_back(QString::fromStdString(str));
+        custom >> str;
+    }
 }
 
 QString LevelsList::GetFDirectory(unsigned int n){

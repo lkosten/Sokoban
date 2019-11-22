@@ -531,7 +531,6 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *mouse){
         break;
 
     case LEVEL_CREATOR:
-        LevelCreator::MouseClicked(mouse->x(), mouse->y());
         break;
 
     case LEVEL_COMPLETED:
@@ -561,7 +560,6 @@ void MainWindow::mouseMoveEvent(QMouseEvent *mouse){
         break;
 
     case LEVEL_CREATOR:
-        LevelCreator::MouseClicked(mouse->x(), mouse->y());
         break;
 
     case LEVEL_COMPLETED:

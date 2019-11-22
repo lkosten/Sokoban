@@ -7,10 +7,13 @@
 #include <QDirIterator>
 #include <QString>
 #include <vector>
+#include <string>
 #include <algorithm>
+#include <fstream>
 
 class LevelsList{
 private:
+    friend class LevelCreator;
     static std::vector<QString> List;
     static QString GetFName(unsigned int n);
     static QString GetFDirectory(unsigned int n);

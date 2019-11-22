@@ -15,6 +15,7 @@
 #include <algorithm>
 #include <QDebug>
 #include <QResource>
+#include <fstream>
 #include "levelcreatorbrush.h"
 #include "levelcreatordrawer.h"
 #include "levelcreatormap.h"
