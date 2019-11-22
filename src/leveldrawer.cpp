@@ -84,7 +84,7 @@ void LevelDrawer::fullRender(MainWindow &window)
     {
         window.gameStatus = LEVEL_COMPLETED;
 
-        window.qglColor(FLAGS::manColor);
+        window.qglColor(Qt::white);
         window.renderText(30, static_cast<int>(window.windowHeight - protectedAreaY / 2 + 40),
                           "Level completed!", window.fontSmall);
         window.renderText(30, static_cast<int>(window.windowHeight - protectedAreaY / 2 + 90),
