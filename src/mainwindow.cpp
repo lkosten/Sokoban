@@ -5,7 +5,7 @@
 const QColor FLAGS::wallColor      = Qt::darkMagenta;
 const QColor FLAGS::outsideColor   = Qt::white;
 const QColor FLAGS::emptyColor     = Qt::white;
-const QColor FLAGS::manColor       = Qt::white;
+QColor FLAGS::manColor             = Qt::white;
 const QColor FLAGS::boxColor       = Qt::yellow;
 const QColor FLAGS::pointColor     = Qt::red;
 const QColor FLAGS::circleBoxColor = Qt::green;
@@ -185,6 +185,8 @@ void MainWindow::drawSettings()
 
     ColorPallete::draw(*this);
 
+    glEnable(GL_TEXTURE_2D);
+
     qglColor(ColorPallete::GetColor());
     drawTexture(QRectF{200, 350, blockSize, blockSize},
                 textureManID[(textureManIndex + textureManID.size())
@@ -193,7 +195,6 @@ void MainWindow::drawSettings()
 
     qreal curX = delta, curY = delta;
 
-    glEnable(GL_TEXTURE_2D);
 
     qglColor(FLAGS::manColor);
     drawTexture(QRectF{curX, curY, blockSize, blockSize},
@@ -401,6 +402,8 @@ void MainWindow::keySettings(QKeyEvent *key)
         break;
 
     case Qt::Key_Return:
+        FLAGS::manColor = ColorPallete::GetColor();
+        break;
     case Qt::Key_Escape:
         gameStatus = MAIN_MENU;
         break;

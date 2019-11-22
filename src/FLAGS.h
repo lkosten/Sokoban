@@ -7,13 +7,14 @@ public:
     static const QColor wallColor;
     static const QColor outsideColor;
     static const QColor emptyColor;
-    static const QColor manColor;
     static const QColor boxColor;
     static const QColor pointColor;
     static const QColor circleBoxColor;
     static const QColor spawnColor;
     static const QColor eraserColor;
     static const QColor frameColor;
+
+    static QColor manColor;
 
     static const char EMPTY = 'e';
     static const char BOX = 'b';
