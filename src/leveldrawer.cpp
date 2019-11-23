@@ -78,13 +78,13 @@ void LevelDrawer::fullRender(MainWindow &window)
     window.drawTexture(QRectF{curX, curY, blockSize, blockSize},
                        window.textureID[Texture::MAN]);
 
+    window.qglColor(Qt::white);
     renderStats(window);
 
     if (LevelLogic::CheckNum())
     {
         window.gameStatus = LEVEL_COMPLETED;
 
-        window.qglColor(Qt::white);
         window.renderText(30, static_cast<int>(window.windowHeight - protectedAreaY / 2 + 40),
                           "Level completed!", window.fontSmall);
         window.renderText(30, static_cast<int>(window.windowHeight - protectedAreaY / 2 + 90),
