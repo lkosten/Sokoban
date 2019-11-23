@@ -59,6 +59,8 @@ protected:
     void initTextures();
     void initColors();
 
+    void saveColors();
+
     void drawMainMenu();
     void drawLevelSelection();
     void drawSettings();

@@ -403,6 +403,7 @@ void MainWindow::keySettings(QKeyEvent *key)
 
     case Qt::Key_Return:
         FLAGS::manColor = ColorPallete::GetColor();
+        saveColors();
         break;
     case Qt::Key_Escape:
         gameStatus = MAIN_MENU;
@@ -589,16 +590,16 @@ void MainWindow::initColors(){
     while(!input.eof()){
         input >> str;
 
-        R = "[A-Z]{1,}:[0-9]{3},[0-9]{3},[0-9]{3}";
+        R = "[A-Z]{1,}:[0-9]{1,3},[0-9]{1,3},[0-9]{1,3}";
 
-        if(!regex_search(str, m, R)) continue;
+        if(regex_search(str, m, R)){
 
-        R = "[0-9]{3}";
+        R = "[0-9]{1,3}";
         for(int i =0; i < 3; i++){
             regex_search(str, m, R);
             tempStr = m[0];
             std::regex tempR(tempStr);
-            str = regex_replace(str, tempR, "");
+            str = regex_replace(str, tempR, "" , std::regex_constants::format_first_only);
             RGB.push(stoi(tempStr));
         }
 
@@ -630,5 +631,52 @@ void MainWindow::initColors(){
         if(tempStr == "SPAWNCOLOR")         FLAGS::spawnColor = tempColor;
         if(tempStr == "ERASERCOLOR")        FLAGS::eraserColor  = tempColor;
         if(tempStr == "FRAMECOLOR")         FLAGS::frameColor = tempColor;
+        }
     }
+}
+
+void MainWindow::saveColors(){
+    QColor tempColor;
+    std::ofstream output("colors.ini");
+    output << "COLORS:\n";
+
+    tempColor = FLAGS::wallColor;
+    output << "WALLCOLOR:";
+    output <<tempColor.red()<<","<<tempColor.green()<<","<<tempColor.blue()<<"\n";
+
+    tempColor = FLAGS::outsideColor;
+    output << "OUTSIDECOLOR:";
+    output <<tempColor.red()<<","<<tempColor.green()<<","<<tempColor.blue()<<"\n";
+
+    tempColor = FLAGS::emptyColor;
+    output << "EMPTYCOLOR:";
+    output <<tempColor.red()<<","<<tempColor.green()<<","<<tempColor.blue()<<"\n";
+
+    tempColor = FLAGS::manColor;
+    output << "MANCOLOR:";
+    output <<tempColor.red()<<","<<tempColor.green()<<","<<tempColor.blue()<<"\n";
+
+    tempColor = FLAGS::boxColor;
+    output << "BOXCOLOR:";
+    output <<tempColor.red()<<","<<tempColor.green()<<","<<tempColor.blue()<<"\n";
+
+    tempColor = FLAGS::pointColor;
+    output << "POINTCOLOR:";
+    output <<tempColor.red()<<","<<tempColor.green()<<","<<tempColor.blue()<<"\n";
+
+    tempColor = FLAGS::circleBoxColor;
+    output << "CIRCLEBOXCOLOR:";
+    output <<tempColor.red()<<","<<tempColor.green()<<","<<tempColor.blue()<<"\n";
+
+    tempColor = FLAGS::spawnColor;
+    output << "SPAWNCOLOR:";
+    output <<tempColor.red()<<","<<tempColor.green()<<","<<tempColor.blue()<<"\n";
+
+    tempColor = FLAGS::eraserColor;
+    output << "ERASERCOLOR:";
+    output <<tempColor.red()<<","<<tempColor.green()<<","<<tempColor.blue()<<"\n";
+
+    tempColor = FLAGS::frameColor;
+    output << "FRAMECOLOR:";
+    output <<tempColor.red()<<","<<tempColor.green()<<","<<tempColor.blue();
 }
