@@ -227,11 +227,11 @@ void ColorPallete::placeMarker(QColor color){
 
     //FOR COLUMN FRAME
     int stage = 0;
-    int itR = 255;
-    int itG = 0;
-    int itB = 0;
+    qreal itR = 255;
+    qreal itG = 0;
+    qreal itB = 0;
     int change = 6;
-    int findR = 0 , findG = 0 , findB = 0;
+    qreal findR = 0 , findG = 0 , findB = 0;
 
     //SELECT 2 MAIN COMPONENTS
     if(R <= G && R <= B){
@@ -274,7 +274,7 @@ void ColorPallete::placeMarker(QColor color){
         switch (stage){
             case 0:{//Blue is rising to 255
                 itB += change;
-                if(itB == 258) {
+                if(static_cast<int>(itB) == 258) {
                     itB -= change/2;
                     itR -= change/2;
                     stage = 1;
@@ -283,14 +283,14 @@ void ColorPallete::placeMarker(QColor color){
             }
             case 1:{//Red is decreasing to 0
                 itR -= change;
-                if(itR == 0) {
+                if(static_cast<int>(itR) == 0) {
                     stage = 2;
                 }
                 break;
             }
             case 2:{//Green is rising to 255
                 itG += change;
-                if(itG == 258) {
+                if(static_cast<int>(itG) == 258) {
                     itG -= change/2;
                     itB -= change/2;
                     stage = 3;
@@ -299,14 +299,14 @@ void ColorPallete::placeMarker(QColor color){
             }
             case 3:{//Blue is decreasing to 0
                 itB -= change;
-                if(itB == 0) {
+                if(static_cast<int>(itB) == 0) {
                     stage = 4;
                 }
                 break;
             }
             case 4:{//Red is rising to 255
                 itR += change;
-                if(itR == 258) {
+                if(static_cast<int>(itR) == 258) {
                     itR -= change/2;
                     itG -= change/2;
                     stage = 5;
@@ -315,7 +315,7 @@ void ColorPallete::placeMarker(QColor color){
             }
                 case 5:{//Green is decreasing to 0
                 itG -= change;
-                if(itG == 0) {
+                if(static_cast<int>(itG) == 0) {
                     stage = 6;
                 }
                 break;
@@ -349,9 +349,9 @@ void ColorPallete::placeMarker(QColor color){
 
         //PLACE DOT THERE IF FOUND
         for(qreal j = 0; j < 256; j += 5){
-            if(abs(tR + j*(mainColor - tR)/255 - R) <= 3){
-                if(abs(tG + j*(mainColor - tG)/255 - G) <= 3){
-                    if(abs(tB + j*(mainColor - tB)/255 - B) <= 3){
+            if(abs(tR + j*(mainColor - tR)/255 - R) <= 10){
+                if(abs(tG + j*(mainColor - tG)/255 - G) <= 10){
+                    if(abs(tB + j*(mainColor - tB)/255 - B) <= 10){
                         ColorPallete::SelectX = ColorPallete::PalleteX + j*ColorPallete::PalleteH/255;
                         ColorPallete::SelectY = ColorPallete::PalleteY + i*ColorPallete::PalleteH/255;
                     }
