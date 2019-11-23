@@ -1,23 +1,23 @@
 #include "mainwindow.h"
 #include "QLineEdit"
 
-
-const QColor FLAGS::wallColor      = Qt::darkMagenta;
-const QColor FLAGS::outsideColor   = Qt::white;
-const QColor FLAGS::emptyColor     = Qt::white;
-QColor FLAGS::manColor             = Qt::white;
-const QColor FLAGS::boxColor       = Qt::yellow;
-const QColor FLAGS::pointColor     = Qt::red;
-const QColor FLAGS::circleBoxColor = Qt::green;
-const QColor FLAGS::spawnColor     = Qt::white;
-const QColor FLAGS::eraserColor    = Qt::blue;
-const QColor FLAGS::frameColor     = Qt::white;
+QColor FLAGS::wallColor      = Qt::darkMagenta;
+QColor FLAGS::outsideColor   = Qt::white;
+QColor FLAGS::emptyColor     = Qt::white;
+QColor FLAGS::manColor       = Qt::white;
+QColor FLAGS::boxColor       = Qt::yellow;
+QColor FLAGS::pointColor     = Qt::red;
+QColor FLAGS::circleBoxColor = Qt::green;
+QColor FLAGS::spawnColor     = Qt::white;
+QColor FLAGS::eraserColor    = Qt::blue;
+QColor FLAGS::frameColor     = Qt::white;
 
 MainWindow::MainWindow(QWidget *parent)
     : QGLWidget(parent), gameStatus(MAIN_MENU), menuStatus(MENU_PLAY)
 {
     initFont();
     initMainMenuVector();
+    initColors();
     LevelsList::GetList();
     show();
 }
@@ -569,4 +569,66 @@ void MainWindow::mouseMoveEvent(QMouseEvent *mouse){
         break;
     }
     updateGL();
+}
+
+void MainWindow::initColors(){
+
+    //default color pallete
+
+    std::regex R;
+    std::smatch m;
+    std::string str;
+    std::string tempStr;
+    std::stack<int> RGB;
+    int red = 0;
+    int green = 0;
+    int blue = 0;
+    std::ifstream input("colors.ini");
+    if(!input) return;
+
+    while(!input.eof()){
+        input >> str;
+
+        R = "[A-Z]{1,}:[0-9]{3},[0-9]{3},[0-9]{3}";
+
+        if(!regex_search(str, m, R)) continue;
+
+        R = "[0-9]{3}";
+        for(int i =0; i < 3; i++){
+            regex_search(str, m, R);
+            tempStr = m[0];
+            std::regex tempR(tempStr);
+            str = regex_replace(str, tempR, "");
+            RGB.push(stoi(tempStr));
+        }
+
+        if(RGB.top() > 255) blue = 255;
+        else blue = RGB.top();
+        RGB.pop();
+
+        if(RGB.top() > 255) green = 255;
+        else green = RGB.top();
+        RGB.pop();
+
+        if(RGB.top() > 255) red = 255;
+        else red = RGB.top();
+        RGB.pop();
+
+        R= "[A-Z]{1,}";
+
+        regex_search(str, m, R);
+        tempStr = m[0];
+
+        QColor tempColor(red,green,blue);
+        if(tempStr == "WALLCOLOR")          FLAGS::wallColor = tempColor;
+        if(tempStr == "OUTSIDECOLOR")       FLAGS::outsideColor = tempColor;
+        if(tempStr == "EMPTYCOLOR")         FLAGS::emptyColor = tempColor;
+        if(tempStr == "MANCOLOR")           FLAGS::manColor = tempColor;
+        if(tempStr == "BOXCOLOR")           FLAGS::boxColor  = tempColor;
+        if(tempStr == "POINTCOLOR")         FLAGS::pointColor = tempColor;
+        if(tempStr == "CIRCLEBOXCOLOR")     FLAGS::circleBoxColor = tempColor;
+        if(tempStr == "SPAWNCOLOR")         FLAGS::spawnColor = tempColor;
+        if(tempStr == "ERASERCOLOR")        FLAGS::eraserColor  = tempColor;
+        if(tempStr == "FRAMECOLOR")         FLAGS::frameColor = tempColor;
+    }
 }

@@ -11,6 +11,8 @@
 #include <map>
 #include <QtDebug>
 #include <QMouseEvent>
+#include <regex>
+#include <stack>
 
 #include "statusEnums.h"
 #include "levelslist.h"
@@ -55,6 +57,7 @@ protected:
     void initMainMenuVector();
     void initFont();
     void initTextures();
+    void initColors();
 
     void drawMainMenu();
     void drawLevelSelection();

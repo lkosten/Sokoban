@@ -4,15 +4,15 @@
 
 class FLAGS{
 public:
-    static const QColor wallColor;
-    static const QColor outsideColor;
-    static const QColor emptyColor;
-    static const QColor boxColor;
-    static const QColor pointColor;
-    static const QColor circleBoxColor;
-    static const QColor spawnColor;
-    static const QColor eraserColor;
-    static const QColor frameColor;
+    static QColor wallColor;
+    static QColor outsideColor;
+    static QColor emptyColor;
+    static QColor boxColor;
+    static QColor pointColor;
+    static QColor circleBoxColor;
+    static QColor spawnColor;
+    static QColor eraserColor;
+    static QColor frameColor;
 
     static QColor manColor;
 
