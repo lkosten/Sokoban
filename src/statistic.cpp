@@ -1,10 +1,14 @@
 #include "statistic.h"
 
+unsigned int Stat::selectedLevel    = 0;
+unsigned int Stat::minPrintedLevel  = 0;
+unsigned int Stat::maxPrintedLevel  = 6;
 
-unsigned int Stat::moves = 0;
+unsigned int Stat::moves       = 0;
 unsigned int Stat::pushedBoxes = 0;
+
 std::vector<int> Stat::score;
-const std::string Stat::scoreFileDir = "statistics.bin";
+const std::string Stat::scoreFileDir = ":/statistics.bin";
 
 void Stat::reset(){
     moves = 0;
@@ -69,4 +73,14 @@ void Stat::updScore(size_t levelNum)
 
     if (score[levelNum] == 0) score[levelNum] = updValue;
     score[levelNum] = std::min(score[levelNum], updValue);
+}
+
+unsigned int Stat::GetNumber()
+{
+    return static_cast<unsigned int>(score.size());
+}
+
+int Stat::GetStat(size_t levelNum)
+{
+    return score[levelNum];
 }

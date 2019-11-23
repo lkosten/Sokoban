@@ -25,6 +25,13 @@ public:
     static void write();
 
     static void updScore(size_t levelNum);
+
+    static unsigned int selectedLevel;
+    static unsigned int minPrintedLevel;
+    static unsigned int maxPrintedLevel;
+
+    static unsigned int GetNumber();
+    static int GetStat(size_t);
 private:
     static void reset();
     static void move();

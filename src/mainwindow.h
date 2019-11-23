@@ -64,11 +64,14 @@ protected:
     void drawMainMenu();
     void drawLevelSelection();
     void drawSettings();
+    void drawStatistics();
+
     void keyMainMenu(QKeyEvent*);
     void keyLevelSelection(QKeyEvent*);
     void keyPlaying(QKeyEvent*);
     void keyCreating(QKeyEvent*);
     void keySettings(QKeyEvent*);
+    void keyStatistics(QKeyEvent*);
 
     void mouseCreatin(QMouseEvent*);
 
