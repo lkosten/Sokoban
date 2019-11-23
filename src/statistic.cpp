@@ -3,8 +3,8 @@
 
 unsigned int Stat::moves = 0;
 unsigned int Stat::pushedBoxes = 0;
-std::vector<size_t> Stat::score;
-const std::string Stat::scoreFileDir = ":/statistics.bin";
+std::vector<int> Stat::score;
+const std::string Stat::scoreFileDir = "statistics.bin";
 
 void Stat::reset(){
     moves = 0;
@@ -28,38 +28,45 @@ void Stat::read()
 {
     score.clear();
 
-    QFile file(scoreFileDir.c_str());
-
-    file.open(QIODevice::ReadOnly);
-    if (file.size() == 0)
-    {
+    std::ifstream statInput;
+    statInput.open(scoreFileDir, std::ios::binary);
+    if (!statInput.is_open())
         return;
-    }
 
-    QByteArray InputArray = file.readAll();
-    QDataStream Input(InputArray);
 
-    size_t listSize = BinToInt(Input);
+    int listSize = 0;
 
-    score.resize(listSize);
+    statInput.read((char*)&listSize, sizeof(listSize));
+
+    score.resize(static_cast<size_t>(listSize));
     for (auto &i : score)
     {
-        i = BinToInt(Input);
+        statInput.read((char*)&i, sizeof (i));
     }
+    statInput.close();
 }
 
 void Stat::write()
 {
-    FILE* output;
-    output = fopen(scoreFileDir.c_str(), "wb");
+    std::ofstream statOutput(scoreFileDir, std::ios::binary);
+    if (!statOutput.is_open())
+        return;
 
     int temp = static_cast<int>(score.size());
-    fwrite(&temp, sizeof(int), 1, output);
+    statOutput.write((char*)&temp, sizeof(temp));
 
     for (const auto &i : score)
     {
-        fwrite(&i, sizeof(int), 1, output);
+        statOutput.write((char*)&i, sizeof(i));
     }
 
-    fclose(output);
+    statOutput.close();
+}
+
+void Stat::updScore(size_t levelNum)
+{
+    int updValue = static_cast<int>(moves + 5 * pushedBoxes);
+
+    if (score[levelNum] == 0) score[levelNum] = updValue;
+    score[levelNum] = std::min(score[levelNum], updValue);
 }

@@ -23,6 +23,8 @@ public:
 
     static void read();
     static void write();
+
+    static void updScore(size_t levelNum);
 private:
     static void reset();
     static void move();
@@ -30,7 +32,7 @@ private:
     static unsigned int moves;
     static unsigned int pushedBoxes;
 
-    static std::vector<size_t> score;
+    static std::vector<int> score;
 
     static const std::string scoreFileDir;
 };

@@ -55,5 +55,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     resources.qrc \
-    statistics.qrc \
+    stat.qrc \
     textures.qrc
+
+DISTFILES +=
