@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QGLWidget(parent), gameStatus(MAIN_MENU), menuStatus(MENU_PLAY)
 {
     initFont();
+    srand( time( 0 ) );
     initMainMenuVector();
     initColors();
     LevelsList::GetList();
@@ -280,7 +281,7 @@ void MainWindow::keyMainMenu(QKeyEvent *key)
     updateGL();
 }
 
-static QString newfilename("newlevel");
+static QString newfilename("custom");
 void MainWindow::keyCreating(QKeyEvent *key)
 {
     switch (key->key())
@@ -294,7 +295,7 @@ void MainWindow::keyCreating(QKeyEvent *key)
         break;
 
     case Qt::Key_Return:
-        LevelCreator::Write(newfilename);
+        LevelCreator::Write(newfilename + QString::number(100000 + rand() % 900000));
         break;
     case Qt::Key_Escape:
         LevelCreator::clear();

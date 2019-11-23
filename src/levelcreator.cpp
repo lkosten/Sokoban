@@ -146,10 +146,11 @@ bool LevelCreator::check(){
 }
 void LevelCreator::Write(QString name){
     if(!check()) return;
+    name += ".bin";
     qDebug() <<"check passed!";
 
     FILE* ifile;
-    ifile = fopen("test.bin", "wb");
+    ifile = fopen( name.toLatin1(), "wb");
 
     unsigned int temp = CreatorMap::SizeX + 2;
     fwrite(&temp, sizeof(unsigned int), 1, ifile);
@@ -214,9 +215,11 @@ void LevelCreator::Write(QString name){
     fclose(ifile);
 
     std::ofstream custom("playerlevels.ini", std::ios::app);
-    custom << "test.bin\n";
+    std::string outStr;
+    outStr = name.toStdString();
+    custom << outStr << "\n";
     custom.close();
-    LevelsList::List.push_back(QString::fromStdString("test.bin"));
+    LevelsList::List.push_back(QString::fromStdString(outStr));
 }
 void LevelCreator::initMap(){
     CreatorMap::SetSize(10,10);

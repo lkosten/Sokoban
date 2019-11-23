@@ -13,6 +13,7 @@
 #include <QMouseEvent>
 #include <regex>
 #include <stack>
+#include <ctime>
 
 #include "statusEnums.h"
 #include "levelslist.h"
@@ -22,6 +23,7 @@
 #include "levelcreator.h"
 #include "levelcreatordrawer.h"
 #include "ColorPallete.h"
+
 
 class MainWindow : public QGLWidget
 {
