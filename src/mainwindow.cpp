@@ -19,7 +19,14 @@ MainWindow::MainWindow(QWidget *parent)
     initMainMenuVector();
     initColors();
     LevelsList::GetList();
+    Stat::read();
     show();
+
+}
+
+MainWindow::~MainWindow()
+{
+    Stat::write();
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *key)
