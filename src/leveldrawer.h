@@ -16,7 +16,8 @@ private:
     static const size_t protectedAreaX = 100;
 
 
-    static void renderStats(MainWindow&);
+    static void renderStatistics(MainWindow&);
+    static void updateStatistics();
 public:
     static void fullRender(MainWindow&);
 

@@ -79,10 +79,12 @@ void LevelDrawer::fullRender(MainWindow &window)
                        window.textureID[Texture::MAN]);
 
     window.qglColor(Qt::white);
-    renderStats(window);
+    renderStatistics(window);
 
     if (LevelLogic::CheckNum())
     {
+        Stat::updScore(LevelsList::selectedLevel);
+
         window.gameStatus = LEVEL_COMPLETED;
 
         window.renderText(30, static_cast<int>(window.windowHeight - protectedAreaY / 2 + 40),
@@ -94,7 +96,7 @@ void LevelDrawer::fullRender(MainWindow &window)
 
 }
 
-void LevelDrawer::renderStats(MainWindow &window)
+void LevelDrawer::renderStatistics(MainWindow &window)
 {
     std::string moves = "Moves: " + std::to_string(Stat::getMoves());
     std::string pushes = "Pushes: " + std::to_string(Stat::getPushes());
