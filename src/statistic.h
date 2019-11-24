@@ -2,6 +2,7 @@
 #define STATISTIC_H
 
 #include "bintoint.h"
+#include "levelslist.h"
 
 #include <QtDebug>
 #include <QDirIterator>

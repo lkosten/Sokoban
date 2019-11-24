@@ -8,7 +8,7 @@ unsigned int Stat::moves       = 0;
 unsigned int Stat::pushedBoxes = 0;
 
 std::vector<int> Stat::score;
-const std::string Stat::scoreFileDir = ":/statistics.bin";
+const std::string Stat::scoreFileDir = "statistics.bin";
 
 void Stat::reset(){
     moves = 0;
@@ -42,11 +42,26 @@ void Stat::read()
 
     statInput.read((char*)&listSize, sizeof(listSize));
 
-    score.resize(static_cast<size_t>(listSize));
-    for (auto &i : score)
+    if (listSize != 0)
     {
-        statInput.read((char*)&i, sizeof (i));
+
+        score.resize(static_cast<size_t>(listSize));
+        for (auto &i : score)
+        {
+            statInput.read((char*)&i, sizeof (i));
+        }
     }
+    else
+    {
+        listSize = static_cast<int>(LevelsList::GetNumber());
+
+        score.resize(static_cast<size_t>(listSize));
+        for (auto &i : score)
+        {
+            i = 0;
+        }
+    }
+
     statInput.close();
 }
 
