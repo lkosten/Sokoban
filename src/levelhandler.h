@@ -9,7 +9,7 @@
 #include "statistic.h"
 #include <string>
 #include <stdio.h>
-#include <conio.h>
+//#include <conio.h>
 #include <fstream>
 #include <stdlib.h>
 #include <QFile>

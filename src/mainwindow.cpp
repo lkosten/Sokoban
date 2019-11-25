@@ -12,9 +12,14 @@ QColor FLAGS::spawnColor     = Qt::white;
 QColor FLAGS::eraserColor    = Qt::blue;
 QColor FLAGS::frameColor     = Qt::white;
 
+QMediaPlayer MainWindow::mediaPlayer;
+
 MainWindow::MainWindow(QWidget *parent)
     : QGLWidget(parent), gameStatus(MAIN_MENU), menuStatus(MENU_PLAY)
 {
+    MainWindow::mediaPlayer.setMedia(QUrl("qrc:/music/maintheme.mp3"));
+    MainWindow::mediaPlayer.setVolume(20);
+    MainWindow::mediaPlayer.play();
     initFont();
     srand( time( 0 ) );
     initMainMenuVector();

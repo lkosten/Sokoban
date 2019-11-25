@@ -1,5 +1,6 @@
 QT       += core gui opengl
-LIBS     += -lopengl32
+QT       += multimedia
+LIBS     += -lGL
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
@@ -54,5 +55,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
+    music.qrc \
     resources.qrc \
     textures.qrc

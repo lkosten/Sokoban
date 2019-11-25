@@ -6,11 +6,13 @@
 #include <QGLWidget>
 #include <QtOpenGL>
 #include <QTimer>
+#include <QtMultimedia/QAudio>
 #include <vector>
 #include <string>
 #include <map>
 #include <QtDebug>
-#include <QMouseEvent>
+#include <QMediaPlayer>
+#include <QAudio>
 #include <regex>
 #include <stack>
 #include <ctime>
@@ -47,6 +49,8 @@ protected:
     std::vector<std::pair<MainMenuStatus, std::string>> mainMenuItems;
     std::vector<GLuint> textureManID;
     std::map<Texture, GLuint> textureID;
+
+    static QMediaPlayer mediaPlayer;
 
     void initializeGL() override;
     void resizeGL(int w, int h) override;
