@@ -16,6 +16,7 @@ class LevelLogic{
     static bool Move(int i, int j);
 public:
 
+
     static bool MoveRight();
     static bool MoveLeft();
     static bool MoveDown();
