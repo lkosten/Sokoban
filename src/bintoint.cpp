@@ -10,7 +10,5 @@ unsigned int BinToInt(QDataStream &Input){
         ret += i * mult;
         mult *= 256;
     }
-
-    //qDebug() << ret;
     return ret;
 }

@@ -433,7 +433,6 @@ void MainWindow::keyPlaying(QKeyEvent *key)
     case Qt::Key_Escape:
         gameStatus = LEVEL_SELECTION;
     }
-    qDebug() << LevelLogic::GetCorrectNumber() << LevelLogic::GetTotalNumber();
     updateGL();
 }
 void MainWindow::keySettings(QKeyEvent *key)

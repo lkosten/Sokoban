@@ -201,7 +201,6 @@ void ColorPallete::Click(qreal X, qreal Y){
     }
     if(X <= PalleteH + PalleteX && X >= PalleteX){
         if(Y <= PalleteH + PalleteY && Y >= PalleteY){
-            qDebug() <<"matrix click";
             selecting = true;
             ColorPallete::SelectX = X;
             ColorPallete::SelectY = Y;

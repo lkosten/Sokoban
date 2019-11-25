@@ -111,7 +111,6 @@ void LevelHandler::read(const  QString& file_name){
     LevelLogic::CorrectNumber = BoxOnPointNumber;
     LevelLogic::TotalNumber = BoxNumber;
 
-    qDebug() <<"build level successed!";
     success = true;
 }
 
