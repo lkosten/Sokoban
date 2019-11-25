@@ -25,7 +25,14 @@ MainWindow::MainWindow(QWidget *parent)
     initMainMenuVector();
     initColors();
     LevelsList::GetList();
+    Stat::read();
     show();
+
+}
+
+MainWindow::~MainWindow()
+{
+    Stat::write();
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *key)
@@ -41,6 +48,7 @@ void MainWindow::keyPressEvent(QKeyEvent *key)
        break;
 
     case STATISTICS:
+       keyStatistics(key);
        break;
 
     case SETTINGS:
@@ -104,6 +112,7 @@ void MainWindow::paintGL()
         break;
 
     case STATISTICS:
+        drawStatistics();
         break;
 
     case SETTINGS:
@@ -224,6 +233,41 @@ void MainWindow::drawSettings()
 
     glDisable(GL_TEXTURE_2D);
 }
+void MainWindow::drawStatistics()
+{
+    glEnable(GL_TEXTURE_2D);
+    qglColor(QColor(65, 105, 225));
+    drawTexture(QRectF{650, 0, 150, 150}, 1);
+    drawTexture(QRectF{650, 150, 150, 150}, 1);
+    drawTexture(QRectF{650, 300, 150, 150}, 1);
+    drawTexture(QRectF{650, 450, 150, 150}, 1);
+    glDisable(GL_TEXTURE_2D);
+    int y = 100;
+    int x = 30;
+
+    for (unsigned int i = Stat::minPrintedLevel; i <= Stat::maxPrintedLevel; ++i)
+    {
+        QString curStr = LevelsList::GetFNameDir(i).first;
+        curStr += "\t";
+
+        int stat = Stat::GetStat(i);
+
+        if (stat == 0) curStr += "Level is not passed";
+        else curStr += std::to_string(stat).c_str();
+        if (i == Stat::selectedLevel)
+        {
+            qglColor(QColor(65, 105, 225));
+            renderText(x, y, curStr, fontSelected);
+            qglColor(Qt::white);
+        }
+        else
+        {
+            qglColor(Qt::white);
+            renderText(x, y, curStr, font);
+        }
+        y += 70;
+    }
+}
 
 void MainWindow::keyMainMenu(QKeyEvent *key)
 {
@@ -269,6 +313,7 @@ void MainWindow::keyMainMenu(QKeyEvent *key)
             break;
 
         case MENU_STATISTICS:
+            gameStatus = STATISTICS;
             break;
 
         case MENU_LEVEL_CREATOR:
@@ -411,6 +456,53 @@ void MainWindow::keySettings(QKeyEvent *key)
         FLAGS::manColor = ColorPallete::GetColor();
         saveColors();
         break;
+    case Qt::Key_Escape:
+        gameStatus = MAIN_MENU;
+        break;
+    }
+
+    updateGL();
+}
+void MainWindow::keyStatistics(QKeyEvent *key)
+{
+    switch (key->key())
+    {
+    case Qt::Key_Up:
+        if (Stat::selectedLevel != 0)
+        {
+            if (Stat::selectedLevel == Stat::minPrintedLevel)
+            {
+                --Stat::minPrintedLevel;
+                --Stat::maxPrintedLevel;
+            }
+            --Stat::selectedLevel;
+        }
+        else
+        {
+            Stat::selectedLevel = Stat::GetNumber() - 1;
+            Stat::maxPrintedLevel = Stat::GetNumber() - 1;
+            Stat::minPrintedLevel = Stat::GetNumber() - 7;
+        }
+        break;
+
+    case Qt::Key_Down:
+        if (Stat::selectedLevel != Stat::GetNumber() - 1)
+        {
+            if (Stat::selectedLevel == Stat::maxPrintedLevel)
+            {
+             ++Stat::minPrintedLevel;
+             ++Stat::maxPrintedLevel;
+            }
+            ++Stat::selectedLevel;
+        }
+        else
+        {
+            Stat::selectedLevel = 0;
+            Stat::maxPrintedLevel = 6;
+            Stat::minPrintedLevel = 0;
+        }
+        break;
+
     case Qt::Key_Escape:
         gameStatus = MAIN_MENU;
         break;

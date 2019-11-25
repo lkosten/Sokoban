@@ -58,3 +58,5 @@ RESOURCES += \
     music.qrc \
     resources.qrc \
     textures.qrc
+
+DISTFILES +=
