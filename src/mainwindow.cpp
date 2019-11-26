@@ -325,6 +325,7 @@ void MainWindow::keyMainMenu(QKeyEvent *key)
 
     case Qt::Key_Escape:
         close();
+        break;
 
     }
 
