@@ -35,7 +35,13 @@ void Stat::read()
     std::ifstream statInput;
     statInput.open(scoreFileDir, std::ios::binary);
     if (!statInput.is_open())
-        return;
+    {
+        std::ofstream temp(scoreFileDir, std::ios::binary);
+        temp.close();
+
+        statInput.open(scoreFileDir, std::ios::binary);
+    }
+
 
 
     int listSize = 0;
@@ -44,7 +50,6 @@ void Stat::read()
 
     if (listSize != 0)
     {
-
         score.resize(static_cast<size_t>(listSize));
         for (auto &i : score)
         {
@@ -69,7 +74,10 @@ void Stat::write()
 {
     std::ofstream statOutput(scoreFileDir, std::ios::binary);
     if (!statOutput.is_open())
+    {
         return;
+    }
+
 
     int temp = static_cast<int>(score.size());
     statOutput.write((char*)&temp, sizeof(temp));
