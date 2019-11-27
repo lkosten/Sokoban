@@ -3,16 +3,82 @@
         <file>texture/brick_wall.png</file>
         <file>texture/barrel.png</file>
         <file>texture/circle.png</file>
-        <file>texture/skeleton.png</file>
         <file>texture/empty.png</file>
         <file>texture/round_star.png</file>
         <file>texture/rubber.png</file>
         <file>texture/frame.png</file>
         <file>texture/minus.png</file>
         <file>texture/plus.png</file>
-        <file>texture/egyptian_walk.png</file>
-        <file>texture/pig.png</file>
-        <file>texture/high_kick.png</file>
         <file>texture/dot.png</file>
+        <file>texture/man/bear-face.png</file>
+        <file>texture/man/cat.png</file>
+        <file>texture/man/egyptian_walk.png</file>
+        <file>texture/man/elephant-head.png</file>
+        <file>texture/man/high_kick.png</file>
+        <file>texture/man/horse-head.png</file>
+        <file>texture/man/owl.png</file>
+        <file>texture/man/pig.png</file>
+        <file>texture/man/scarab-beetle.png</file>
+        <file>texture/man/shark-jaws.png</file>
+        <file>texture/man/skeleton.png</file>
+        <file>texture/man/snail.png</file>
+        <file>texture/man/tiger-head.png</file>
+        <file>texture/man/angler-fish.png</file>
+        <file>texture/man/artificial-intelligence.png</file>
+        <file>texture/man/baby-face.png</file>
+        <file>texture/man/bandit.png</file>
+        <file>texture/man/barbute.png</file>
+        <file>texture/man/beard.png</file>
+        <file>texture/man/biceps.png</file>
+        <file>texture/man/boar-tusks.png</file>
+        <file>texture/man/brain-freeze.png</file>
+        <file>texture/man/brutal-helm.png</file>
+        <file>texture/man/butterfly.png</file>
+        <file>texture/man/chicken.png</file>
+        <file>texture/man/cowled.png</file>
+        <file>texture/man/crowned-skull.png</file>
+        <file>texture/man/cultist.png</file>
+        <file>texture/man/cyborg-face.png</file>
+        <file>texture/man/delighted.png</file>
+        <file>texture/man/dragon-head.png</file>
+        <file>texture/man/duality-mask.png</file>
+        <file>texture/man/duck.png</file>
+        <file>texture/man/dwarf-face.png</file>
+        <file>texture/man/dwarf-helmet.png</file>
+        <file>texture/man/eagle-emblem.png</file>
+        <file>texture/man/elf-helmet.png</file>
+        <file>texture/man/female-vampire.png</file>
+        <file>texture/man/fish-corpse.png</file>
+        <file>texture/man/gas-mask.png</file>
+        <file>texture/man/gluttony.png</file>
+        <file>texture/man/goblin-head.png</file>
+        <file>texture/man/golem-head.png</file>
+        <file>texture/man/gorilla.png</file>
+        <file>texture/man/hood.png</file>
+        <file>texture/man/jason-mask.png</file>
+        <file>texture/man/medusa-head.png</file>
+        <file>texture/man/mounted-knight.png</file>
+        <file>texture/man/nun-face.png</file>
+        <file>texture/man/overlord-helm.png</file>
+        <file>texture/man/panda.png</file>
+        <file>texture/man/pegasus.png</file>
+        <file>texture/man/polar-bear.png</file>
+        <file>texture/man/raven.png</file>
+        <file>texture/man/robber-mask.png</file>
+        <file>texture/man/robot-antennas.png</file>
+        <file>texture/man/sheep.png</file>
+        <file>texture/man/silenced.png</file>
+        <file>texture/man/snail-eyes.png</file>
+        <file>texture/man/spider-face.png</file>
+        <file>texture/man/spider-mask.png</file>
+        <file>texture/man/spy.png</file>
+        <file>texture/man/think.png</file>
+        <file>texture/man/totem-mask.png</file>
+        <file>texture/man/trap-mask.png</file>
+        <file>texture/man/turtle.png</file>
+        <file>texture/man/vampire-dracula.png</file>
+        <file>texture/man/visored-helm.png</file>
+        <file>texture/man/wolf-head.png</file>
+        <file>texture/man/woman-elf-face.png</file>
     </qresource>
 </RCC>

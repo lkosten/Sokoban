@@ -148,10 +148,10 @@ void MainWindow::drawMainMenu()
 {
 
     qglColor(Qt::darkMagenta);
-    drawTexture(QRectF{650, 0, 150, 150}, 1);
-    drawTexture(QRectF{650, 150, 150, 150}, 1);
-    drawTexture(QRectF{650, 300, 150, 150}, 1);
-    drawTexture(QRectF{650, 450, 150, 150}, 1);
+    drawTexture(QRectF{650, 0, 150, 150}, textureID[Texture::WALL]);
+    drawTexture(QRectF{650, 150, 150, 150}, textureID[Texture::WALL]);
+    drawTexture(QRectF{650, 300, 150, 150}, textureID[Texture::WALL]);
+    drawTexture(QRectF{650, 450, 150, 150}, textureID[Texture::WALL]);
 
 
     int y = 165;
@@ -178,10 +178,10 @@ void MainWindow::drawLevelSelection()
 {
 
     qglColor(QColor(200, 55, 90));
-    drawTexture(QRectF{650, 0, 150, 150}, 1);
-    drawTexture(QRectF{650, 150, 150, 150}, 1);
-    drawTexture(QRectF{650, 300, 150, 150}, 1);
-    drawTexture(QRectF{650, 450, 150, 150}, 1);
+    drawTexture(QRectF{650, 0, 150, 150}, textureID[Texture::WALL]);
+    drawTexture(QRectF{650, 150, 150, 150}, textureID[Texture::WALL]);
+    drawTexture(QRectF{650, 300, 150, 150}, textureID[Texture::WALL]);
+    drawTexture(QRectF{650, 450, 150, 150}, textureID[Texture::WALL]);
 
     int y = 100;
     int x = 30;
@@ -246,10 +246,10 @@ void MainWindow::drawStatistics()
 {
 
     qglColor(QColor(65, 105, 225));
-    drawTexture(QRectF{650, 0, 150, 150}, 1);
-    drawTexture(QRectF{650, 150, 150, 150}, 1);
-    drawTexture(QRectF{650, 300, 150, 150}, 1);
-    drawTexture(QRectF{650, 450, 150, 150}, 1);
+    drawTexture(QRectF{650, 0, 150, 150}, textureID[Texture::WALL]);
+    drawTexture(QRectF{650, 150, 150, 150}, textureID[Texture::WALL]);
+    drawTexture(QRectF{650, 300, 150, 150}, textureID[Texture::WALL]);
+    drawTexture(QRectF{650, 450, 150, 150}, textureID[Texture::WALL]);
 
     int y = 100;
     int x = 30;
@@ -546,6 +546,16 @@ void MainWindow::initTextures()
     glEnable(GL_TEXTURE_2D);
     QImage image;
 
+    QDirIterator it(":/texture/man", QDirIterator::Subdirectories);
+    while (it.hasNext()) {
+        QString tempstr = it.next();
+        image.load(tempstr);
+        textureManID.push_back(bindTexture(image));
+    }
+
+    image.load(":/texture/man/skeleton.png");
+    textureID[Texture::MAN] = bindTexture(image);
+
     image.load(":/texture/brick_wall.png");
     textureID[Texture::WALL] = bindTexture(image);
 
@@ -572,20 +582,6 @@ void MainWindow::initTextures()
 
     image.load(":/texture/minus.png");
     textureID[Texture::MINUS] = bindTexture(image);
-
-    image.load(":/texture/skeleton.png");
-    textureManID.push_back(bindTexture(image));
-
-    image.load(":/texture/pig.png");
-    textureManID.push_back(bindTexture(image));
-
-    image.load(":/texture/egyptian_walk.png");
-    textureManID.push_back(bindTexture(image));
-
-    image.load(":/texture/high_kick.png");
-    textureManID.push_back(bindTexture(image));
-
-    textureID[Texture::MAN] = textureManID.front();
 
     image.load(":/texture/dot.png");
     textureID[Texture::DOT] = bindTexture(image);
