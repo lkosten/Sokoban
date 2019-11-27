@@ -14,9 +14,10 @@ class LevelLogic{
     static unsigned int TotalNumber;
     friend class LevelHandler;
     static bool Move(int i, int j);
+    static bool pushed, moved;
 public:
-
-
+    static bool isPushed();
+    static bool isMoved();
     static bool MoveRight();
     static bool MoveLeft();
     static bool MoveDown();

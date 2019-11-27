@@ -16,7 +16,6 @@ void LevelDrawer::fullRender(MainWindow &window)
     qreal curX = areaX;
     qreal curY = areaY;
 
-    glEnable(GL_TEXTURE_2D);
     for (size_t i = 1; i < LevelHandler::Field.size() - 1; ++i)
     {
         curY = areaY;
@@ -79,21 +78,8 @@ void LevelDrawer::fullRender(MainWindow &window)
                        window.textureID[Texture::MAN]);
 
     window.qglColor(Qt::white);
+
     renderStatistics(window);
-
-    if (LevelLogic::CheckNum())
-    {
-        Stat::updScore(LevelsList::selectedLevel);
-
-        window.gameStatus = LEVEL_COMPLETED;
-
-        window.renderText(30, static_cast<int>(window.windowHeight - protectedAreaY / 2 + 40),
-                          "Level completed!", window.fontSmall);
-        window.renderText(30, static_cast<int>(window.windowHeight - protectedAreaY / 2 + 90),
-                          "Press space to continue...", window.fontSmall);
-    }
-    glDisable(GL_TEXTURE_2D);
-
 }
 
 void LevelDrawer::renderStatistics(MainWindow &window)
@@ -103,4 +89,18 @@ void LevelDrawer::renderStatistics(MainWindow &window)
 
     window.renderText(30, 40, moves.c_str(), window.fontSmall);
     window.renderText(30, 90, pushes.c_str(), window.fontSmall);
+}
+size_t LevelDrawer::getProtectedAreaY(){
+    return protectedAreaY;
+}
+size_t LevelDrawer::getProtectedAreaX(){
+    return protectedAreaX;
+}
+void LevelDrawer::finishRender(MainWindow &window){
+       Stat::updScore(LevelsList::selectedLevel);
+
+       window.renderText(30, static_cast<int>(window.windowHeight - protectedAreaY / 2 + 40),
+                         "Level completed!", window.fontSmall);
+       window.renderText(30, static_cast<int>(window.windowHeight - protectedAreaY / 2 + 90),
+                         "Press space to continue...", window.fontSmall);
 }

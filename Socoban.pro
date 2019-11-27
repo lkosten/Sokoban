@@ -1,6 +1,6 @@
 QT       += core gui opengl
 QT       += multimedia
-LIBS     += -lopengl32
+LIBS     += -lGL
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11

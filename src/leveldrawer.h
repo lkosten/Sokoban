@@ -19,6 +19,9 @@ private:
     static void renderStatistics(MainWindow&);
     static void updateStatistics();
 public:
+    static void finishRender(MainWindow&);
+    static size_t getProtectedAreaY();
+    static size_t getProtectedAreaX();
     static void fullRender(MainWindow&);
 
 

@@ -34,7 +34,6 @@ MainWindow::~MainWindow()
 {
     Stat::write();
 }
-
 void MainWindow::keyPressEvent(QKeyEvent *key)
 {
    switch (gameStatus)
@@ -101,6 +100,8 @@ void MainWindow::paintGL()
     qglColor(Qt::white);
 
 
+    glEnable(GL_TEXTURE_2D);
+
     switch (gameStatus)
     {
     case MAIN_MENU:
@@ -121,6 +122,10 @@ void MainWindow::paintGL()
 
     case PLAYING:
         LevelDrawer::fullRender(*this);
+        if (LevelLogic::CheckNum()) {
+            LevelDrawer::finishRender(*this);
+            gameStatus = LEVEL_COMPLETED;
+        }
         break;
 
     case LEVEL_CREATOR:
@@ -129,20 +134,24 @@ void MainWindow::paintGL()
 
     case LEVEL_COMPLETED:
         LevelDrawer::fullRender(*this);
+        if (LevelLogic::CheckNum()) {
+            LevelDrawer::finishRender(*this);
+            gameStatus = LEVEL_COMPLETED;
+        }
         break;
     }
+
+    glDisable(GL_TEXTURE_2D);
 }
 
 void MainWindow::drawMainMenu()
 {
 
-    glEnable(GL_TEXTURE_2D);
     qglColor(Qt::darkMagenta);
     drawTexture(QRectF{650, 0, 150, 150}, 1);
     drawTexture(QRectF{650, 150, 150, 150}, 1);
     drawTexture(QRectF{650, 300, 150, 150}, 1);
     drawTexture(QRectF{650, 450, 150, 150}, 1);
-    glDisable(GL_TEXTURE_2D);
 
 
     int y = 165;
@@ -167,13 +176,13 @@ void MainWindow::drawMainMenu()
 }
 void MainWindow::drawLevelSelection()
 {
-    glEnable(GL_TEXTURE_2D);
+
     qglColor(QColor(200, 55, 90));
     drawTexture(QRectF{650, 0, 150, 150}, 1);
     drawTexture(QRectF{650, 150, 150, 150}, 1);
     drawTexture(QRectF{650, 300, 150, 150}, 1);
     drawTexture(QRectF{650, 450, 150, 150}, 1);
-    glDisable(GL_TEXTURE_2D);
+
     int y = 100;
     int x = 30;
 
@@ -200,7 +209,7 @@ void MainWindow::drawSettings()
 
     ColorPallete::draw(*this);
 
-    glEnable(GL_TEXTURE_2D);
+
 
     qglColor(ColorPallete::GetColor());
     drawTexture(QRectF{200, 350, blockSize, blockSize},
@@ -231,17 +240,17 @@ void MainWindow::drawSettings()
                 textureManID[(textureManIndex + textureManID.size() + 1)
                 % textureManID.size()]);
 
-    glDisable(GL_TEXTURE_2D);
+
 }
 void MainWindow::drawStatistics()
 {
-    glEnable(GL_TEXTURE_2D);
+
     qglColor(QColor(65, 105, 225));
     drawTexture(QRectF{650, 0, 150, 150}, 1);
     drawTexture(QRectF{650, 150, 150, 150}, 1);
     drawTexture(QRectF{650, 300, 150, 150}, 1);
     drawTexture(QRectF{650, 450, 150, 150}, 1);
-    glDisable(GL_TEXTURE_2D);
+
     int y = 100;
     int x = 30;
 
@@ -434,6 +443,7 @@ void MainWindow::keyPlaying(QKeyEvent *key)
     case Qt::Key_Escape:
         gameStatus = LEVEL_SELECTION;
     }
+
     updateGL();
 }
 void MainWindow::keySettings(QKeyEvent *key)

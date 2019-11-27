@@ -7,8 +7,6 @@ void CreatorDrawer::fullRender(MainWindow &window)
     qreal curX = FieldX;
     qreal curY = FieldY;
 
-    glEnable(GL_TEXTURE_2D);
-
     for(unsigned int i =0;i < CreatorMap::SizeY; i++){
         curX = FieldX;
         for(unsigned int j =0;j < CreatorMap::SizeX; j++){
@@ -161,7 +159,5 @@ void CreatorDrawer::fullRender(MainWindow &window)
     window.qglColor(QColor(200, 55, 90));
     window.drawTexture(QRectF{YresizeX, YresizeY - 75, 50, 50},
                        window.textureID[Texture::PLUS]);
-
-    glDisable(GL_TEXTURE_2D);
 
 }
