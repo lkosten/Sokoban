@@ -21,9 +21,10 @@ MainWindow::MainWindow(QWidget *parent)
     MainWindow::mediaPlayer.setVolume(20);
     MainWindow::mediaPlayer.play();
     initFont();
-    srand( time( 0 ) );
+    srand( static_cast<unsigned int>(time( nullptr )) );
     initMainMenuVector();
     initColors();
+    textureManIndex = PlayerTextureID - 1;
     LevelsList::GetList();
     Stat::read();
     show();
@@ -141,6 +142,17 @@ void MainWindow::paintGL()
         break;
     }
 
+    qreal blocksize = std::min(LevelDrawer::getProtectedAreaX() , LevelDrawer::getProtectedAreaY());
+    qreal curX = windowWidth - blocksize;
+    qreal curY = windowHeight - blocksize;
+    qglColor(FLAGS::frameColor);
+    if(!soundMute)
+    drawTexture(QRectF{curX, curY, blocksize, blocksize},
+                       textureID[Texture::SOUND_ON]);
+    else
+        drawTexture(QRectF{curX, curY, blocksize, blocksize},
+                           textureID[Texture::SOUND_OFF]);
+
     glDisable(GL_TEXTURE_2D);
 }
 
@@ -203,24 +215,27 @@ void MainWindow::drawLevelSelection()
     }
 }
 void MainWindow::drawSettings()
-{
+{   
     const qreal blockSize = 200;
     const qreal delta = 50;
+
+    qreal curX = delta, curY = delta;
 
     ColorPallete::draw(*this);
 
 
-
+    qglColor(FLAGS::manColor);
     qglColor(ColorPallete::GetColor());
     drawTexture(QRectF{200, 350, blockSize, blockSize},
                 textureManID[(textureManIndex + textureManID.size())
                 % textureManID.size()]);
 
+    qglColor(Qt::white);
+    drawTexture(QRectF{curX - 10 + blockSize + delta, curY - 10, blockSize + 20, blockSize + 20},
+                textureID[Texture::FRAME]);
 
-    qreal curX = delta, curY = delta;
 
 
-    qglColor(FLAGS::manColor);
     drawTexture(QRectF{curX, curY, blockSize, blockSize},
                 textureManID[(textureManIndex + textureManID.size() - 1)
                 % textureManID.size()]);
@@ -230,11 +245,6 @@ void MainWindow::drawSettings()
                 textureManID[(textureManIndex + textureManID.size())
                 % textureManID.size()]);
 
-    qglColor(Qt::white);
-    drawTexture(QRectF{curX - 10, curY - 10, blockSize + 20, blockSize + 20},
-                textureID[Texture::FRAME]);
-
-    qglColor(FLAGS::manColor);
     curX += blockSize + delta;
     drawTexture(QRectF{curX, curY, blockSize, blockSize},
                 textureManID[(textureManIndex + textureManID.size() + 1)
@@ -464,7 +474,9 @@ void MainWindow::keySettings(QKeyEvent *key)
 
     case Qt::Key_Return:
         FLAGS::manColor = ColorPallete::GetColor();
+        PlayerTextureID = textureID[Texture::MAN];
         saveColors();
+        saveTexture();
         break;
     case Qt::Key_Escape:
         gameStatus = MAIN_MENU;
@@ -553,8 +565,7 @@ void MainWindow::initTextures()
         textureManID.push_back(bindTexture(image));
     }
 
-    image.load(":/texture/man/skeleton.png");
-    textureID[Texture::MAN] = bindTexture(image);
+    textureID[Texture::MAN] = PlayerTextureID;
 
     image.load(":/texture/brick_wall.png");
     textureID[Texture::WALL] = bindTexture(image);
@@ -586,6 +597,12 @@ void MainWindow::initTextures()
     image.load(":/texture/dot.png");
     textureID[Texture::DOT] = bindTexture(image);
 
+    image.load(":/texture/speaker.png");
+    textureID[Texture::SOUND_ON] = bindTexture(image);
+
+    image.load(":/texture/speaker-off.png");
+    textureID[Texture::SOUND_OFF] = bindTexture(image);
+
     glDisable(GL_TEXTURE_2D);
 }
 
@@ -616,9 +633,17 @@ void MainWindow::mousePressEvent(QMouseEvent *mouse){
     case LEVEL_COMPLETED:
         break;
     }
+
+    if(static_cast<int>(windowWidth) - static_cast<int>(LevelDrawer::getProtectedAreaX()) < mouse->x() && mouse->x() < static_cast<int>(windowWidth)){
+        soundMute = !soundMute;
+        if(!soundMute)   MainWindow::mediaPlayer.setVolume(20);
+        else            MainWindow::mediaPlayer.setVolume(0);
+    }
     updateGL();
 }
 void MainWindow::mouseReleaseEvent(QMouseEvent *mouse){
+    mouse->x();
+    mouse->y();
     mouseHold = false;
     switch (gameStatus)
     {
@@ -693,6 +718,13 @@ void MainWindow::initColors(){
 
     while(!input.eof()){
         input >> str;
+
+        //init player texture
+        if(str == "TEXTURE:"){
+            input >> PlayerTextureID;
+            textureID[Texture::MAN] = PlayerTextureID;
+            continue;
+        }
 
         R = "[A-Z]{1,}:[0-9]{1,3},[0-9]{1,3},[0-9]{1,3}";
 
@@ -782,5 +814,14 @@ void MainWindow::saveColors(){
 
     tempColor = FLAGS::frameColor;
     output << "FRAMECOLOR:";
-    output <<tempColor.red()<<","<<tempColor.green()<<","<<tempColor.blue();
+    output <<tempColor.red()<<","<<tempColor.green()<<","<<tempColor.blue()<<"\n";
+
+    output.close();
+}
+
+void MainWindow::saveTexture(){
+    std::ofstream output("colors.ini", std::ios::app);
+    output << "TEXTURE:\n";
+    output << PlayerTextureID;
+    output.close();
 }

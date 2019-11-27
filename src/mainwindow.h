@@ -38,6 +38,8 @@ protected:
     friend class ColorPallete;
 
     bool mouseHold = false;
+    bool soundMute = false;
+    unsigned int PlayerTextureID = 1;
     const size_t windowHeight = 600, windowWidth = 800;
     const int windowPosX = 0, windowPosY = 0;
     size_t textureManIndex = 0;
@@ -66,6 +68,7 @@ protected:
     void initColors();
 
     void saveColors();
+    void saveTexture();
 
     void drawMainMenu();
     void drawLevelSelection();

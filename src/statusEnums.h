@@ -37,7 +37,9 @@ enum Texture
     FRAME,
     PLUS,
     MINUS,
-    DOT
+    DOT,
+    SOUND_ON,
+    SOUND_OFF
 };
 
 #endif // STATUS_ENUMS_H

@@ -80,5 +80,7 @@
         <file>texture/man/visored-helm.png</file>
         <file>texture/man/wolf-head.png</file>
         <file>texture/man/woman-elf-face.png</file>
+        <file>texture/speaker.png</file>
+        <file>texture/speaker-off.png</file>
     </qresource>
 </RCC>
