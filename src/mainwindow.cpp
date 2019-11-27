@@ -226,7 +226,7 @@ void MainWindow::drawSettings()
 
     qglColor(FLAGS::manColor);
     qglColor(ColorPallete::GetColor());
-    drawTexture(QRectF{200, 350, blockSize, blockSize},
+    drawTexture(QRectF{static_cast<qreal>(windowWidth)/2 - blockSize - 50, static_cast<qreal>(windowHeight)/2, blockSize, blockSize},
                 textureManID[(textureManIndex + textureManID.size())
                 % textureManID.size()]);
 
@@ -327,7 +327,7 @@ void MainWindow::keyMainMenu(QKeyEvent *key)
 
         case MENU_SETTINGS:
             gameStatus = SETTINGS;
-            ColorPallete::init( 450 , 350 , 200 , 4);
+            ColorPallete::init( static_cast<qreal>(windowWidth)/2 + 50, static_cast<qreal>(windowHeight)/2, 200 , 4);
             ColorPallete::placeMarker(FLAGS::manColor);
             break;
 
