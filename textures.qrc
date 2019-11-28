@@ -82,5 +82,9 @@
         <file>texture/man/woman-elf-face.png</file>
         <file>texture/speaker.png</file>
         <file>texture/speaker-off.png</file>
+        <file>texture/man/donkey.png</file>
+        <file>texture/man/goat.png</file>
+        <file>texture/man/goose.png</file>
+        <file>texture/man/rabbit.png</file>
     </qresource>
 </RCC>
