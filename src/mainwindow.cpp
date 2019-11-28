@@ -634,7 +634,8 @@ void MainWindow::mousePressEvent(QMouseEvent *mouse){
         break;
     }
 
-    if(static_cast<int>(windowWidth) - static_cast<int>(LevelDrawer::getProtectedAreaX()) < mouse->x() && mouse->x() < static_cast<int>(windowWidth)){
+    if((static_cast<int>(windowWidth) - static_cast<int>(std::min(LevelDrawer::getProtectedAreaX(),LevelDrawer::getProtectedAreaY())) < mouse->x() && mouse->x() < static_cast<int>(windowWidth))
+    && (static_cast<int>(windowHeight) - static_cast<int>(std::min(LevelDrawer::getProtectedAreaX(),LevelDrawer::getProtectedAreaY())) < mouse->y() && mouse->y() < static_cast<int>(windowHeight))){
         soundMute = !soundMute;
         if(!soundMute)   MainWindow::mediaPlayer.setVolume(20);
         else            MainWindow::mediaPlayer.setVolume(0);
