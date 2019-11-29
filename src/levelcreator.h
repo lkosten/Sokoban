@@ -20,6 +20,7 @@
 #include "levelcreatordrawer.h"
 #include "levelcreatormap.h"
 #include "mainwindow.h"
+#include "statistic.h"
 
 
 

@@ -267,11 +267,12 @@ void MainWindow::drawStatistics()
     for (unsigned int i = Stat::minPrintedLevel; i <= Stat::maxPrintedLevel; ++i)
     {
         QString curStr = LevelsList::GetFNameDir(i).first;
-        curStr += "\t";
+        curStr += " ";
 
         int stat = Stat::GetStat(i);
 
-        if (stat == 0) curStr += "Level is not passed";
+        if (stat == 0 && curStr.size() < 5) curStr += "Level is not passed";
+        else if (stat == 0) curStr += "Level...";
         else curStr += std::to_string(stat).c_str();
         if (i == Stat::selectedLevel)
         {

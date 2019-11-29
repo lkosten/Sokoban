@@ -33,6 +33,7 @@ public:
 
     static unsigned int GetNumber();
     static int GetStat(size_t);
+    static void addLevel();
 private:
     static void reset();
     static void move();

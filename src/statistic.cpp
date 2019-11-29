@@ -107,3 +107,8 @@ int Stat::GetStat(size_t levelNum)
 {
     return score[levelNum];
 }
+
+void Stat::addLevel()
+{
+    score.push_back(0);
+}

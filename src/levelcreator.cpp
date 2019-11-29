@@ -218,6 +218,7 @@ void LevelCreator::Write(QString name){
     custom << outStr << "\n";
     custom.close();
     LevelsList::List.push_back(QString::fromStdString(outStr));
+    Stat::addLevel();
 }
 void LevelCreator::initMap(){
     CreatorMap::SetSize(10,10);
