@@ -76,6 +76,8 @@ void MainWindow::initializeGL()
 
     setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
     setFixedSize(static_cast<int>(windowWidth), static_cast<int>(windowHeight));
+    QPoint position(300, 200);
+    move(position);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
