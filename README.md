@@ -18,3 +18,17 @@ Credits
 http://www.sourcecode.se/sokoban/levels - tons of levels by community
 
 https://game-icons.net/ - textures collection
+
+Build
+-
+OpenGL libraries for windows and linux are different. Edit .pro file before build.
+
+OpenGl library for windows :
+```
+  LIBS     += -lopengl32
+```
+
+OpenGl library for linux :
+```
+  LIBS     += -lGL
+```
