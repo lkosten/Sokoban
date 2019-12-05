@@ -37,7 +37,7 @@ void LevelHandler::read(const  QString& file_name){
     Stat::reset();
     BoxOnPointNumber = 0;
     BoxNumber = 0;
-    success = false;
+    success = true;
     Field.clear();
 
     QFile file(file_name);
@@ -58,60 +58,103 @@ void LevelHandler::read(const  QString& file_name){
     PosX = BinToInt(Input);
     PosY = BinToInt(Input);
 
-    for (;i<SizeX;i++){
-        std::vector<char> temp;
-        temp.resize(SizeY);
-        for (unsigned int j =0;j<SizeY;j++){
-            temp[j] = FLAGS::OUTSIDE;
-        }
-        Field.push_back(temp);
-    }
+    std::vector<char> temp;
+    temp.resize(SizeY,FLAGS::outside());
+    Field.resize(SizeX,temp);
 
     //place walls
     i = BinToInt(Input);
-    for(;i>0;i-=2){
-        unsigned int TempX,TempY;
-        TempX = BinToInt(Input);
-        TempY = BinToInt(Input);
-        Field[TempX][TempY]= FLAGS::WALL;
+    try{
+        for(;i>0;i-=2){
+            unsigned int TempX,TempY;
+            TempX = BinToInt(Input);
+            TempY = BinToInt(Input);
+            if(TempX < SizeX && TempY < SizeY){
+            Field[TempX][TempY] = FLAGS::WALL;
+            }
+            else{
+                throw "Field overflow!";
+            }
+        }
+    }
+    catch(const char* msg){
+        qDebug() << msg;
+        success = false;
+        return;
     }
 
     //field ground where we can walk with EMPTY
     std::stack<std::pair<unsigned int,unsigned int>> dfs;
     dfs.push({PosX,PosY});
-    while(dfs.size()){
-        std::pair<unsigned int,unsigned int> Current = dfs.top();
-        dfs.pop();
-        Field[Current.first][Current.second] = FLAGS::EMPTY;
-        if(Field[Current.first + 1][Current.second] == FLAGS::OUTSIDE) dfs.push({Current.first + 1, Current.second});
-        if(Field[Current.first][Current.second + 1] == FLAGS::OUTSIDE) dfs.push({Current.first, Current.second + 1});
-        if(Field[Current.first - 1][Current.second] == FLAGS::OUTSIDE) dfs.push({Current.first - 1, Current.second});
-        if(Field[Current.first][Current.second - 1] == FLAGS::OUTSIDE) dfs.push({Current.first, Current.second - 1});
+    try{
+        while(dfs.size()){
+            std::pair<unsigned int,unsigned int> Current = dfs.top();
+            dfs.pop();
+            if(Current.first != 0 && Current.first != SizeX - 1 && Current.second != 0 && Current.second != SizeY - 1){
+                Field[Current.first][Current.second] = FLAGS::EMPTY;
+                if(Field[Current.first + 1][Current.second] == FLAGS::OUTSIDE) dfs.push({Current.first + 1, Current.second});
+                if(Field[Current.first][Current.second + 1] == FLAGS::OUTSIDE) dfs.push({Current.first, Current.second + 1});
+                if(Field[Current.first - 1][Current.second] == FLAGS::OUTSIDE) dfs.push({Current.first - 1, Current.second});
+                if(Field[Current.first][Current.second - 1] == FLAGS::OUTSIDE) dfs.push({Current.first, Current.second - 1});
+            }
+            else{
+                throw "Field overflow!";
+            }
+        }
     }
+    catch(const char* msg){
+        qDebug() << msg;
+        success = false;
+        return;
+    }
+
 
     //place boxes
     i = BinToInt(Input);
     BoxNumber = i/2;
-    for(;i>0;i-=2){
-        unsigned int TempX,TempY;
-        TempX = BinToInt(Input);
-        TempY = BinToInt(Input);
-        Field[TempX][TempY]= FLAGS::BOX;
+    try{
+        for(;i>0;i-=2){
+            unsigned int TempX,TempY;
+            TempX = BinToInt(Input);
+            TempY = BinToInt(Input);
+            if(TempX < SizeX && TempY < SizeY){
+            Field[TempX][TempY] = FLAGS::BOX;
+            }
+            else{
+                throw "Field overflow!";
+            }
+        }
+    }
+    catch(const char* msg){
+        qDebug() << msg;
+        success = false;
+        return;
     }
 
     //place points
     i = BinToInt(Input);
-    for(;i>0;i-=2){
-        unsigned int TempX,TempY;
-        TempX = BinToInt(Input);
-        TempY = BinToInt(Input);
-        if(Field[TempX][TempY] != FLAGS::BOX) Field[TempX][TempY]= FLAGS::POINT;
-        else {Field[TempX][TempY]= FLAGS::BOX_ON_POINT; BoxOnPointNumber++;}
+    try{
+        for(;i>0;i-=2){
+            unsigned int TempX,TempY;
+            TempX = BinToInt(Input);
+            TempY = BinToInt(Input);
+            if(TempX < SizeX && TempY < SizeY){
+                if(Field[TempX][TempY] != FLAGS::BOX) Field[TempX][TempY]= FLAGS::POINT;
+                else {Field[TempX][TempY]= FLAGS::BOX_ON_POINT; BoxOnPointNumber++;}
+            }
+            else{
+                throw "Field overflow!";
+            }
+        }
     }
+    catch(const char* msg){
+        qDebug() << msg;
+        success = false;
+        return;
+    }
+
     LevelLogic::CorrectNumber = BoxOnPointNumber;
     LevelLogic::TotalNumber = BoxNumber;
-
-    success = true;
 }
 
 void LevelHandler::GetSize(unsigned int& X, unsigned int& Y){

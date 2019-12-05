@@ -1,6 +1,5 @@
-QT       += core gui opengl
-QT       += multimedia
-LIBS     += -lopengl32
+QT       += core gui opengl multimedia
+LIBS     += -lGL
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
@@ -19,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     src/ColorPallete.cpp \
     src/bintoint.cpp \
+    src/flags.cpp \
     src/levelcreator.cpp \
     src/levelcreatorbrush.cpp \
     src/levelcreatordrawer.cpp \
