@@ -21,12 +21,18 @@
 
 class LevelHandler{
 public:
-
-    static void read(const  QString& file_name);
+    static void GetSize(unsigned int& X, unsigned int& Y);
+    static void GetSpawn(unsigned int& X, unsigned int& Y);
+    static unsigned int GetBoxOnPointNumber();
+    static unsigned int GetBoxNumber();
+    static unsigned int& GetPosX();
+    static unsigned int& GetPosY();
+    static bool isSuccess();
 
 private:
     friend class LevelDrawer;
     friend class LevelLogic;
+    friend class MainWindow;
 
     static unsigned int BoxOnPointNumber;
     static unsigned int BoxNumber;
@@ -36,13 +42,7 @@ private:
 
     static std::list<std::pair<unsigned int, unsigned int>>  CheckList;
     static std::vector<std::vector<char>> Field;
-    static void GetSize(unsigned int& X, unsigned int& Y);
-    static void GetSpawn(unsigned int& X, unsigned int& Y);
-    static unsigned int GetBoxOnPointNumber();
-    static unsigned int GetBoxNumber();
-    static unsigned int& GetPosX();
-    static unsigned int& GetPosY();
-    static bool isSuccess();
+    static void read(const  QString& file_name);
 };
 
 #endif // LEVELHANDLER_H

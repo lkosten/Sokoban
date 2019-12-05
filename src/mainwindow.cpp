@@ -421,7 +421,7 @@ void MainWindow::keyLevelSelection(QKeyEvent *key)
 
     case Qt::Key_Return:
         LevelHandler::read(LevelsList::GetFNameDir(static_cast<unsigned int>(LevelsList::selectedLevel)).second);
-        gameStatus = PLAYING;
+        if(LevelHandler::isSuccess()) gameStatus = PLAYING;
         break;
 
     case Qt::Key_Escape:

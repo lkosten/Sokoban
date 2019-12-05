@@ -58,12 +58,21 @@ void LevelHandler::read(const  QString& file_name){
     PosX = BinToInt(Input);
     PosY = BinToInt(Input);
 
+    if( SizeX > 60 || SizeY > 60 || PosX > SizeX || PosY > SizeY){
+        success = false;
+        return;
+    }
+
     std::vector<char> temp;
     temp.resize(SizeY,FLAGS::outside());
     Field.resize(SizeX,temp);
 
     //place walls
     i = BinToInt(Input);
+    if( i > 10000){
+        success = false;
+        return;
+    }
     try{
         for(;i>0;i-=2){
             unsigned int TempX,TempY;
@@ -78,7 +87,6 @@ void LevelHandler::read(const  QString& file_name){
         }
     }
     catch(const char* msg){
-        qDebug() << msg;
         success = false;
         return;
     }
@@ -103,7 +111,6 @@ void LevelHandler::read(const  QString& file_name){
         }
     }
     catch(const char* msg){
-        qDebug() << msg;
         success = false;
         return;
     }
@@ -111,6 +118,10 @@ void LevelHandler::read(const  QString& file_name){
 
     //place boxes
     i = BinToInt(Input);
+    if( i > 10000){
+        success = false;
+        return;
+    }
     BoxNumber = i/2;
     try{
         for(;i>0;i-=2){
@@ -126,13 +137,16 @@ void LevelHandler::read(const  QString& file_name){
         }
     }
     catch(const char* msg){
-        qDebug() << msg;
         success = false;
         return;
     }
 
     //place points
     i = BinToInt(Input);
+    if( i > 10000){
+        success = false;
+        return;
+    }
     try{
         for(;i>0;i-=2){
             unsigned int TempX,TempY;
@@ -148,7 +162,6 @@ void LevelHandler::read(const  QString& file_name){
         }
     }
     catch(const char* msg){
-        qDebug() << msg;
         success = false;
         return;
     }
